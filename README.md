@@ -20,3 +20,4 @@ UIView *view = InsertViewWithBorderAndCorRadius(self.window, CGRectMake(60.0, 20
 
 ##注意事项：
 UIInitialize类是MRC内存管理模式，如果项目是ARC内存管理模式，记得设置支持ARC模式。
+![支持ARC](../DemoUICreate/supportARC.png)
