@@ -454,9 +454,10 @@ UITextView *InsertTextViewWithBorderAndCorRadius(UIView *superview, id delegate,
 
 #pragma mark - UISwitch
 
-UISwitch *InsertSwitch(UIView *superview, CGRect rect)
+UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
 {
 	UISwitch *switchView = [[UISwitch alloc] initWithFrame:rect];
+    [switchView addTarget:target action:action forControlEvents:UIControlEventValueChanged];
     
     if (superview)
     {

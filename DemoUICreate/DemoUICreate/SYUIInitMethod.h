@@ -117,7 +117,7 @@ UITextView *InsertTextViewWithBorderAndCorRadius(UIView *superview, id delegate,
 #pragma mark - UISwitch
 
 /// 实例化UISwitch
-UISwitch *InsertSwitch(UIView *superview, CGRect rect);
+UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action);
 
 #pragma mark - UIImageView
 
