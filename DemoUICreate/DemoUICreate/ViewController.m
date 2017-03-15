@@ -37,7 +37,7 @@
     [activityView startAnimating];
     InsertPageControl(view, CGRectMake(40.0, 50.0, 60.0, 10.0), 5, 2, [UIColor blackColor], [UIColor redColor]);
     InsertSlider(view, CGRectMake(110.0, 50.0, 100.0, 30.0), nil, nil);
-    InsertSwitch(view, CGRectMake(220.0, 50.0, 60.0, 30.0));
+    InsertSwitch(view, CGRectMake(220.0, 50.0, 60.0, 30.0), nil, nil);
     InsertTextField(view, self, CGRectMake(10.0, 90.0, 120.0, 30.0), @"input your name", [UIFont systemFontOfSize:13.0], NSTextAlignmentLeft, UIControlContentVerticalAlignmentCenter, 1.0, [UIColor purpleColor], nil, 3.0, NO, UIKeyboardTypeDefault, UIReturnKeyDone);
     InsertSearchBar(view, CGRectMake(140.0, 90.0, 120.0, 30.0), self, @"search", UISearchBarStyleDefault, [UIColor redColor], [UIColor brownColor], nil);
     InsertSegment(view, @[@"red", @"green", @"brown", @"blue", @"black", @"white"], CGRectMake(10.0, 130.0, 300.0, 40.0), self, @selector(segmentClick:));
@@ -66,9 +66,32 @@
 
 - (void)segmentClick:(UISegmentedControl *)segment
 {
-    NSArray *array = @[@"red", @"green", @"brown", @"blue", @"black", @"white"];
     NSInteger index = segment.selectedSegmentIndex;
-    NSLog(@"点击了 %@", array[index]);
+    UIView *superview = segment.superview;
+    if (0 == index)
+    {
+        superview.backgroundColor = [UIColor redColor];
+    }
+    else if (1 == index)
+    {
+        superview.backgroundColor = [UIColor greenColor];
+    }
+    else if (2 == index)
+    {
+        superview.backgroundColor = [UIColor brownColor];
+    }
+    else if (3 == index)
+    {
+        superview.backgroundColor = [UIColor blueColor];
+    }
+    else if (4 == index)
+    {
+        superview.backgroundColor = [UIColor blackColor];
+    }
+    else if (5 == index)
+    {
+        superview.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -85,7 +108,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,6 +127,14 @@
     {
         cell.textLabel.text = @"action sheet";
     }
+    else if (2 == indexPath.row)
+    {
+        cell.textLabel.text = @"alertController view";
+    }
+    else if (3 == indexPath.row)
+    {
+        cell.textLabel.text = @"alertController sheet";
+    }
     
     return cell;
 }
@@ -119,6 +150,48 @@
     else if (1 == indexPath.row)
     {
         InsertActionSheetWithMoreButton(self.view, nil, UIActionSheetStyleDefault, @"提示", @"cancel", @"警告", @"001", @"002");
+    }
+    else if (2 == indexPath.row)
+    {
+        InsertAlertController(self, UIAlertControllerStyleAlert, @"温馨提示", @"alertController view视图", @[@"取消", @"知道了", @"你惨了", @"你赢了"], ^(int indexButton, NSString *titleButton) {
+            if ([titleButton isEqualToString:@"取消"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+            else if ([titleButton isEqualToString:@"知道了"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+            else if ([titleButton isEqualToString:@"你惨了"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+            else if ([titleButton isEqualToString:@"你赢了"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+        });
+    }
+    else if (3 == indexPath.row)
+    {
+        InsertAlertController(self, UIAlertControllerStyleActionSheet, @"温馨提示", @"alertController sheet视图", @[@"取消", @"知道了", @"你惨了", @"你赢了"], ^(int indexButton, NSString *titleButton) {
+            if ([titleButton isEqualToString:@"取消"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+            else if ([titleButton isEqualToString:@"知道了"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+            else if ([titleButton isEqualToString:@"你惨了"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+            else if ([titleButton isEqualToString:@"你赢了"])
+            {
+                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
+            }
+        });
     }
 }
 

@@ -21,6 +21,7 @@
 		A79EB70719343DAF008FAF36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79EB70519343DAF008FAF36 /* InfoPlist.strings */; };
 		A79EB70919343DAF008FAF36 /* DemoUICreateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EB70819343DAF008FAF36 /* DemoUICreateTests.m */; };
 		A79EB71419343DE4008FAF36 /* SYUIInitMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EB71319343DE4008FAF36 /* SYUIInitMethod.m */; };
+		A7E2F82C1E79205600A45CA3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E2F82B1E79205600A45CA3 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		A79EB70819343DAF008FAF36 /* DemoUICreateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoUICreateTests.m; sourceTree = "<group>"; };
 		A79EB71219343DE4008FAF36 /* SYUIInitMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYUIInitMethod.h; sourceTree = "<group>"; };
 		A79EB71319343DE4008FAF36 /* SYUIInitMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYUIInitMethod.m; sourceTree = "<group>"; };
+		A7E2F82B1E79205600A45CA3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		A79EB6EA19343DAF008FAF36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7E2F82B1E79205600A45CA3 /* Default-568h@2x.png */,
 				A79EB6EB19343DAF008FAF36 /* DemoUICreate-Info.plist */,
 				A79EB6EC19343DAF008FAF36 /* InfoPlist.strings */,
 				A79EB6EF19343DAF008FAF36 /* main.m */,
@@ -231,6 +234,7 @@
 			files = (
 				A79EB6EE19343DAF008FAF36 /* InfoPlist.strings in Resources */,
 				A79EB6F619343DAF008FAF36 /* Images.xcassets in Resources */,
+				A7E2F82C1E79205600A45CA3 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

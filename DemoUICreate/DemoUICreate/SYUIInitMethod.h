@@ -19,6 +19,9 @@ typedef enum
     SYAutoSizelabelAll
 }SYAutoSizelabelType;
 
+/// 弹窗视图控制器回调
+typedef void (^AlertControllerClick)(int indexButton, NSString *titleButton);
+
 @interface SYUIInitMethod : NSObject
 
 /****************************************************************/
@@ -33,6 +36,20 @@ UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag,
 
 /// 实例化UIAlertView，带输入框
 UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSString *ok, NSString *set, NSInteger tag, id delegate, SEL selector);
+
+/**
+ *  实例化UIAlertController
+ *
+ *  @param target       UIViewController
+ *  @param type         UIAlertControllerStyle:UIAlertControllerStyleActionSheet/UIAlertControllerStyleAlert
+ *  @param title        NSString提示标题
+ *  @param message      NSString提示信息
+ *  @param titlesAction NSString按钮标题数组
+ *  @param buttonClick  按钮响应方法
+ *
+ *  @return UIAlertController
+ */
+UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick);
 
 #pragma mark - UIDatePicker
 

@@ -73,6 +73,31 @@ UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSStrin
 	return alertview;
 }
 
+UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick)
+{
+    __autoreleasing UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:type];
+
+    [titlesAction enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:obj style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (buttonClick)
+            {
+                int indexButton = (int)idx;
+                NSString *titleButton = obj;
+                buttonClick(indexButton, titleButton);
+            }
+        }];
+        [alertController addAction:action];
+    }];
+    
+    if (target && [target isKindOfClass:[UIViewController class]])
+    {
+        [target presentViewController:alertController animated:YES completion:nil];
+    }
+    
+    
+    return alertController;
+}
+
 #pragma mark - UIDatePicker
 
 UIDatePicker *InsertDatePicker(UIView *view, NSInteger tag, id delegate, UIInterfaceOrientation orientation)
