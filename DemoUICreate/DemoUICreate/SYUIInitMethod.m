@@ -16,67 +16,67 @@
 
 UIAlertView *InsertAlert(UIAlertViewStyle style, NSString *title, NSString *message, NSInteger tag, id delegate, NSString *cancel, NSString *ok)
 {
-	UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil];
+    UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil] autorelease];
     alertview.alertViewStyle = style;
     alertview.tag = tag;
-	[alertview show];
+    [alertview show];
     
-    return [alertview autorelease];
+    return alertview;
 }
 
 UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag, id delegate, NSString *cancel)
 {
-	UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:message message:nil delegate:delegate cancelButtonTitle:cancel otherButtonTitles:nil] autorelease];
+    UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:message message:nil delegate:delegate cancelButtonTitle:cancel otherButtonTitles:nil] autorelease];
     alertview.tag = tag;
     [alertview show];
-	
-	// Adjust the indicator so it is up a few pixels from the bottom of the alert
-	int x = alertview.bounds.size.width / 2;
-	int y = alertview.bounds.size.height - 50.0;
+    
+    // Adjust the indicator so it is up a few pixels from the bottom of the alert
+    int x = alertview.bounds.size.width / 2;
+    int y = alertview.bounds.size.height - 50.0;
     if (x == 0 || y == -50)
     {
         return nil;
     }
-	
+    
     __autoreleasing	UIActivityIndicatorView *indicator = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
     indicator.center = CGPointMake(x, y);
-	[indicator startAnimating];
+    [indicator startAnimating];
     
-	[alertview addSubview:indicator];
+    [alertview addSubview:indicator];
     
-	return alertview;
+    return alertview;
 }
 
 UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSString *ok, NSString *set, NSInteger tag, id delegate, SEL selector)
 {
-	__strong UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:title message:@"\r\r" delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil] autorelease];
+    __strong UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:title message:@"\r\r" delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil] autorelease];
     alertview.tag = tag;
     [alertview show];
-	
-	int x = alertview.bounds.size.width;
-	int y = alertview.bounds.size.height;
+    
+    int x = alertview.bounds.size.width;
+    int y = alertview.bounds.size.height;
     if (x == 0 || y == 0)
     {
         alertview = nil;
         return nil;
     }
     
-	UITextField *myTextField = [[[UITextField alloc] initWithFrame:CGRectMake(x * 0.04, y - 110, x * 0.91, 25)] autorelease];
-	myTextField.text = set;
+    UITextField *myTextField = [[[UITextField alloc] initWithFrame:CGRectMake(x * 0.04, y - 110, x * 0.91, 25)] autorelease];
+    myTextField.text = set;
     [myTextField addTarget:delegate action:selector forControlEvents:UIControlEventEditingDidEndOnExit];
-	//[alert setTransform:myTransform];
-	myTextField.tag = 100;
-	[myTextField setBackgroundColor:[UIColor whiteColor]];
+    //[alert setTransform:myTransform];
+    myTextField.tag = 100;
+    [myTextField setBackgroundColor:[UIColor whiteColor]];
     
-	[alertview addSubview:myTextField];
+    [alertview addSubview:myTextField];
     
-	return alertview;
+    return alertview;
 }
 
 UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick)
 {
     __autoreleasing UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:type];
-
+    
     [titlesAction enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIAlertAction *action = [UIAlertAction actionWithTitle:obj style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (buttonClick)
@@ -102,19 +102,19 @@ UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type,
 
 UIDatePicker *InsertDatePicker(UIView *view, NSInteger tag, id delegate, UIInterfaceOrientation orientation)
 {
-	NSString *title = UIDeviceOrientationIsLandscape(orientation) ? @"\n\n\n\n\n\n\n\n\n" : @"\n\n\n\n\n\n\n\n\n\n\n";
-	
-	UIActionSheet *actionsheet = [[[UIActionSheet alloc] initWithTitle:title
+    NSString *title = UIDeviceOrientationIsLandscape(orientation) ? @"\n\n\n\n\n\n\n\n\n" : @"\n\n\n\n\n\n\n\n\n\n\n";
+    
+    UIActionSheet *actionsheet = [[[UIActionSheet alloc] initWithTitle:title
                                                               delegate:delegate
                                                      cancelButtonTitle:nil
                                                 destructiveButtonTitle:nil
                                                      otherButtonTitles:nil] autorelease];
     actionsheet.tag = tag;
     [actionsheet showInView:view];
-	
+    
     UIDatePicker *datePicker = [[[UIDatePicker alloc] initWithFrame:actionsheet.bounds] autorelease];
-	[actionsheet addSubview:datePicker];
-	
+    [actionsheet addSubview:datePicker];
+    
     return datePicker;
 }
 
@@ -147,7 +147,7 @@ UILabel *InsertLabel(UIView *superView, CGRect rect, NSTextAlignment align, NSSt
 
 UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize, BOOL shadow, UIColor *shadowColor, CGSize shadowOffset)
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:rect];
+    UILabel *label = [[[UILabel alloc] initWithFrame:rect] autorelease];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = align;
     label.textColor = textColor;
@@ -179,8 +179,8 @@ UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment a
         }
         label.shadowOffset = shadowOffset;
     }
-	
-    return [label autorelease];
+    
+    return label;
 }
 
 void LabelReloadSize(UILabel *label, SYAutoSizelabelType autoType)
@@ -207,7 +207,7 @@ void LabelReloadSize(UILabel *label, SYAutoSizelabelType autoType)
 
 UIWebView *InsertWebView(UIView *superView,CGRect rect, id<UIWebViewDelegate>delegate, int tag)
 {
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:rect];
+    UIWebView *webView = [[[UIWebView alloc] initWithFrame:rect] autorelease];
     webView.tag = tag;
     [webView setOpaque:NO];
     webView.backgroundColor = [UIColor clearColor];
@@ -220,7 +220,7 @@ UIWebView *InsertWebView(UIView *superView,CGRect rect, id<UIWebViewDelegate>del
         [superView addSubview:webView];
     }
     
-    return [webView autorelease];
+    return webView;
 }
 
 void WebViewRequest(UIWebView *web, NSString *strURL)
@@ -242,13 +242,13 @@ void WebViewRequestWithCookie(UIWebView *web, NSString *strURL, NSString *cookie
 
 #pragma mark - UIbutton
 
-UIButton *InsertButton(UIView *superView, CGRect rect, UIButtonType type, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
+UIButton *InsertButton(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-	UIButton *button = [UIButton buttonWithType:type];
+    UIButton *button = [[[UIButton alloc] init] autorelease];
     button.backgroundColor = [UIColor clearColor];
     button.frame = rect;
     [button setTag:tag];
-	[button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     button.selected = selected;
     
     if (titleNormal)
@@ -299,43 +299,38 @@ UIButton *InsertButton(UIView *superView, CGRect rect, UIButtonType type, int ta
     {
         [button setBackgroundImage:bgImageSelected forState:UIControlStateSelected];
     }
-	
+    
     if (superView)
     {
         [superView addSubview:button];
     }
     
-	return [button autorelease];
+    return button;
 }
 
 UIButton *InsertButtonWithTitle(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, id target, SEL action)
 {
-    return InsertButton(superView, rect, UIButtonTypeCustom, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, UIEdgeInsetsZero, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
+    return InsertButton(superView, rect, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, UIEdgeInsetsZero, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
 }
 
 UIButton *InsertButtonWithTitleAndImage(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *imageNormal, UIImage *imageSelected, UIEdgeInsets imageEdge, id target, SEL action)
 {
-    return InsertButton(superView, rect, UIButtonTypeCustom, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, UIEdgeInsetsZero, imageNormal, imageSelected, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
+    return InsertButton(superView, rect, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, UIEdgeInsetsZero, imageNormal, imageSelected, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
 }
 
 UIButton *InsertButtonWithTitleAndBgroundImage(UIView *superview, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    return InsertButton(superview, rect, UIButtonTypeCustom, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, titleEdge, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+    return InsertButton(superview, rect, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, titleEdge, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
 }
 
 UIButton *InsertButtonWithBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    return InsertButton(superview, rect, UIButtonTypeCustom, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+    return InsertButton(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
 }
 
 UIButton *InsertButtonWithImage(UIView *superview, CGRect rect, UIImage *imageNormal, UIImage *imageSelected, BOOL selected, int tag, id target, SEL action)
 {
-    return InsertButton(superview, rect, UIButtonTypeCustom, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, imageNormal, imageSelected, UIEdgeInsetsZero, nil, nil, nil, selected, target, action);
-}
-
-UIButton *InsertButtonWithType(UIView *superview, CGRect rect, int tag, id target, SEL action, UIButtonType type)
-{
-    return InsertButton(superview, rect, type, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
+    return InsertButton(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, imageNormal, imageSelected, UIEdgeInsetsZero, nil, nil, nil, selected, target, action);
 }
 
 #pragma mark - UITableView
@@ -481,7 +476,7 @@ UITextView *InsertTextViewWithBorderAndCorRadius(UIView *superview, id delegate,
 
 UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
 {
-	UISwitch *switchView = [[UISwitch alloc] initWithFrame:rect];
+    UISwitch *switchView = [[UISwitch alloc] initWithFrame:rect];
     [switchView addTarget:target action:action forControlEvents:UIControlEventValueChanged];
     
     if (superview)
@@ -489,7 +484,7 @@ UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
         [superview addSubview:switchView];
     }
     
-	return [switchView autorelease];
+    return [switchView autorelease];
 }
 
 #pragma mark - UIImageView
@@ -607,7 +602,7 @@ UIBarButtonItem *InsetBarButtonItemWithImage(UIImage *image, int tag, UIBarButto
 
 UIBarButtonItem *InsertBarButtonItemWithButton(CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIFont *titleFont, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    UIButton *button = InsertButton(nil, rect, UIButtonTypeCustom, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, titleEdge, imageNormal, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+    UIButton *button = InsertButton(nil, rect, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, titleEdge, imageNormal, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
     
     UIBarButtonItem *barButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
     
@@ -740,7 +735,7 @@ UIPageControl *InsertPageControl(UIView *superview, CGRect rect, NSInteger pageC
     {
         [superview addSubview:pageControl];
     }
-
+    
     pageControl.numberOfPages = pageCounts;
     pageControl.currentPage = currentPage;
     
@@ -914,7 +909,7 @@ NSTimer *InsetTimer(NSTimeInterval timeElapsed, id userInfo, BOOL isRepeat, id t
     // 非必要设置，实际已设置为 NSDefaultRunLoopMode 模式
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     [timer setFireDate:[NSDate distantFuture]];
-
+    
     return timer;
 }
 

@@ -84,7 +84,7 @@ void WebViewRequestWithCookie(UIWebView *web, NSString *strURL, NSString *cookie
 #pragma mark - UIbutton
 
 /// 实例化按钮
-UIButton *InsertButton(UIView *superView, CGRect rect, UIButtonType type, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
+UIButton *InsertButton(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
 
 /// 实例化按钮 带标题
 UIButton *InsertButtonWithTitle(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, id target, SEL action);
@@ -100,9 +100,6 @@ UIButton *InsertButtonWithBgroundImage(UIView *superview, CGRect rect, int tag, 
 
 /// 实例化按钮 带图标
 UIButton *InsertButtonWithImage(UIView *superview, CGRect rect, UIImage *imageNormal, UIImage *imageSelected, BOOL selected, int tag, id target, SEL action);
-
-/// 实例化按钮 自定义样式
-UIButton *InsertButtonWithType(UIView *superview, CGRect rect, int tag, id target, SEL action, UIButtonType type);
 
 #pragma mark - UITableView
 
