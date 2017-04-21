@@ -20,7 +20,7 @@
     
     self.navigationItem.title = @"视图";
 
-    self.navigationItem.rightBarButtonItem = InsertBarButtonItemWithButton(CGRectMake(0.0, 0.0, 60.0, 44.0), 0, @"edit", @"done", [UIFont systemFontOfSize:15.0], [UIColor blackColor], [UIColor redColor], [UIColor orangeColor], UIEdgeInsetsZero, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, self, @selector(buttonClick:));
+    self.navigationItem.rightBarButtonItem = InsertBarButtonItemWithButton(CGRectMake(0.0, 0.0, 60.0, 44.0), 0, @"edit", @"done", [UIFont systemFontOfSize:15.0], [UIColor blackColor], [UIColor redColor], [UIColor orangeColor], UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, self, @selector(buttonClick:));
     
     // 创建view
     UIView *view = InsertView(nil, CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), 250.0), [UIColor greenColor], 5.0, [UIColor orangeColor], 5.0);
