@@ -20,7 +20,7 @@
 		A79EB6FF19343DAF008FAF36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79EB6E719343DAF008FAF36 /* UIKit.framework */; };
 		A79EB70719343DAF008FAF36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A79EB70519343DAF008FAF36 /* InfoPlist.strings */; };
 		A79EB70919343DAF008FAF36 /* DemoUICreateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EB70819343DAF008FAF36 /* DemoUICreateTests.m */; };
-		A79EB71419343DE4008FAF36 /* SYUIInitMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EB71319343DE4008FAF36 /* SYUIInitMethod.m */; };
+		A7CABE5D1F95E6A700A68017 /* SYUIInitMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CABE5C1F95E6A700A68017 /* SYUIInitMethod.m */; };
 		A7E2F82C1E79205600A45CA3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E2F82B1E79205600A45CA3 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +53,8 @@
 		A79EB70419343DAF008FAF36 /* DemoUICreateTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DemoUICreateTests-Info.plist"; sourceTree = "<group>"; };
 		A79EB70619343DAF008FAF36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A79EB70819343DAF008FAF36 /* DemoUICreateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoUICreateTests.m; sourceTree = "<group>"; };
-		A79EB71219343DE4008FAF36 /* SYUIInitMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYUIInitMethod.h; sourceTree = "<group>"; };
-		A79EB71319343DE4008FAF36 /* SYUIInitMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYUIInitMethod.m; sourceTree = "<group>"; };
+		A7CABE5B1F95E6A700A68017 /* SYUIInitMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYUIInitMethod.h; sourceTree = "<group>"; };
+		A7CABE5C1F95E6A700A68017 /* SYUIInitMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYUIInitMethod.m; sourceTree = "<group>"; };
 		A7E2F82B1E79205600A45CA3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,9 +119,7 @@
 				A79EB6F319343DAF008FAF36 /* AppDelegate.m */,
 				A77605DE1DDAAFF900B9D6CE /* ViewController.h */,
 				A77605DF1DDAAFF900B9D6CE /* ViewController.m */,
-				A79EB71219343DE4008FAF36 /* SYUIInitMethod.h */,
-				A79EB71319343DE4008FAF36 /* SYUIInitMethod.m */,
-				A79EB6F519343DAF008FAF36 /* Images.xcassets */,
+				A7CABE5A1F95E6A700A68017 /* SYUIInitMethod */,
 				A79EB6EA19343DAF008FAF36 /* Supporting Files */,
 			);
 			path = DemoUICreate;
@@ -130,6 +128,7 @@
 		A79EB6EA19343DAF008FAF36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A79EB6F519343DAF008FAF36 /* Images.xcassets */,
 				A7E2F82B1E79205600A45CA3 /* Default-568h@2x.png */,
 				A79EB6EB19343DAF008FAF36 /* DemoUICreate-Info.plist */,
 				A79EB6EC19343DAF008FAF36 /* InfoPlist.strings */,
@@ -155,6 +154,16 @@
 				A79EB70519343DAF008FAF36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A7CABE5A1F95E6A700A68017 /* SYUIInitMethod */ = {
+			isa = PBXGroup;
+			children = (
+				A7CABE5B1F95E6A700A68017 /* SYUIInitMethod.h */,
+				A7CABE5C1F95E6A700A68017 /* SYUIInitMethod.m */,
+			);
+			name = SYUIInitMethod;
+			path = ../../SYUIInitMethod;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,9 +262,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A79EB71419343DE4008FAF36 /* SYUIInitMethod.m in Sources */,
 				A79EB6F419343DAF008FAF36 /* AppDelegate.m in Sources */,
 				A77605E01DDAAFF900B9D6CE /* ViewController.m in Sources */,
+				A7CABE5D1F95E6A700A68017 /* SYUIInitMethod.m in Sources */,
 				A79EB6F019343DAF008FAF36 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

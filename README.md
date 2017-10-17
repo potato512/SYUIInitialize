@@ -46,8 +46,12 @@ SYUIInitMethod类是MRC内存管理模式，如果项目是ARC内存管理模式
 ![效果图](./DemoUICreate/UIImage.gif)
 
 # 修复完善
-## 20170421
-* SYUIInitMethod方法完善按钮实例化方法
-* UIButton添加高亮图标属性
-* UIBarButtonItem添加高亮图标属性
+* 20171017
+  * 版本号：1.0.1
+  * 源码与示例分离
+  
+* 20170421
+  * SYUIInitMethod方法完善按钮实例化方法
+  * UIButton添加高亮图标属性
+  * UIBarButtonItem添加高亮图标属性
 
