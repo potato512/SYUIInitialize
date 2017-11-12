@@ -228,6 +228,9 @@ void RemoveSubController(UIViewController *ctrl, BOOL animation);
 /// 移除父视图中的子视图
 void RemoveAllSubviews(UIView *view);
 
+/// 刪除父layer中的子layer
+void RemoveAllSublayers(UIView *view, Class class);
+
 /****************************************************************/
 
 #pragma mark - 设置时间定时器

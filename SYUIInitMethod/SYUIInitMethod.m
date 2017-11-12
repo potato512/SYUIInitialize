@@ -905,6 +905,18 @@ void RemoveAllSubviews(UIView *view)
     }
 }
 
+void RemoveAllSublayers(UIView *view, Class class)
+{
+    for (NSInteger i = view.layer.sublayers.count; i > 0; i--)
+    {
+        CALayer *sublayer = [view.layer.sublayers objectAtIndex:(i - 1)];
+        if ([sublayer isKindOfClass:class])
+        {
+            [sublayer removeFromSuperlayer];
+        }
+    }
+}
+
 #pragma mark - 设置时间定时器
 
 NSTimer *InsetTimer(NSTimeInterval timeElapsed, id userInfo, BOOL isRepeat, id target, SEL action)
