@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SYUIInitMethod"
-  s.summary      = "SYUIInitMethod is used for creating UI as easy as possible while testing."
+  s.summary      = "SYUIInitMethod is used for creating UI as easy as possible."
   s.homepage     = "https://github.com/potato512/SYUIInitMethod"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "herman" => "zhangsy757@163.com" }
