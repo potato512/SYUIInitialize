@@ -4,7 +4,7 @@
 //
 //  Created by zhangshaoyu on 15/6/11.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
-//
+//  根据版本尺寸界面比例适配
 
 #ifndef zhangshaoyu_AutoSizeCGRect_h
 #define zhangshaoyu_AutoSizeCGRect_h
@@ -219,13 +219,10 @@ SYCGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL h
     rect.origin.y = y;
     rect.size.width = width;
     rect.size.height = height;
-    if (isTop)
-    {
+    if (isTop) {
         // 顶端时
         rect.size.height = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
-    }
-    else
-    {
+    } else {
         // 底部时
         rect.origin.y = (hiddenTab ? (y - kHeightBottomSafeArea) : y);
         rect.size.height = (hiddenTab ? (kHeightBottomSafeArea + height) : height);

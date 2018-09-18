@@ -10,14 +10,13 @@
 #import <UIKit/UIKit.h>
 
 /// 自适应大小类型（宽高，或宽）
-typedef enum
-{
+typedef NS_ENUM(NSInteger, SYAutoSizelabelType) {
     /// 自适应宽
     SYAutoSizelabelHorizontal,
     
     /// 自适应宽高
     SYAutoSizelabelAll
-}SYAutoSizelabelType;
+};
 
 /// 弹窗视图控制器回调
 typedef void (^AlertControllerClick)(int indexButton, NSString *titleButton);
@@ -26,135 +25,102 @@ typedef void (^AlertControllerClick)(int indexButton, NSString *titleButton);
 
 /****************************************************************/
 
-#pragma mark - UIAlertView
+#pragma mark - UIView
 
-/// 实例化UIAlertView
-UIAlertView *InsertAlert(UIAlertViewStyle style, NSString *title, NSString *message, NSInteger tag, id delegate, NSString *cancel, NSString *ok);
+UIView *InsertView(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderwidth, UIColor *bordercolor, CGFloat corRadius);
 
-/// 实例化UIAlertView，带转动视图
-UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag, id delegate, NSString *cancel);
+UIView *InsertViewWithBorder(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderWidth, UIColor *borderColor);
 
-/// 实例化UIAlertView，带输入框
-UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSString *ok, NSString *set, NSInteger tag, id delegate, SEL selector);
+UIView *InsertViewWithCorRadius(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat corRadius);
 
-/**
- *  实例化UIAlertController
- *
- *  @param target       UIViewController
- *  @param type         UIAlertControllerStyle:UIAlertControllerStyleActionSheet/UIAlertControllerStyleAlert
- *  @param title        NSString提示标题
- *  @param message      NSString提示信息
- *  @param titlesAction NSString按钮标题数组
- *  @param buttonClick  按钮响应方法
- *
- *  @return UIAlertController
- */
-UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick);
-
-#pragma mark - UIDatePicker
-
-/// 实例化UIDatePicker
-UIDatePicker *InsertDatePicker(UIView *view, NSInteger tag, id delegate, UIInterfaceOrientation orientation);
-
-#pragma mark - UIScrollView
-
-/// 实例化UIScrollView
-UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag,id<UIScrollViewDelegate> delegate);
+// 设置view的边框属性
+void ViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat borderwidth);
 
 #pragma mark - UILabel
 
-/// 实例化UILabel，带自适应高度
-UILabel *InsertLabel(UIView *superView, CGRect cRect, NSTextAlignment align, NSString *contentStr, UIFont *textFont, UIColor *textColor, BOOL resize);
+UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize, BOOL shadow, UIColor *shadowColor, CGSize shadowOffset);
 
-/// 实例化UILabel，带阴影
-UILabel *InsertLabelWithShadow(UIView *superView, CGRect cRect, NSTextAlignment align, NSString *contentStr, UIFont *textFont, UIColor *textColor, BOOL resize, BOOL shadow, UIColor *shadowColor, CGSize shadowOffset);
+UILabel *InsertLabel(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize);
 
-/// 重置label大小
 void LabelReloadSize(UILabel *label, SYAutoSizelabelType autoType);
+
+#pragma mark - UIImageView
+
+UIImageView *InsertImageView(UIView *superview, CGRect rect, UIImage *image);
+
+#pragma mark - UIProgressView
+
+UIProgressView *InsertProgressView(UIView *superview, CGRect rect, UIProgressViewStyle style, CGFloat progressValue, UIColor *progressColor, UIColor *trackColor);
+
+#pragma mark - UIActivityIndicatorView
+
+UIActivityIndicatorView *InsertActivityIndicatorView(UIView *superview, CGRect rect, UIColor *bgroundColor, UIColor *styleColor, UIActivityIndicatorViewStyle style);
+
+#pragma mark - UIPageControl
+
+UIPageControl *InsertPageControl(UIView *superview, CGRect rect, NSInteger pageCounts, NSInteger currentPage, UIColor *pageColor, UIColor *currentPageColor);
+
+#pragma mark - UIAlertView
+
+UIAlertView *InsertAlert(UIAlertViewStyle style, NSString *title, NSString *message, NSInteger tag, id delegate, NSString *cancel, NSString *ok);
+
+UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag, id delegate, NSString *cancel);
+
+UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSString *ok, NSString *set, NSInteger tag, id delegate, SEL selector);
+
+#pragma mark - UIActionSheet
+
+UIActionSheet *InsertActionSheetWithMoreButton(UIView *showView, id delegate, UIActionSheetStyle style, NSString *title, NSString *canael, NSString *destructive, NSString *titleFirst, NSString *titleSecond);
+
+UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetStyle style, NSString *title, NSString *canael, NSString *destructive);
+
+#pragma mark - UIAlertController
+
+UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick);
+
+#pragma mark - UIScrollView
+
+UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag, id<UIScrollViewDelegate> delegate);
 
 #pragma mark - UIWebView
 
-/// 实例化UIWebView
-UIWebView *InsertWebView(UIView *superView,CGRect cRect, id<UIWebViewDelegate>delegate, int tag);
+UIWebView *InsertWebView(UIView *superView,CGRect rect, id<UIWebViewDelegate>delegate, int tag);
 
-/// UIWebView使用
 void WebViewRequest(UIWebView *web, NSString *strURL);
+
 void WebViewRequestWithCookie(UIWebView *web, NSString *strURL, NSString *cookies);
-
-#pragma mark - UIbutton
-
-/// 实例化按钮
-UIButton *InsertButton(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
-
-/// 实例化按钮 带标题
-UIButton *InsertButtonWithTitle(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, id target, SEL action);
-
-/// 实例化按钮 带标题与图标
-UIButton *InsertButtonWithTitleAndImage(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, id target, SEL action);
-
-/// 实例化按钮 带标题与背景图标
-UIButton *InsertButtonWithTitleAndBgroundImage(UIView *superview, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
-
-/// 实例化按钮 带背景图标
-UIButton *InsertButtonWithBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
-
-/// 实例化按钮 带图标
-UIButton *InsertButtonWithImage(UIView *superview, CGRect rect, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, BOOL selected, int tag, id target, SEL action);
 
 #pragma mark - UITableView
 
-/// 实例化UITableView
 UITableView *InsertTableView(UIView *superView, CGRect rect, id<UITableViewDataSource> dataSoure, id<UITableViewDelegate> delegate, UITableViewStyle style, UITableViewCellSeparatorStyle cellStyle);
 
 #pragma mark - UITextField
 
-/// 实例化UITextField
 UITextField *InsertTextField(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, float borderwidth, UIColor *bordercolor, UIColor *textFieldColor, float cornerRadius, BOOL isSecureText, UIKeyboardType keyboardType, UIReturnKeyType returnkeyType);
 
-/// 实例化UITextField 带字体颜色设置
 UITextField *InsertTextFieldWithTextColor(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, UIColor *textFieldColor);
 
-/// 实例化UITextField 带边框圆角设置
 UITextField *InsertTextFieldWithBorderAndCorRadius(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, float borderWidth, UIColor *borderColor, UIColor *textFieldColor, float cornerRadius);
 
 #pragma mark - UITextView
 
-/// 实例化UITextView
 UITextView *InsertTextView(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, float borderWidth, UIColor *borderColor, UIColor *textColor, float cornerRadius, UIKeyboardType keyboardType, UIReturnKeyType returnkeyType);
 
-/// 实例化UITextView 带字体颜色设置
 UITextView *InsertTextViewWithTextColor(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, UIColor *textColor);
 
-/// 实例化UITextView 带边框圆角设置
 UITextView *InsertTextViewWithBorderAndCorRadius(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, float borderWidth, UIColor *borderColor, UIColor *textColor, float cornerRadius);
 
-#pragma mark - UISwitch
+#pragma mark - UISearchBar
 
-/// 实例化UISwitch
-UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action);
+/// 搜索视图
+UISearchBar *InsertSearchBar(UIView *superview, CGRect rect, id delegate, NSString *placeholder, UISearchBarStyle style, UIColor *tintColor, UIColor *barColor, UIImage *bgroundImage);
 
-#pragma mark - UIImageView
+#pragma mark - UIDatePicker
 
-/// 实例化UIImageView
-UIImageView *InsertImageView(UIView *superview, CGRect rect, UIImage *image);
-
-#pragma mark - UIView
-
-/// 实例化UIView
-UIView *InsertView(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderwidth, UIColor *bordercolor, CGFloat corRadius);
-
-/// 实例化UIView 带边框
-UIView *InsertViewWithBorder(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderWidth, UIColor *borderColor);
-
-/// 实例化UIView 带圆角
-UIView *InsertViewWithCorRadius(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat corRadius);
-
-/// 设置view的layer属性
-void ViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat borderwidth);
+UIDatePicker *InsertDatePicker(UIView *view, NSInteger tag, id delegate, UIInterfaceOrientation orientation);
 
 #pragma mark - UIPickerView
 
-/// 实例化UIPickerView
 UIPickerView *InsertPickerView(UIView *superview, CGRect rect);
 
 #pragma mark - UIBarButtonItem
@@ -165,83 +131,80 @@ UIBarButtonItem *InsetBarButtonItemWithImage(UIImage *image, int tag, UIBarButto
 
 UIBarButtonItem *InsertBarButtonItemWithButton(CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIFont *titleFont, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
 
-#pragma mark - UIProgressView
+#pragma mark - UIbutton
 
-UIProgressView *InsertProgressView(UIView *superview, CGRect rect, UIProgressViewStyle style, CGFloat progressValue, UIColor *progressColor, UIColor *trackColor);
+UIButton *InsertButton(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
 
-#pragma mark - UIActivityIndicatorView
+UIButton *InsertButtonWithTitle(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, id target, SEL action);
 
-UIActivityIndicatorView *InsertActivityIndicatorView(UIView *superview, CGRect rect, UIColor *bgroundColor, UIColor *styleColor, UIActivityIndicatorViewStyle style);
+UIButton *InsertButtonWithTitleAndImage(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, id target, SEL action);
 
-#pragma mark - UIActionSheet
+UIButton *InsertButtonWithTitleAndBgroundImage(UIView *superview, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
 
-UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetStyle style, NSString *title, NSString *canael, NSString *destructive);
+UIButton *InsertButtonWithBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
 
-UIActionSheet *InsertActionSheetWithMoreButton(UIView *showView, id delegate, UIActionSheetStyle style, NSString *title, NSString *canael, NSString *destructive, NSString *titleFirst, NSString *titleSecond);
+UIButton *InsertButtonWithImage(UIView *superview, CGRect rect, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, BOOL selected, int tag, id target, SEL action);
 
-#pragma mark - UISearchBar
+#pragma mark - UISwitch
 
-UISearchBar *InsertSearchBar(UIView *superview, CGRect rect, id delegate, NSString *placeholder, UISearchBarStyle style, UIColor *tintColor, UIColor *barColor, UIImage *bgroundImage);
-
-#pragma mark - UIPageControl
-
-UIPageControl *InsertPageControl(UIView *superview, CGRect rect, NSInteger pageCounts, NSInteger currentPage, UIColor *pageColor, UIColor *currentPageColor);
+UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action);
 
 #pragma mark - UISlider
 
-/// 创建UISlider
+// 创建UISlider
 UISlider *InsertSlider(UIView *superview, CGRect rect, id target, SEL action);
 
-/// 创建UISlider（自定义最大最小值）
+// 创建UISlider（自定义最大最小值）
 UISlider *InsertSliderWithValue(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue);
 
-/// 创建UISlider（自定义最大最小值，及颜色显示）
+// 创建UISlider（自定义最大最小值，及颜色显示）
 UISlider *InsertSliderWithValueAndColor(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor);
 
-/// 创建UISlider（自定义最大最小值，及颜色，图标显示）
-UISlider *InsertSliderWithValueAndColorAndImage(id superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor, UIImage *minImage, UIImage *maxImage);
+// 创建UISlider（自定义最大最小值，及颜色，图标显示）
+UISlider *InsertSliderWithValueAndColorAndImage(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor, UIImage *minImage, UIImage *maxImage);
 
 #pragma mark - UISegmentedControl
 
-/// 创建UISegmentedControl
+// 创建UISegmentedControl
 UISegmentedControl *InsertSegment(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action);
 
-/// 创建UISegmentedControl（设置颜色）
+// 创建UISegmentedControl（设置颜色）
 UISegmentedControl *InsertSegmentWithColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, UIColor *tintColor);
 
-/// 创建UISegmentedControl（设置颜色及被始化被选择索引）
+// 创建UISegmentedControl（设置颜色及被始化被选择索引）
 UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, NSInteger selectedIndex, UIColor *tintColor);
 
 #pragma mark - UIImagePickerController
 
 UIImagePickerController *InsertImagePicker(UIImagePickerControllerSourceType style, id delegate, UIImage *navImage);
 
-/****************************************************************/
+#pragma mark - 父视图或父视图控制器的操作
 
-#pragma mark - 视图或视图控制器的操作
-/// 视图上添加子视图控制器
-void AddSubController(UIView *view, UIViewController *ctrl, BOOL animation);
+/// 添加子控制器
+void AddSubController(UIView *view, UIViewController *controller, BOOL animation);
 
-/// 移除父视图控制器中的子视图控制器
-void RemoveSubController(UIViewController *ctrl, BOOL animation);
+/// 移除子控制器
+void RemoveSubController(UIViewController *controller, BOOL animation);
 
-/// 移除父视图中的子视图
+/// 移除子视图
 void RemoveAllSubviews(UIView *view);
 
-/// 刪除父layer中的子layer
+/// 移除CALayer
 void RemoveAllSublayers(UIView *view, Class class);
-
-/****************************************************************/
 
 #pragma mark - 设置时间定时器
 
-/// 实例化timer
-NSTimer *InsetTimer(NSTimeInterval timeElapsed, id userInfo, BOOL isRepeat, id target, SEL action);
+/// 初始化定时器
+NSTimer *InsetTimer(NSTimeInterval time, id userInfo, BOOL isRepeat, id target, SEL action);
 
+/// 开始定时
 void TimerStart(NSTimer *timer);
-void TimerStop(NSTimer *timer);
-void TimerKill(NSTimer *timer);
 
+/// 停止定时
+void TimerStop(NSTimer *timer);
+
+/// 释放定时器
+void TimerKill(NSTimer *timer);
 
 @end
 
