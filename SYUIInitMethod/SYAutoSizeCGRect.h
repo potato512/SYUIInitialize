@@ -25,6 +25,9 @@
  10 iPhone8      4.7 750*1334  375*667 @2x
  11 iPhone8Plus  5.5 1242*2208 414*736 @3x
  12 iPhoneX      5.8 1125*2436 375*812 @3x
+ 13 iPhoneXs     5.8 1125*2436 375*812 @3x
+ 14 iPhoneXs Max 6.5 1242*2688 414*896 @3x
+ 15 iPhoneXR     6.1 828*1792  414*896 @2x
  
  各版本比例
  iPhone5，    autoSizeScaleX=1，autoSizeScaleY=1；
@@ -47,6 +50,7 @@
 #define SYIS_IPHONE_6_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 667.0)
 #define SYIS_IPHONE_6P_AutoSize        (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 736.0)
 #define SYIS_IPHONE_X_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 812.0)
+#define SYIS_IPHONE_XR_AutoSize        (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 896.0)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
