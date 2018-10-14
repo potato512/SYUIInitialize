@@ -161,15 +161,9 @@
 		DFDA7067217394EC00797DAA /* SYUIInitMethod */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				DFDA7068217394EC00797DAA /* SYAutoSizeCGRect.h */,
 				DFDA7069217394EC00797DAA /* SYUIInitMethod.h */,
 				DFDA706A217394EC00797DAA /* SYUIInitMethod.m */,
-=======
-				A724B71F2150D8E50050CEBC /* SYAutoSizeCGRect.h */,
-				A7CABE5B1F95E6A700A68017 /* SYUIInitMethod.h */,
-				A7CABE5C1F95E6A700A68017 /* SYUIInitMethod.m */,
->>>>>>> abff3c7998aef61ac2b04d0ae3cdfc4a3fb6acd7
 			);
 			name = SYUIInitMethod;
 			path = ../../SYUIInitMethod;
