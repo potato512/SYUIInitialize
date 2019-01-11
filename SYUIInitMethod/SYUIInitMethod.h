@@ -5,9 +5,12 @@
 //  Created by zhangshaoyu on 14-5-21.
 //  Copyright (c) 2014年 zhangshaoyu. All rights reserved.
 //  功能描述：用于创建UI子类，避免重复编码，造成代码冗余
+//  https://github.com/potato512/SYUIInitialize
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+#import "SYAutoSizeCGRect.h"
 
 /// 自适应大小类型（宽高，或宽）
 typedef NS_ENUM(NSInteger, SYAutoSizelabelType) {
