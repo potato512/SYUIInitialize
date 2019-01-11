@@ -170,21 +170,22 @@ SYAutoSizeGetWidth(CGFloat width)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-#define kScreenHeightiPhoneX [UIScreen mainScreen].bounds.size.height
-#define kScreenWidthiPhoneX  [UIScreen mainScreen].bounds.size.width
-#define isIPoneX (kScreenHeightiPhoneX == 812.0f ? YES : NO)
+// iPhoneX, iPhoneXS, iPhoneXR, iPhoneXS Mas
+#define kScreenHeightiPhoneSafeArea [UIScreen mainScreen].bounds.size.height
+#define kScreenWidthiPhoneSafeArea  [UIScreen mainScreen].bounds.size.width
+#define isIPoneSafeArea ((kScreenHeightiPhoneSafeArea == 812.0f || kScreenHeightiPhoneSafeArea == 896.0f) ? YES : NO)
 
 ///
-#define kHeightCoefficientiPhoneX (isIPoneX ? 667.0f / 667.0f : kScreenHeightiPhoneX / 667.0f)
+#define kHeightCoefficientiPhoneSafeArea (isIPoneSafeArea ? 667.0f / 667.0f : kScreenHeightiPhoneSafeArea / 667.0f)
 
 ///
-#define kHeightStatusSafeArea (isIPoneX ? 44.0f : 20.0f)
+#define kHeightStatusSafeArea (isIPoneSafeArea ? 44.0f : 20.0f)
 ///
 #define kHeightNavigationSafeArea (44.0f)
 ///
 #define kHeightStatusNavigationSafeArea (kHeightStatusSafeArea + kHeightNavigationSafeArea)
 ///
-#define kHeightBottomSafeArea (isIPoneX ? 34.0f : 0.0f)
+#define kHeightBottomSafeArea (isIPoneSafeArea ? 34.0f : 0.0f)
 
 CG_INLINE CGFloat
 SYGetTop(CGFloat y, BOOL hiddenNav)
