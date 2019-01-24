@@ -34,7 +34,7 @@ UIView *InsertView(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloa
         view.clipsToBounds = YES;
     }
     
-    return [view autorelease];
+    return view;
 }
 
 UIView *InsertViewWithBorder(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderWidth, UIColor *borderColor)
@@ -69,7 +69,7 @@ void ViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat
 
 UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize, BOOL shadow, UIColor *shadowColor, CGSize shadowOffset)
 {
-    UILabel *label = [[[UILabel alloc] initWithFrame:rect] autorelease];
+    UILabel *label = [[UILabel alloc] initWithFrame:rect];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = align;
     label.textColor = textColor;
@@ -142,14 +142,14 @@ UIImageView *InsertImageView(UIView *superview, CGRect rect, UIImage *image)
         [superview addSubview:imageView];
     }
     
-    return [imageView autorelease];
+    return imageView;
 }
 
 #pragma mark - UIProgressView
 
 UIProgressView *InsertProgressView(UIView *superview, CGRect rect, UIProgressViewStyle style, CGFloat progressValue, UIColor *progressColor, UIColor *trackColor)
 {
-    UIProgressView *progressView = [[[UIProgressView alloc] initWithFrame:rect] autorelease];
+    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:rect];
     
     if (superview && [superview respondsToSelector:@selector(addSubview:)]) {
         [superview addSubview:progressView];
@@ -174,7 +174,7 @@ UIProgressView *InsertProgressView(UIView *superview, CGRect rect, UIProgressVie
 
 UIActivityIndicatorView *InsertActivityIndicatorView(UIView *superview, CGRect rect, UIColor *bgroundColor, UIColor *styleColor, UIActivityIndicatorViewStyle style)
 {
-    UIActivityIndicatorView *activityView = [[[UIActivityIndicatorView alloc] initWithFrame:rect] autorelease];
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithFrame:rect];
     
     // 添加到父视图
     if (superview && [superview respondsToSelector:@selector(addSubview:)]) {
@@ -199,7 +199,7 @@ UIActivityIndicatorView *InsertActivityIndicatorView(UIView *superview, CGRect r
 
 UIPageControl *InsertPageControl(UIView *superview, CGRect rect, NSInteger pageCounts, NSInteger currentPage, UIColor *pageColor, UIColor *currentPageColor)
 {
-    UIPageControl *pageControl = [[[UIPageControl alloc] initWithFrame:rect] autorelease];
+    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:rect];
     pageControl.backgroundColor = [UIColor clearColor];
     
     if (superview && [superview respondsToSelector:@selector(addSubview:)]) {
@@ -224,7 +224,7 @@ UIPageControl *InsertPageControl(UIView *superview, CGRect rect, NSInteger pageC
 
 UIAlertView *InsertAlert(UIAlertViewStyle style, NSString *title, NSString *message, NSInteger tag, id delegate, NSString *cancel, NSString *ok)
 {
-    UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil] autorelease];
+    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil];
     alertview.alertViewStyle = style;
     alertview.tag = tag;
     [alertview show];
@@ -234,7 +234,7 @@ UIAlertView *InsertAlert(UIAlertViewStyle style, NSString *title, NSString *mess
 
 UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag, id delegate, NSString *cancel)
 {
-    UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:message message:nil delegate:delegate cancelButtonTitle:cancel otherButtonTitles:nil] autorelease];
+    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:message message:nil delegate:delegate cancelButtonTitle:cancel otherButtonTitles:nil];
     alertview.tag = tag;
     [alertview show];
     
@@ -245,7 +245,7 @@ UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag,
         return nil;
     }
     
-    __autoreleasing	UIActivityIndicatorView *indicator = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     indicator.center = CGPointMake(x, y);
     [indicator startAnimating];
     
@@ -256,7 +256,7 @@ UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag,
 
 UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSString *ok, NSString *set, NSInteger tag, id delegate, SEL selector)
 {
-    __strong UIAlertView *alertview = [[[UIAlertView alloc] initWithTitle:title message:@"\r\r" delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil] autorelease];
+    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:title message:@"\r\r" delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil];
     alertview.tag = tag;
     [alertview show];
     
@@ -267,7 +267,7 @@ UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSStrin
         return nil;
     }
     
-    UITextField *myTextField = [[[UITextField alloc] initWithFrame:CGRectMake(x * 0.04, y - 110, x * 0.91, 25)] autorelease];
+    UITextField *myTextField = [[UITextField alloc] initWithFrame:CGRectMake(x * 0.04, y - 110, x * 0.91, 25)];
     myTextField.text = set;
     [myTextField addTarget:delegate action:selector forControlEvents:UIControlEventEditingDidEndOnExit];
     //[alert setTransform:myTransform];
@@ -283,7 +283,7 @@ UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSStrin
 
 UIActionSheet *InsertActionSheetWithMoreButton(UIView *showView, id delegate, UIActionSheetStyle style, NSString *title, NSString *canael, NSString *destructive, NSString *titleFirst, NSString *titleSecond)
 {
-    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:title delegate:delegate cancelButtonTitle:canael destructiveButtonTitle:destructive otherButtonTitles: titleFirst, titleSecond, nil] autorelease];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:delegate cancelButtonTitle:canael destructiveButtonTitle:destructive otherButtonTitles: titleFirst, titleSecond, nil];
     
     if (showView && [showView isKindOfClass:[UIView class]]) {
         [actionSheet showInView:showView];
@@ -303,7 +303,7 @@ UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetSty
 
 UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick)
 {
-    __autoreleasing UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:type];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:type];
     
     // 添加按钮交互
     [titlesAction enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -341,7 +341,7 @@ UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type,
 
 UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag, id<UIScrollViewDelegate> delegate)
 {
-    UIScrollView *scrollView = [[[UIScrollView alloc] initWithFrame:rect] autorelease];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:rect];
     scrollView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     scrollView.tag = tag;
     scrollView.backgroundColor = [UIColor clearColor];
@@ -360,7 +360,7 @@ UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag, id<UIScr
 
 UIWebView *InsertWebView(UIView *superView,CGRect rect, id<UIWebViewDelegate>delegate, int tag)
 {
-    UIWebView *webView = [[[UIWebView alloc] initWithFrame:rect] autorelease];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:rect];
     webView.tag = tag;
     [webView setOpaque:NO];
     webView.backgroundColor = [UIColor clearColor];
@@ -378,7 +378,7 @@ UIWebView *InsertWebView(UIView *superView,CGRect rect, id<UIWebViewDelegate>del
 void WebViewRequest(UIWebView *web, NSString *strURL)
 {
     NSURL *url = [NSURL URLWithString:strURL];
-    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url] autorelease];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     
     [web loadRequest:request];
 }
@@ -386,7 +386,7 @@ void WebViewRequest(UIWebView *web, NSString *strURL)
 void WebViewRequestWithCookie(UIWebView *web, NSString *strURL, NSString *cookies)
 {
     NSURL *url = [NSURL URLWithString:strURL];
-    NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:url] autorelease];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request addValue:cookies forHTTPHeaderField:@"Cookie"];
     
     [web loadRequest:request];
@@ -414,7 +414,7 @@ UITableView *InsertTableView(UIView *superView, CGRect rect, id<UITableViewDataS
         [superView addSubview:tableView];
     }
     
-    return [tableView autorelease];
+    return tableView;
 }
 
 #pragma mark - UITextField
@@ -455,7 +455,7 @@ UITextField *InsertTextField(UIView *superview, id delegate, CGRect rect, NSStri
         [superview addSubview:textField];
     }
     
-    return [textField autorelease];
+    return textField;
 }
 
 UITextField *InsertTextFieldWithTextColor(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, UIColor *textFieldColor)
@@ -505,7 +505,7 @@ UITextView *InsertTextView(UIView *superview, id delegate, CGRect rect, UIFont *
         [superview addSubview:textView];
     }
     
-    return [textView autorelease];
+    return textView;
 }
 
 UITextView *InsertTextViewWithTextColor(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, UIColor *textColor)
@@ -523,7 +523,7 @@ UITextView *InsertTextViewWithBorderAndCorRadius(UIView *superview, id delegate,
 // 搜索视图
 UISearchBar *InsertSearchBar(UIView *superview, CGRect rect, id delegate, NSString *placeholder, UISearchBarStyle style, UIColor *tintColor, UIColor *barColor, UIImage *bgroundImage)
 {
-    UISearchBar *searchBar = [[[UISearchBar alloc] initWithFrame:rect] autorelease];
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:rect];
     
     if (superview && [superview respondsToSelector:@selector(addSubview:)]) {
         [superview addSubview:searchBar];
@@ -555,11 +555,11 @@ UISearchBar *InsertSearchBar(UIView *superview, CGRect rect, id delegate, NSStri
 
 UIDatePicker *InsertDatePicker(UIView *view, NSInteger tag, id delegate, UIInterfaceOrientation orientation)
 {
-    UIActionSheet *actionsheet = [[[UIActionSheet alloc] initWithTitle:nil
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil
                                                               delegate:delegate
                                                      cancelButtonTitle:nil
                                                 destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil] autorelease];
+                                                     otherButtonTitles:nil];
     actionsheet.tag = tag;
     [actionsheet showInView:view];
     
@@ -580,7 +580,7 @@ UIPickerView *InsertPickerView(UIView *superview, CGRect rect)
         [superview addSubview:pickerView];
     }
     
-    return [pickerView autorelease];
+    return pickerView;
 }
 
 #pragma mark - UIBarButtonItem
@@ -605,7 +605,7 @@ UIBarButtonItem *InsertBarButtonItemWithButton(CGRect rect, int tag, NSString *t
 {
     UIButton *button = InsertButton(nil, rect, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, titleEdge, imageNormal, imageHighlight, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
     
-    UIBarButtonItem *barButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
     return barButtonItem;
 }
@@ -614,7 +614,7 @@ UIBarButtonItem *InsertBarButtonItemWithButton(CGRect rect, int tag, NSString *t
 
 UIButton *InsertButton(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    UIButton *button = [[[UIButton alloc] init] autorelease];
+    UIButton *button = [[UIButton alloc] init];
     button.backgroundColor = [UIColor clearColor];
     button.frame = rect;
     [button setTag:tag];
@@ -708,7 +708,7 @@ UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
         [superview addSubview:switchView];
     }
     
-    return [switchView autorelease];
+    return switchView;
 }
 
 #pragma mark - UISlider
@@ -734,7 +734,7 @@ UISlider *InsertSliderWithValueAndColor(UIView *superview, CGRect rect, id targe
 // 创建UISlider（自定义最大最小值，及颜色，图标显示）
 UISlider *InsertSliderWithValueAndColorAndImage(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor, UIImage *minImage, UIImage *maxImage)
 {
-    UISlider *sliderView = [[[UISlider alloc] initWithFrame:rect] autorelease];
+    UISlider *sliderView = [[UISlider alloc] initWithFrame:rect];
     
     if (superview && [superview respondsToSelector:@selector(addSubview:)]) {
         [superview addSubview:sliderView];
@@ -791,7 +791,7 @@ UISegmentedControl *InsertSegmentWithColor(UIView *superview, NSArray *titleArra
 // 创建UISegmentedControl（设置颜色及被始化被选择索引）
 UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, NSInteger selectedIndex, UIColor *tintColor)
 {
-    UISegmentedControl *segmentControl = [[[UISegmentedControl alloc] initWithItems:titleArray] autorelease];
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:titleArray];
     
     if (superview && [superview respondsToSelector:@selector(addSubview:)]) {
         [superview addSubview:segmentControl];
@@ -818,7 +818,7 @@ UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NS
 
 UIImagePickerController *InsertImagePicker(UIImagePickerControllerSourceType style, id delegate, UIImage *navImage)
 {
-    UIImagePickerController *imagePickController = [[[UIImagePickerController alloc] init] autorelease];
+    UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
     imagePickController.sourceType = style;
     imagePickController.delegate = delegate;
     
