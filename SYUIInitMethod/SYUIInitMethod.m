@@ -563,7 +563,7 @@ UIDatePicker *InsertDatePicker(UIView *view, NSInteger tag, id delegate, UIInter
     actionsheet.tag = tag;
     [actionsheet showInView:view];
     
-    UIDatePicker *datePicker = [[[UIDatePicker alloc] initWithFrame:actionsheet.bounds] autorelease];
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:actionsheet.bounds];
     [actionsheet addSubview:datePicker];
     
     return datePicker;
