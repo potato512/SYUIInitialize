@@ -50,8 +50,7 @@ UIView *InsertViewWithCorRadius(UIView *superview, CGRect rect, UIColor *bground
 // 设置view的边框属性
 void ViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat borderwidth)
 {
-    if (view && [view isKindOfClass:[UIView class]])
-    {
+    if (view && [view isKindOfClass:[UIView class]]) {
         if (radius > 0.0) {
             view.layer.cornerRadius = radius;
             view.clipsToBounds = YES;
@@ -109,8 +108,7 @@ UILabel *InsertLabel(UIView *superView, CGRect rect, NSTextAlignment align, NSSt
 
 void LabelReloadSize(UILabel *label, SYAutoSizelabelType autoType)
 {
-    if (label && [label isKindOfClass:[UILabel class]])
-    {
+    if (label && [label isKindOfClass:[UILabel class]]) {
         [label setNumberOfLines:0];
         label.lineBreakMode = NSLineBreakByWordWrapping;
         
@@ -858,8 +856,7 @@ void RemoveSubController(UIViewController *controller, BOOL animation)
 /// 移除子视图
 void RemoveAllSubviews(UIView *view)
 {
-    for (NSInteger i = view.subviews.count; i > 0; i--)
-    {
+    for (NSInteger i = view.subviews.count; i > 0; i--) {
         UIView *subView = [view.subviews objectAtIndex:(i - 1)];
         [subView removeFromSuperview];
     }
@@ -868,8 +865,7 @@ void RemoveAllSubviews(UIView *view)
 /// 移除CALayer
 void RemoveAllSublayers(UIView *view, Class class)
 {
-    for (NSInteger i = view.layer.sublayers.count; i > 0; i--)
-    {
+    for (NSInteger i = view.layer.sublayers.count; i > 0; i--) {
         CALayer *sublayer = [view.layer.sublayers objectAtIndex:(i - 1)];
         if ([sublayer isKindOfClass:class]) {
             [sublayer removeFromSuperlayer];
