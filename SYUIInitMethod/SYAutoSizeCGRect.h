@@ -67,36 +67,31 @@
 ////////////////////////////////////////////////////////////////////////////////////
 
 CG_INLINE CGFloat
-SYAutoSizeCGRectGetMinX(CGRect rect)
-{
+SYAutoSizeCGRectGetMinX(CGRect rect) {
     CGFloat x = rect.origin.x * SYAutoSizeScaleX_AutoSize;
     return x;
 }
 
 CG_INLINE CGFloat
-SYAutoSizeCGRectGetMinY(CGRect rect)
-{
+SYAutoSizeCGRectGetMinY(CGRect rect) {
     CGFloat y = rect.origin.y * SYAutoSizeScaleX_AutoSize;
     return y;
 }
 
 CG_INLINE CGFloat
-SYAutoSizeCGRectGetWidth(CGRect rect)
-{
+SYAutoSizeCGRectGetWidth(CGRect rect) {
     CGFloat width = rect.size.width * SYAutoSizeScaleX_AutoSize;
     return width;
 }
 
 CG_INLINE CGFloat
-SYAutoSizeCGRectGetHeight(CGRect rect)
-{
+SYAutoSizeCGRectGetHeight(CGRect rect) {
     CGFloat height = rect.size.height * SYAutoSizeScaleX_AutoSize;
     return height;
 }
 
 CG_INLINE CGPoint
-SYAutoSizeCGPointMake(CGFloat x, CGFloat y)
-{
+SYAutoSizeCGPointMake(CGFloat x, CGFloat y) {
     CGPoint point;
     point.x = x * SYAutoSizeScaleX_AutoSize;
     point.y = y * SYAutoSizeScaleY_AutoSize;
@@ -105,8 +100,7 @@ SYAutoSizeCGPointMake(CGFloat x, CGFloat y)
 }
 
 CG_INLINE CGSize
-SYAutoSizeCGSizeMake(CGFloat width, CGFloat height)
-{
+SYAutoSizeCGSizeMake(CGFloat width, CGFloat height) {
     CGSize size;
     size.width = width * SYAutoSizeScaleX_AutoSize;
     size.height = height * SYAutoSizeScaleY_AutoSize;
@@ -115,8 +109,7 @@ SYAutoSizeCGSizeMake(CGFloat width, CGFloat height)
 }
 
 CG_INLINE CGRect
-SYAutoSizeCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
-{
+SYAutoSizeCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
     CGRect rect;
     rect.origin.x = x * SYAutoSizeScaleX_AutoSize;
     rect.origin.y = y * SYAutoSizeScaleY_AutoSize;
@@ -131,8 +124,7 @@ SYAutoSizeCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
 // 常用
 
 CG_INLINE CGRect
-SYAutoSizeDidCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
-{
+SYAutoSizeDidCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
     CGRect rect;
     rect.origin.x = x;
     rect.origin.y = y;
@@ -143,8 +135,7 @@ SYAutoSizeDidCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
 }
 
 CG_INLINE CGRect
-SYAutoSizeShouldCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL autoW, BOOL autoH)
-{
+SYAutoSizeShouldCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL autoW, BOOL autoH) {
     CGRect rect;
     rect.origin.x = x;
     rect.origin.y = y;
@@ -155,15 +146,13 @@ SYAutoSizeShouldCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height, 
 }
 
 CG_INLINE CGFloat
-SYAutoSizeGetHeight(CGFloat height)
-{
+SYAutoSizeGetHeight(CGFloat height) {
     CGFloat autoHeight = height * SYAutoSizeScaleY_AutoSize;
     return autoHeight;
 }
 
 CG_INLINE CGFloat
-SYAutoSizeGetWidth(CGFloat width)
-{
+SYAutoSizeGetWidth(CGFloat width) {
     CGFloat autoWidth = width * SYAutoSizeScaleX_AutoSize;
     return autoWidth;
 }
@@ -188,37 +177,32 @@ SYAutoSizeGetWidth(CGFloat width)
 #define kHeightBottomSafeArea (isIPoneSafeArea ? 34.0f : 0.0f)
 
 CG_INLINE CGFloat
-SYGetTop(CGFloat y, BOOL hiddenNav)
-{
+SYGetTop(CGFloat y, BOOL hiddenNav) {
     CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + y) : y);
     return result;
 }
 
 CG_INLINE CGFloat
-SYGetBottom(CGFloat y, BOOL hiddenNav)
-{
+SYGetBottom(CGFloat y, BOOL hiddenNav) {
     CGFloat result = (hiddenNav ? (y - kHeightBottomSafeArea) : y);
     return result;
 }
 
 CG_INLINE CGFloat
-SYGetHeightTop(CGFloat height, BOOL hiddenNav)
-{
+SYGetHeightTop(CGFloat height, BOOL hiddenNav) {
     CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
     return result;
 }
 
 CG_INLINE CGFloat
-SYGetHeightBottom(CGFloat height, BOOL hiddenTap)
-{
+SYGetHeightBottom(CGFloat height, BOOL hiddenTap) {
     CGFloat result = (hiddenTap ? (kHeightBottomSafeArea + height) : height);
     return result;
 }
 
 /// iPhoneX适配
 CG_INLINE CGRect
-SYCGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hiddenNav, BOOL hiddenTab, BOOL isTop)
-{
+SYCGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hiddenNav, BOOL hiddenTab, BOOL isTop) {
     CGRect rect;
     rect.origin.x = x;
     rect.origin.y = y;

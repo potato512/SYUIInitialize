@@ -52,6 +52,10 @@ SYUIInitMethod类是MRC内存管理模式，如果项目是ARC内存管理模式
 ![效果图](./DemoUICreate/UIImage.gif)
 
 # 修复完善
+* 20190925
+  * 版本号：1.2.3
+  * 新增 InsertCollectionView
+  
 * 20190124
   * 版本号：1.2.2
   * 修改异常

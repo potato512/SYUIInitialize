@@ -397,7 +397,6 @@ UITableView *InsertTableView(UIView *superView, CGRect rect, id<UITableViewDataS
     UITableView *tableView = [[UITableView alloc] initWithFrame:rect style:style];
     tableView.backgroundColor = [UIColor clearColor];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    tableView.tableFooterView = [[UIView alloc] init];
     
     if (dataSoure) {
         tableView.dataSource = dataSoure;
@@ -412,7 +411,46 @@ UITableView *InsertTableView(UIView *superView, CGRect rect, id<UITableViewDataS
         [superView addSubview:tableView];
     }
     
+    tableView.tableFooterView = [[UIView alloc] init];
+    
     return tableView;
+}
+
+#pragma mark - UICollectionView
+
+UICollectionView *InsertCollectionView(UICollectionViewScrollDirection direction, UIView *superView, CGRect rect, id<UICollectionViewDelegate>delegate, id<UICollectionViewDataSource>dataSource, Class cellClass, Class headerViewClass, Class footerViewClass)
+{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    [layout setScrollDirection:direction];
+    
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:rect collectionViewLayout:layout];
+    collectionView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    collectionView.allowsSelection = YES;
+    collectionView.allowsMultipleSelection = NO;
+    collectionView.alwaysBounceVertical = YES;
+    collectionView.backgroundColor = [UIColor clearColor];
+    
+    if (delegate) {
+        collectionView.delegate = delegate;
+    }
+    if (dataSource) {
+        collectionView.dataSource = dataSource;
+    }
+    if (superView && [superView respondsToSelector:@selector(addSubview:)]) {
+        [superView addSubview:collectionView];
+    }
+    
+    if (cellClass) {
+        [collectionView registerClass:cellClass forCellWithReuseIdentifier:NSStringFromClass(cellClass)];
+    }
+    if (headerViewClass) {
+        [collectionView registerClass:headerViewClass forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass(headerViewClass)];
+    }
+    if (footerViewClass) {
+        [collectionView registerClass:footerViewClass forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass(footerViewClass)];
+    }
+    
+    return collectionView;
 }
 
 #pragma mark - UITextField
