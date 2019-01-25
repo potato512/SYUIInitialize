@@ -299,23 +299,23 @@ UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetSty
 
 #pragma mark - UIAlertController
 
-UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick)
+UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSArray *titlesAction, AlertControllerClick buttonClick)
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:type];
     
+    /*
     // 添加按钮交互
     [titlesAction enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:obj style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *title = obj;
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (buttonClick) {
-                int indexButton = (int)idx;
-                NSString *titleButton = obj;
-                buttonClick(indexButton, titleButton);
+                int index = (int)idx;
+                buttonClick(index, title);
             }
         }];
         [alertController addAction:action];
     }];
-    
-    /*
+
     // 添加文本输入处理
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"网络名称";
@@ -327,6 +327,26 @@ UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type,
     }];
     [alertController addAction:confirmAction];
     */
+    
+    [textfiledsAction enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *title = obj;
+        // 添加文本输入处理
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = title;
+            textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        }];
+    }];
+    //
+    [titlesAction enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *title = obj;
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (buttonClick) {
+                int index = (int)idx;
+                buttonClick(index, title, alertController.textFields);
+            }
+        }];
+        [alertController addAction:action];
+    }];
     
     if (target && [target isKindOfClass:[UIViewController class]]) {
         [target presentViewController:alertController animated:YES completion:nil];
@@ -356,36 +376,47 @@ UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag, id<UIScr
 
 #pragma mark - UIWebView
 
-UIWebView *InsertWebView(UIView *superView,CGRect rect, id<UIWebViewDelegate>delegate, int tag)
+UIWebView *InsertWebView(UIView *superView, CGRect rect, id<UIWebViewDelegate>delegate, int tag, NSString *url)
 {
     UIWebView *webView = [[UIWebView alloc] initWithFrame:rect];
     webView.tag = tag;
     [webView setOpaque:NO];
     webView.backgroundColor = [UIColor clearColor];
-    webView.delegate = delegate;
     webView.scalesPageToFit = NO;
     webView.scrollView.scrollEnabled = NO;
     
+    if (delegate) {
+        webView.delegate = delegate;
+    }
     if (superView && [superView respondsToSelector:@selector(addSubview:)]) {
         [superView addSubview:webView];
     }
+    
+    WebViewRequest(webView, url);
     
     return webView;
 }
 
 void WebViewRequest(UIWebView *web, NSString *strURL)
 {
-    NSURL *url = [NSURL URLWithString:strURL];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    
-    [web loadRequest:request];
+    WebViewRequestWithCookie(web, strURL, nil);
 }
 
 void WebViewRequestWithCookie(UIWebView *web, NSString *strURL, NSString *cookies)
 {
+    if (web == nil) {
+        return;
+    }
+    
+    if (strURL == nil || strURL.length <= 0 || !([strURL hasPrefix:@"https://"] || [strURL hasPrefix:@"http://"])) {
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:strURL];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [request addValue:cookies forHTTPHeaderField:@"Cookie"];
+    if (cookies && cookies.length > 0) {
+        [request addValue:cookies forHTTPHeaderField:@"Cookie"];
+    }
     
     [web loadRequest:request];
 }
@@ -723,6 +754,11 @@ UIButton *InsertButtonWithTitleAndBgroundImage(UIView *superview, CGRect rect, i
     return InsertButton(superview, rect, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, titleEdge, nil, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
 }
 
+UIButton *InsertButtonWithImageAndBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
+{
+    return InsertButton(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, imageNormal, imageHighlight, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+}
+
 UIButton *InsertButtonWithBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
     return InsertButton(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
@@ -735,6 +771,7 @@ UIButton *InsertButtonWithImage(UIView *superview, CGRect rect, UIImage *imageNo
 
 #pragma mark - UISwitch
 
+/// 创建UISwitch
 UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
 {
     UISwitch *switchView = [[UISwitch alloc] initWithFrame:rect];
@@ -749,25 +786,25 @@ UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
 
 #pragma mark - UISlider
 
-// 创建UISlider
+/// 创建UISlider
 UISlider *InsertSlider(UIView *superview, CGRect rect, id target, SEL action)
 {
     return InsertSliderWithValue(superview, rect, target, action, 0.0, 0.0);
 }
 
-// 创建UISlider（自定义最大最小值）
+/// 创建UISlider（自定义最大最小值）
 UISlider *InsertSliderWithValue(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue)
 {
     return InsertSliderWithValueAndColor(superview, rect, target, action, minVlaue, maxValue, nil, nil, nil);
 }
 
-// 创建UISlider（自定义最大最小值，及颜色显示）
+/// 创建UISlider（自定义最大最小值，及颜色显示）
 UISlider *InsertSliderWithValueAndColor(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor)
 {
     return InsertSliderWithValueAndColorAndImage(superview, rect, target, action, minVlaue, maxValue, minColor, maxColor, thumbTintColor, nil, nil);
 }
 
-// 创建UISlider（自定义最大最小值，及颜色，图标显示）
+/// 创建UISlider（自定义最大最小值，及颜色，图标显示）
 UISlider *InsertSliderWithValueAndColorAndImage(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor, UIImage *minImage, UIImage *maxImage)
 {
     UISlider *sliderView = [[UISlider alloc] initWithFrame:rect];
@@ -812,19 +849,19 @@ UISlider *InsertSliderWithValueAndColorAndImage(UIView *superview, CGRect rect, 
 
 #pragma mark - UISegmentedControl
 
-// 创建UISegmentedControl
+/// 创建UISegmentedControl
 UISegmentedControl *InsertSegment(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action)
 {
     return InsertSegmentWithColor(superview, titleArray, rect, target, action, nil);
 }
 
-// 创建UISegmentedControl（设置颜色）
+/// 创建UISegmentedControl（设置颜色）
 UISegmentedControl *InsertSegmentWithColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, UIColor *tintColor)
 {
     return InsertSegmentWithSelectedIndexAndColor(superview, titleArray, rect, target, action, 0, tintColor);
 }
 
-// 创建UISegmentedControl（设置颜色及被始化被选择索引）
+/// 创建UISegmentedControl（设置颜色及被始化被选择索引）
 UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, NSInteger selectedIndex, UIColor *tintColor)
 {
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:titleArray];
@@ -852,11 +889,14 @@ UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NS
 
 #pragma mark - UIImagePickerController
 
+/// 图片视图控制器
 UIImagePickerController *InsertImagePicker(UIImagePickerControllerSourceType style, id delegate, UIImage *navImage)
 {
     UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
     imagePickController.sourceType = style;
-    imagePickController.delegate = delegate;
+    if (delegate) {
+        imagePickController.delegate = delegate;
+    }
     
     if (navImage && [imagePickController respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         [imagePickController.navigationBar setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];

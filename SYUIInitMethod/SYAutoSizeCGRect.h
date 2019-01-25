@@ -92,30 +92,19 @@ SYAutoSizeCGRectGetHeight(CGRect rect) {
 
 CG_INLINE CGPoint
 SYAutoSizeCGPointMake(CGFloat x, CGFloat y) {
-    CGPoint point;
-    point.x = x * SYAutoSizeScaleX_AutoSize;
-    point.y = y * SYAutoSizeScaleY_AutoSize;
-    
+    CGPoint point = CGPointMake(x * SYAutoSizeScaleX_AutoSize, y * SYAutoSizeScaleY_AutoSize);
     return point;
 }
 
 CG_INLINE CGSize
 SYAutoSizeCGSizeMake(CGFloat width, CGFloat height) {
-    CGSize size;
-    size.width = width * SYAutoSizeScaleX_AutoSize;
-    size.height = height * SYAutoSizeScaleY_AutoSize;
-    
+    CGSize size = CGSizeMake(width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
     return size;
 }
 
 CG_INLINE CGRect
 SYAutoSizeCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
-    CGRect rect;
-    rect.origin.x = x * SYAutoSizeScaleX_AutoSize;
-    rect.origin.y = y * SYAutoSizeScaleY_AutoSize;
-    rect.size.width = width * SYAutoSizeScaleX_AutoSize;
-    rect.size.height = height * SYAutoSizeScaleY_AutoSize;
-    
+    CGRect rect = CGRectMake(x * SYAutoSizeScaleX_AutoSize, y * SYAutoSizeScaleY_AutoSize, width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
     return rect;
 }
 
@@ -125,23 +114,13 @@ SYAutoSizeCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
 
 CG_INLINE CGRect
 SYAutoSizeDidCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
-    CGRect rect;
-    rect.origin.x = x;
-    rect.origin.y = y;
-    rect.size.width = width * SYAutoSizeScaleX_AutoSize;
-    rect.size.height = height * SYAutoSizeScaleY_AutoSize;
-    
+    CGRect rect = CGRectMake(x, y, width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
     return rect;
 }
 
 CG_INLINE CGRect
 SYAutoSizeShouldCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL autoW, BOOL autoH) {
-    CGRect rect;
-    rect.origin.x = x;
-    rect.origin.y = y;
-    rect.size.width = (autoW ? (width * SYAutoSizeScaleX_AutoSize) : width);
-    rect.size.height = (autoH ? (height * SYAutoSizeScaleY_AutoSize) : height);
-    
+    CGRect rect = CGRectMake(x, y, (autoW ? (width * SYAutoSizeScaleX_AutoSize) : width), (autoH ? (height * SYAutoSizeScaleY_AutoSize) : height));
     return rect;
 }
 

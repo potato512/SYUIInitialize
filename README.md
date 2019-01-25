@@ -24,23 +24,14 @@ UITableView *tableview = InsertTableView(self.view, self.view.bounds, self, self
 InsertLabel(view, CGRectMake(10.0, 20.0, (self.view.bounds.size.width - 10.0 * 2), 20.0), NSTextAlignmentLeft, @"使用自定义方法创建label", [UIFont systemFontOfSize:10.0], [UIColor blackColor], NO);
 
 // 创建AlertController
-InsertAlertController(self, UIAlertControllerStyleAlert, @"温馨提示", @"alertController view视图", @[@"取消", @"知道了", @"你惨了", @"你赢了"], ^(int indexButton, NSString *titleButton) {
-    if ([titleButton isEqualToString:@"取消"])
-    {
-        NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
-    }
-    else if ([titleButton isEqualToString:@"知道了"])
-    {
-        NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
-    }
-    else if ([titleButton isEqualToString:@"你惨了"])
-    {
-        NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
-    }
-    else if ([titleButton isEqualToString:@"你赢了"])
-    {
-        NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(indexButton), titleButton);
-    }
+InsertAlertController(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信息与编辑", @[@"大兄弟在哪里", @"小老弟在哪里"], @[@"大兄弟", @"小老弟", @"确定", @"取消"], ^(int index, NSString *title, NSArray *textFields) {
+        if (textFields.count > 0) {
+            for (UITextField *textfield in textFields) {
+                NSLog(@"index = %@, title = %@, text = %@", @(index), title, textfield.text);
+            }
+        } else {
+            NSLog(@"index = %@, title = %@", @(index), title);
+        }
 });
 ~~~ 
 
@@ -53,9 +44,12 @@ SYUIInitMethod类是MRC内存管理模式，如果项目是ARC内存管理模式
 
 # 修复完善
 * 20190925
+  * 版本号：1.2.4
+  * 优化 UIAlertController
+  
   * 版本号：1.2.3
   * 新增 InsertCollectionView
-  
+
 * 20190124
   * 版本号：1.2.2
   * 修改异常

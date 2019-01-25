@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, SYAutoSizelabelType) {
 };
 
 /// 弹窗视图控制器回调
-typedef void (^AlertControllerClick)(int indexButton, NSString *titleButton);
+typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFields);
 
 @interface SYUIInitMethod : NSObject
 
@@ -79,7 +79,7 @@ UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetSty
 
 #pragma mark - UIAlertController
 
-UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *titlesAction, AlertControllerClick buttonClick);
+UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSArray *titlesAction, AlertControllerClick buttonClick);
 
 #pragma mark - UIScrollView
 
@@ -87,7 +87,7 @@ UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag, id<UIScr
 
 #pragma mark - UIWebView
 
-UIWebView *InsertWebView(UIView *superView,CGRect rect, id<UIWebViewDelegate>delegate, int tag);
+UIWebView *InsertWebView(UIView *superView, CGRect rect, id<UIWebViewDelegate>delegate, int tag, NSString *url);
 
 void WebViewRequest(UIWebView *web, NSString *strURL);
 
@@ -148,41 +148,45 @@ UIButton *InsertButtonWithTitleAndImage(UIView *superView, CGRect rect, int tag,
 
 UIButton *InsertButtonWithTitleAndBgroundImage(UIView *superview, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
 
+UIButton *InsertButtonWithImageAndBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
+
 UIButton *InsertButtonWithBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action);
 
 UIButton *InsertButtonWithImage(UIView *superview, CGRect rect, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, BOOL selected, int tag, id target, SEL action);
 
 #pragma mark - UISwitch
 
+/// 创建UISwitch
 UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action);
 
 #pragma mark - UISlider
 
-// 创建UISlider
+/// 创建UISlider
 UISlider *InsertSlider(UIView *superview, CGRect rect, id target, SEL action);
 
-// 创建UISlider（自定义最大最小值）
+/// 创建UISlider（自定义最大最小值）
 UISlider *InsertSliderWithValue(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue);
 
-// 创建UISlider（自定义最大最小值，及颜色显示）
+/// 创建UISlider（自定义最大最小值，及颜色显示）
 UISlider *InsertSliderWithValueAndColor(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor);
 
-// 创建UISlider（自定义最大最小值，及颜色，图标显示）
+/// 创建UISlider（自定义最大最小值，及颜色，图标显示）
 UISlider *InsertSliderWithValueAndColorAndImage(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor, UIImage *minImage, UIImage *maxImage);
 
 #pragma mark - UISegmentedControl
 
-// 创建UISegmentedControl
+/// 创建UISegmentedControl
 UISegmentedControl *InsertSegment(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action);
 
-// 创建UISegmentedControl（设置颜色）
+/// 创建UISegmentedControl（设置颜色）
 UISegmentedControl *InsertSegmentWithColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, UIColor *tintColor);
 
-// 创建UISegmentedControl（设置颜色及被始化被选择索引）
+/// 创建UISegmentedControl（设置颜色及被始化被选择索引）
 UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, NSInteger selectedIndex, UIColor *tintColor);
 
 #pragma mark - UIImagePickerController
 
+/// 图片视图控制器
 UIImagePickerController *InsertImagePicker(UIImagePickerControllerSourceType style, id delegate, UIImage *navImage);
 
 #pragma mark - 父视图或父视图控制器的操作
