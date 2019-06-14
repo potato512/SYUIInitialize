@@ -58,8 +58,11 @@
 #define SYAutoSizeScreenWidth_AutoSize  ([[UIScreen mainScreen] bounds].size.width)
 #define SYAutoSizeScreenHeight_AutoSize ([[UIScreen mainScreen] bounds].size.height)
 
-#define SYAutoSizeScaleX_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? (SYAutoSizeScreenWidth_AutoSize / 320.0) : 1.0)
-#define SYAutoSizeScaleY_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? ((SYAutoSizeScreenHeight_AutoSize >= 812.0) ? (SYAutoSizeScreenHeight_AutoSize / 667.0) : (SYAutoSizeScreenHeight_AutoSize / 568.0)) : 1.0)
+// 5S（320 * 568）为标准
+//#define SYAutoSizeScaleX_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? (SYAutoSizeScreenWidth_AutoSize / 320.0) : 1.0)
+//#define SYAutoSizeScaleY_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? ((SYAutoSizeScreenHeight_AutoSize >= 812.0) ? (SYAutoSizeScreenHeight_AutoSize / 667.0) : (SYAutoSizeScreenHeight_AutoSize / 568.0)) : 1.0)
+#define SYAutoSizeScaleX_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 320.0) ? (SYAutoSizeScreenWidth_AutoSize / 320.0) : 1.0)
+#define SYAutoSizeScaleY_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 568.0) ? (SYAutoSizeScreenHeight_AutoSize / 568.0) : 1.0)
 
 #define SYAutoSizeScalesX (SYAutoSizeScaleX_AutoSize)
 #define SYAutoSizeScalesY (SYAutoSizeScaleY_AutoSize)
