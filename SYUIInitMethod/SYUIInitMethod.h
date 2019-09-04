@@ -21,10 +21,38 @@ typedef NS_ENUM(NSInteger, SYAutoSizelabelType) {
     SYAutoSizelabelAll
 };
 
+/// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax（默认iPhone6）
+typedef NS_ENUM(NSInteger, SYAutoLayoutType) {
+    /// 适配机型标准 iPhone6/7/8 [750 * 1334]（默认iPhone6）
+    SYAutoLayoutTypeiPhone6,
+    /// 适配机型标准 iPhone4/4S [640 * 960]
+    SYAutoLayoutTypeiPhone4,
+    /// 适配机型标准 iPhone5/5S/5C/SE [640 * 1136]
+    SYAutoLayoutTypeiPhone5,
+    /// 适配机型标准 iPhone6P/7P/8P [1242 * 2208]
+    SYAutoLayoutTypeiPhone6P
+    /// 适配机型标准 iPhoneX/Xs [1125 * 2436]
+    SYAutoLayoutTypeiPhoneX,
+    /// 适配机型标准 iPhoneXR [828 * 1792]
+    SYAutoLayoutTypeiPhoneXR,
+    /// 适配机型标准 iPhoneXsMax [1242 * 2688]
+    SYAutoLayoutTypeiPhoneXsMax
+};
+
 /// 弹窗视图控制器回调
 typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFields);
 
 @interface SYUIInitMethod : NSObject
+
++ (instancetype)shareUIInit;
+/// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax（默认iPhone6）
+@property (nonatomic, assign) SYAutoLayoutType layoutType;
+/// 适配机型大小
+@property (nonatomic, assign, readonly) CGSize layoutSize;
+/// 适配机型比例X轴
+@property (nonatomic, assign, readonly) CGFloat layoutScaleX;
+/// 适配机型比例Y轴
+@property (nonatomic, assign, readonly) CGFloat layoutScaleY;
 
 /****************************************************************/
 

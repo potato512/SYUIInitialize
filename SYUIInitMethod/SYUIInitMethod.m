@@ -10,6 +10,34 @@
 
 @implementation SYUIInitMethod
 
++ (instancetype)shareUIInit
+{
+    static SYUIInitMethod *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
+
+- (CGSize)layoutSize
+{
+    CGSize size = CGSizeMake(0.0, 0.0);
+    return size;
+}
+
+- (CGFloat)layoutScaleX
+{
+    CGFloat scale = 0.0;
+    return scale;
+}
+
+- (CGFloat)layoutScaleY
+{
+    CGFloat scale = 0.0;
+    return scale;
+}
+
 /****************************************************************/
 
 #pragma mark - UIView
