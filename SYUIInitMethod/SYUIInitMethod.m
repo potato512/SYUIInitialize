@@ -8,6 +8,9 @@
 
 #import "SYUIInitMethod.h"
 
+#define screenWidth  ([[UIScreen mainScreen] bounds].size.width)
+#define screenHeight ([[UIScreen mainScreen] bounds].size.height)
+
 @implementation SYUIInitMethod
 
 + (instancetype)shareUIInit
@@ -22,19 +25,52 @@
 
 - (CGSize)layoutSize
 {
-    CGSize size = CGSizeMake(0.0, 0.0);
+    CGSize size = CGSizeMake(375, 667);
+    if (self.layoutType == SYAutoLayoutTypeiPhone4) {
+        size = CGSizeMake(320, 480);
+    } else if (self.layoutType == SYAutoLayoutTypeiPhone5) {
+        size = CGSizeMake(320, 568);
+    } else if (self.layoutType == SYAutoLayoutTypeiPhone6) {
+        size = CGSizeMake(375, 667);
+    } else if (self.layoutType == SYAutoLayoutTypeiPhone6P) {
+        size = CGSizeMake(414, 736);
+    } else if (self.layoutType == SYAutoLayoutTypeiPhoneX) {
+        size = CGSizeMake(375, 812);
+    } else if (self.layoutType == SYAutoLayoutTypeiPhoneXR) {
+        size = CGSizeMake(414, 896);
+    } else if (self.layoutType == SYAutoLayoutTypeiPhoneXsMax) {
+        size = CGSizeMake(414, 896);
+    }
     return size;
+}
+
+- (CGFloat)layoutWidth
+{
+    CGFloat value = self.layoutSize.width;
+    return value;
+}
+
+- (CGFloat)layoutHeight
+{
+    CGFloat value = self.layoutSize.height;
+    return value;
+}
+
+- (CGPoint)layoutScale
+{
+    CGPoint point = CGPointMake(self.layoutScaleX, self.layoutScaleY);
+    return point;
 }
 
 - (CGFloat)layoutScaleX
 {
-    CGFloat scale = 0.0;
+    CGFloat scale = (self.layoutSize.width == screenWidth ? 1.0 : screenWidth / self.layoutSize.width);
     return scale;
 }
 
 - (CGFloat)layoutScaleY
 {
-    CGFloat scale = 0.0;
+    CGFloat scale = (self.layoutSize.height == screenHeight ? 1.0 : screenHeight / self.layoutSize.height);
     return scale;
 }
 

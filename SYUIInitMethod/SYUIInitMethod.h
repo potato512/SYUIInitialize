@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, SYAutoLayoutType) {
     /// 适配机型标准 iPhone5/5S/5C/SE [640 * 1136]
     SYAutoLayoutTypeiPhone5,
     /// 适配机型标准 iPhone6P/7P/8P [1242 * 2208]
-    SYAutoLayoutTypeiPhone6P
+    SYAutoLayoutTypeiPhone6P,
     /// 适配机型标准 iPhoneX/Xs [1125 * 2436]
     SYAutoLayoutTypeiPhoneX,
     /// 适配机型标准 iPhoneXR [828 * 1792]
@@ -49,6 +49,12 @@ typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFi
 @property (nonatomic, assign) SYAutoLayoutType layoutType;
 /// 适配机型大小
 @property (nonatomic, assign, readonly) CGSize layoutSize;
+/// 适配机型比例X轴
+@property (nonatomic, assign, readonly) CGFloat layoutWidth;
+/// 适配机型比例Y轴
+@property (nonatomic, assign, readonly) CGFloat layoutHeight;
+/// 适配机型比例
+@property (nonatomic, assign, readonly) CGPoint layoutScale;
 /// 适配机型比例X轴
 @property (nonatomic, assign, readonly) CGFloat layoutScaleX;
 /// 适配机型比例Y轴
