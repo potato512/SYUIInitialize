@@ -38,33 +38,33 @@
  iPhoneX，    autoSizeScaleX=1.7578125， autoSizeScaleY=2.144366197183099；
  */
 
-#define SYIS_IPAD_AutoSize             (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#define SYIS_IPHONE_AutoSize           (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-#define SYIS_RETINA_AutoSize           ([[UIScreen mainScreen] scale] >= 2.0)
-
-#define SYSCREEN_WIDTH_AutoSize        ([[UIScreen mainScreen] bounds].size.width)
-#define SYSCREEN_HEIGHT_AutoSize       ([[UIScreen mainScreen] bounds].size.height)
-#define SYSCREEN_MAX_LENGTH_AutoSize   (MAX(SYSCREEN_WIDTH_AutoSize, SYSCREEN_HEIGHT_AutoSize))
-#define SYSCREEN_MIN_LENGTH_AutoSize   (MIN(SYSCREEN_WIDTH_AutoSize, SYSCREEN_HEIGHT_AutoSize))
-
-#define SYIS_IPHONE_4_OR_LESS_AutoSize (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize < 568.0)
-#define SYIS_IPHONE_5_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 568.0)
-#define SYIS_IPHONE_6_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 667.0)
-#define SYIS_IPHONE_6P_AutoSize        (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 736.0)
-#define SYIS_IPHONE_X_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 812.0)
-#define SYIS_IPHONE_XR_AutoSize        (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 896.0)
+//#define SYIS_IPAD_AutoSize             (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+//#define SYIS_IPHONE_AutoSize           (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//#define SYIS_RETINA_AutoSize           ([[UIScreen mainScreen] scale] >= 2.0)
+//
+//#define SYSCREEN_WIDTH_AutoSize        ([[UIScreen mainScreen] bounds].size.width)
+//#define SYSCREEN_HEIGHT_AutoSize       ([[UIScreen mainScreen] bounds].size.height)
+//#define SYSCREEN_MAX_LENGTH_AutoSize   (MAX(SYSCREEN_WIDTH_AutoSize, SYSCREEN_HEIGHT_AutoSize))
+//#define SYSCREEN_MIN_LENGTH_AutoSize   (MIN(SYSCREEN_WIDTH_AutoSize, SYSCREEN_HEIGHT_AutoSize))
+//
+//#define SYIS_IPHONE_4_OR_LESS_AutoSize (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize < 568.0)
+//#define SYIS_IPHONE_5_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 568.0)
+//#define SYIS_IPHONE_6_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 667.0)
+//#define SYIS_IPHONE_6P_AutoSize        (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 736.0)
+//#define SYIS_IPHONE_X_AutoSize         (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 812.0)
+//#define SYIS_IPHONE_XR_AutoSize        (SYIS_IPHONE_AutoSize && SYSCREEN_MAX_LENGTH_AutoSize == 896.0)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-#define SYAutoSizeDelegate_AutoSize     ([[UIApplication sharedApplication] delegate])
-#define SYAutoSizeScreenWidth_AutoSize  ([[UIScreen mainScreen] bounds].size.width)
-#define SYAutoSizeScreenHeight_AutoSize ([[UIScreen mainScreen] bounds].size.height)
+//#define SYAutoSizeDelegate_AutoSize     ([[UIApplication sharedApplication] delegate])
+//#define SYAutoSizeScreenWidth_AutoSize  ([[UIScreen mainScreen] bounds].size.width)
+//#define SYAutoSizeScreenHeight_AutoSize ([[UIScreen mainScreen] bounds].size.height)
 
-// 5S（320 * 568）为标准
-//#define SYAutoSizeScaleX_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? (SYAutoSizeScreenWidth_AutoSize / 320.0) : 1.0)
-//#define SYAutoSizeScaleY_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? ((SYAutoSizeScreenHeight_AutoSize >= 812.0) ? (SYAutoSizeScreenHeight_AutoSize / 667.0) : (SYAutoSizeScreenHeight_AutoSize / 568.0)) : 1.0)
-#define SYAutoSizeScaleX_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 320.0) ? (SYAutoSizeScreenWidth_AutoSize / 320.0) : 1.0)
-#define SYAutoSizeScaleY_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 568.0) ? (SYAutoSizeScreenHeight_AutoSize / 568.0) : 1.0)
+//// 5S（320 * 568）为标准
+////#define SYAutoSizeScaleX_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? (SYAutoSizeScreenWidth_AutoSize / 320.0) : 1.0)
+////#define SYAutoSizeScaleY_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 480.0) ? ((SYAutoSizeScreenHeight_AutoSize >= 812.0) ? (SYAutoSizeScreenHeight_AutoSize / 667.0) : (SYAutoSizeScreenHeight_AutoSize / 568.0)) : 1.0)
+//#define SYAutoSizeScaleX_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 320.0) ? (SYAutoSizeScreenWidth_AutoSize / 320.0) : 1.0)
+//#define SYAutoSizeScaleY_AutoSize ((SYAutoSizeScreenHeight_AutoSize > 568.0) ? (SYAutoSizeScreenHeight_AutoSize / 568.0) : 1.0)
 
 //#define SYAutoSizeScalesX (SYAutoSizeScaleX_AutoSize)
 //#define SYAutoSizeScalesY (SYAutoSizeScaleY_AutoSize)
@@ -73,137 +73,137 @@
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-CG_INLINE CGFloat
-SYAutoSizeCGRectGetMinX(CGRect rect) {
-    CGFloat x = rect.origin.x * SYAutoSizeScaleX_AutoSize;
-    return x;
-}
-
-CG_INLINE CGFloat
-SYAutoSizeCGRectGetMinY(CGRect rect) {
-    CGFloat y = rect.origin.y * SYAutoSizeScaleX_AutoSize;
-    return y;
-}
-
-CG_INLINE CGFloat
-SYAutoSizeCGRectGetWidth(CGRect rect) {
-    CGFloat width = rect.size.width * SYAutoSizeScaleX_AutoSize;
-    return width;
-}
-
-CG_INLINE CGFloat
-SYAutoSizeCGRectGetHeight(CGRect rect) {
-    CGFloat height = rect.size.height * SYAutoSizeScaleX_AutoSize;
-    return height;
-}
-
-CG_INLINE CGPoint
-SYAutoSizeCGPointMake(CGFloat x, CGFloat y) {
-    CGPoint point = CGPointMake(x * SYAutoSizeScaleX_AutoSize, y * SYAutoSizeScaleY_AutoSize);
-    return point;
-}
-
-CG_INLINE CGSize
-SYAutoSizeCGSizeMake(CGFloat width, CGFloat height) {
-    CGSize size = CGSizeMake(width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
-    return size;
-}
-
-CG_INLINE CGRect
-SYAutoSizeCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
-    CGRect rect = CGRectMake(x * SYAutoSizeScaleX_AutoSize, y * SYAutoSizeScaleY_AutoSize, width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
-    return rect;
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-
-// 常用
-
-CG_INLINE CGRect
-SYAutoSizeDidCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
-    CGRect rect = CGRectMake(x, y, width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
-    return rect;
-}
-
-CG_INLINE CGRect
-SYAutoSizeShouldCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL autoW, BOOL autoH) {
-    CGRect rect = CGRectMake(x, y, (autoW ? (width * SYAutoSizeScaleX_AutoSize) : width), (autoH ? (height * SYAutoSizeScaleY_AutoSize) : height));
-    return rect;
-}
-
-CG_INLINE CGFloat
-SYAutoSizeGetHeight(CGFloat height) {
-    CGFloat autoHeight = height * SYAutoSizeScaleY_AutoSize;
-    return autoHeight;
-}
-
-CG_INLINE CGFloat
-SYAutoSizeGetWidth(CGFloat width) {
-    CGFloat autoWidth = width * SYAutoSizeScaleX_AutoSize;
-    return autoWidth;
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-
-// iPhoneX, iPhoneXS, iPhoneXR, iPhoneXS Mas
-#define kScreenHeightiPhoneSafeArea [UIScreen mainScreen].bounds.size.height
-#define kScreenWidthiPhoneSafeArea  [UIScreen mainScreen].bounds.size.width
-#define isIPoneSafeArea ((kScreenHeightiPhoneSafeArea == 812.0f || kScreenHeightiPhoneSafeArea == 896.0f) ? YES : NO)
-
-///
-#define kHeightCoefficientiPhoneSafeArea (isIPoneSafeArea ? 667.0f / 667.0f : kScreenHeightiPhoneSafeArea / 667.0f)
-
-///
-#define kHeightStatusSafeArea (isIPoneSafeArea ? 44.0f : 20.0f)
-///
-#define kHeightNavigationSafeArea (44.0f)
-///
-#define kHeightStatusNavigationSafeArea (kHeightStatusSafeArea + kHeightNavigationSafeArea)
-///
-#define kHeightBottomSafeArea (isIPoneSafeArea ? 34.0f : 0.0f)
-
-CG_INLINE CGFloat
-SYGetTop(CGFloat y, BOOL hiddenNav) {
-    CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + y) : y);
-    return result;
-}
-
-CG_INLINE CGFloat
-SYGetBottom(CGFloat y, BOOL hiddenNav) {
-    CGFloat result = (hiddenNav ? (y - kHeightBottomSafeArea) : y);
-    return result;
-}
-
-CG_INLINE CGFloat
-SYGetHeightTop(CGFloat height, BOOL hiddenNav) {
-    CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
-    return result;
-}
-
-CG_INLINE CGFloat
-SYGetHeightBottom(CGFloat height, BOOL hiddenTap) {
-    CGFloat result = (hiddenTap ? (kHeightBottomSafeArea + height) : height);
-    return result;
-}
-
-/// iPhoneX适配
-CG_INLINE CGRect
-SYCGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hiddenNav, BOOL hiddenTab, BOOL isTop) {
-    CGRect rect;
-    rect.origin.x = x;
-    rect.origin.y = y;
-    rect.size.width = width;
-    rect.size.height = height;
-    if (isTop) {
-        // 顶端时
-        rect.size.height = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
-    } else {
-        // 底部时
-        rect.origin.y = (hiddenTab ? (y - kHeightBottomSafeArea) : y);
-        rect.size.height = (hiddenTab ? (kHeightBottomSafeArea + height) : height);
-    }
-    return rect;
-}
+//CG_INLINE CGFloat
+//SYAutoSizeCGRectGetMinX(CGRect rect) {
+//    CGFloat x = rect.origin.x * SYAutoSizeScaleX_AutoSize;
+//    return x;
+//}
+//
+//CG_INLINE CGFloat
+//SYAutoSizeCGRectGetMinY(CGRect rect) {
+//    CGFloat y = rect.origin.y * SYAutoSizeScaleX_AutoSize;
+//    return y;
+//}
+//
+//CG_INLINE CGFloat
+//SYAutoSizeCGRectGetWidth(CGRect rect) {
+//    CGFloat width = rect.size.width * SYAutoSizeScaleX_AutoSize;
+//    return width;
+//}
+//
+//CG_INLINE CGFloat
+//SYAutoSizeCGRectGetHeight(CGRect rect) {
+//    CGFloat height = rect.size.height * SYAutoSizeScaleX_AutoSize;
+//    return height;
+//}
+//
+//CG_INLINE CGPoint
+//SYAutoSizeCGPointMake(CGFloat x, CGFloat y) {
+//    CGPoint point = CGPointMake(x * SYAutoSizeScaleX_AutoSize, y * SYAutoSizeScaleY_AutoSize);
+//    return point;
+//}
+//
+//CG_INLINE CGSize
+//SYAutoSizeCGSizeMake(CGFloat width, CGFloat height) {
+//    CGSize size = CGSizeMake(width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
+//    return size;
+//}
+//
+//CG_INLINE CGRect
+//SYAutoSizeCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
+//    CGRect rect = CGRectMake(x * SYAutoSizeScaleX_AutoSize, y * SYAutoSizeScaleY_AutoSize, width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
+//    return rect;
+//}
+//
+//////////////////////////////////////////////////////////////////////////////////////
+//
+//// 常用
+//
+//CG_INLINE CGRect
+//SYAutoSizeDidCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
+//    CGRect rect = CGRectMake(x, y, width * SYAutoSizeScaleX_AutoSize, height * SYAutoSizeScaleY_AutoSize);
+//    return rect;
+//}
+//
+//CG_INLINE CGRect
+//SYAutoSizeShouldCGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL autoW, BOOL autoH) {
+//    CGRect rect = CGRectMake(x, y, (autoW ? (width * SYAutoSizeScaleX_AutoSize) : width), (autoH ? (height * SYAutoSizeScaleY_AutoSize) : height));
+//    return rect;
+//}
+//
+//CG_INLINE CGFloat
+//SYAutoSizeGetHeight(CGFloat height) {
+//    CGFloat autoHeight = height * SYAutoSizeScaleY_AutoSize;
+//    return autoHeight;
+//}
+//
+//CG_INLINE CGFloat
+//SYAutoSizeGetWidth(CGFloat width) {
+//    CGFloat autoWidth = width * SYAutoSizeScaleX_AutoSize;
+//    return autoWidth;
+//}
+//
+//////////////////////////////////////////////////////////////////////////////////////
+//
+//// iPhoneX, iPhoneXS, iPhoneXR, iPhoneXS Mas
+//#define kScreenHeightiPhoneSafeArea [UIScreen mainScreen].bounds.size.height
+//#define kScreenWidthiPhoneSafeArea  [UIScreen mainScreen].bounds.size.width
+//#define isIPoneSafeArea ((kScreenHeightiPhoneSafeArea == 812.0f || kScreenHeightiPhoneSafeArea == 896.0f) ? YES : NO)
+//
+/////
+//#define kHeightCoefficientiPhoneSafeArea (isIPoneSafeArea ? 667.0f / 667.0f : kScreenHeightiPhoneSafeArea / 667.0f)
+//
+/////
+//#define kHeightStatusSafeArea (isIPoneSafeArea ? 44.0f : 20.0f)
+/////
+//#define kHeightNavigationSafeArea (44.0f)
+/////
+//#define kHeightStatusNavigationSafeArea (kHeightStatusSafeArea + kHeightNavigationSafeArea)
+/////
+//#define kHeightBottomSafeArea (isIPoneSafeArea ? 34.0f : 0.0f)
+//
+//CG_INLINE CGFloat
+//SYGetTop(CGFloat y, BOOL hiddenNav) {
+//    CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + y) : y);
+//    return result;
+//}
+//
+//CG_INLINE CGFloat
+//SYGetBottom(CGFloat y, BOOL hiddenNav) {
+//    CGFloat result = (hiddenNav ? (y - kHeightBottomSafeArea) : y);
+//    return result;
+//}
+//
+//CG_INLINE CGFloat
+//SYGetHeightTop(CGFloat height, BOOL hiddenNav) {
+//    CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
+//    return result;
+//}
+//
+//CG_INLINE CGFloat
+//SYGetHeightBottom(CGFloat height, BOOL hiddenTap) {
+//    CGFloat result = (hiddenTap ? (kHeightBottomSafeArea + height) : height);
+//    return result;
+//}
+//
+///// iPhoneX适配
+//CG_INLINE CGRect
+//SYCGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hiddenNav, BOOL hiddenTab, BOOL isTop) {
+//    CGRect rect;
+//    rect.origin.x = x;
+//    rect.origin.y = y;
+//    rect.size.width = width;
+//    rect.size.height = height;
+//    if (isTop) {
+//        // 顶端时
+//        rect.size.height = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
+//    } else {
+//        // 底部时
+//        rect.origin.y = (hiddenTab ? (y - kHeightBottomSafeArea) : y);
+//        rect.size.height = (hiddenTab ? (kHeightBottomSafeArea + height) : height);
+//    }
+//    return rect;
+//}
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -263,13 +263,13 @@ CGRectMakeAutoSize(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
 }
 
 CG_INLINE CGFloat
-GetHeightAutoSize(CGFloat height) {
+CGRectGetHeightAutoSize(CGFloat height) {
     CGFloat value = height * UIAutoSizeScaleY;
     return value;
 }
 
 CG_INLINE CGFloat
-GetWidthAutoSize(CGFloat width) {
+CGRectGetWidthAutoSize(CGFloat width) {
     CGFloat value = width * UIAutoSizeScaleX;
     return value;
 }
@@ -316,32 +316,32 @@ CGRectShouldMakeAutoSize(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BO
 #define kHeightBottomSafeArea (isIPoneSafeArea ? 34.0f : 0.0f)
 
 CG_INLINE CGFloat
-SYGetTop(CGFloat y, BOOL hiddenNav) {
-    CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + y) : y);
-    return result;
+CGRectGetTop(CGFloat y, BOOL hideNav) {
+    CGFloat value = (hideNav ? (kHeightStatusSafeArea + y) : y);
+    return value;
 }
 
 CG_INLINE CGFloat
-SYGetBottom(CGFloat y, BOOL hiddenNav) {
-    CGFloat result = (hiddenNav ? (y - kHeightBottomSafeArea) : y);
-    return result;
+CGRectGetBottom(CGFloat y, BOOL hideNav) {
+    CGFloat value = (hideNav ? (y - kHeightBottomSafeArea) : y);
+    return value;
 }
 
 CG_INLINE CGFloat
-SYGetHeightTop(CGFloat height, BOOL hiddenNav) {
-    CGFloat result = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
-    return result;
+CGRectGetHeightTop(CGFloat height, BOOL hideNav) {
+    CGFloat value = (hideNav ? (kHeightStatusSafeArea + height) : height);
+    return value;
 }
 
 CG_INLINE CGFloat
-SYGetHeightBottom(CGFloat height, BOOL hiddenTap) {
-    CGFloat result = (hiddenTap ? (kHeightBottomSafeArea + height) : height);
-    return result;
+CGRectGetHeightBottom(CGFloat height, BOOL hideTabBar) {
+    CGFloat value = (hideTabBar ? (kHeightBottomSafeArea + height) : height);
+    return value;
 }
 
 /// iPhoneX适配
 CG_INLINE CGRect
-SYCGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hiddenNav, BOOL hiddenTab, BOOL isTop) {
+CGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hideNav, BOOL hideTabBar, BOOL isTop) {
     CGRect rect;
     rect.origin.x = x;
     rect.origin.y = y;
@@ -349,11 +349,11 @@ SYCGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL h
     rect.size.height = height;
     if (isTop) {
         // 顶端时
-        rect.size.height = (hiddenNav ? (kHeightStatusSafeArea + height) : height);
+        rect.size.height = (hideNav ? (kHeightStatusSafeArea + height) : height);
     } else {
         // 底部时
-        rect.origin.y = (hiddenTab ? (y - kHeightBottomSafeArea) : y);
-        rect.size.height = (hiddenTab ? (kHeightBottomSafeArea + height) : height);
+        rect.origin.y = (hideTabBar ? (y - kHeightBottomSafeArea) : y);
+        rect.size.height = (hideTabBar ? (kHeightBottomSafeArea + height) : height);
     }
     return rect;
 }
