@@ -9,6 +9,7 @@
 #import "AutoSizeVC.h"
 #import "SYUIInitMethod.h"
 #import "AutoSizeTableViewCell.h"
+#import "SYAutoSizeCGRect.h"
 
 @interface AutoSizeVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -42,8 +43,10 @@
     //
     UIView *headerView = InsertView(nil, CGRectMake(0.0, 0.0, tableView.frame.size.width, CGRectGetHeightAutoSize(240.0)), [UIColor.blackColor colorWithAlphaComponent:0.3], 0.0, nil, 0.0);
     tableView.tableHeaderView = headerView;
-    UIView *currentView = InsertImageView(headerView, CGRectMake((headerView.frame.size.width - 120.0) / 2, (headerView.frame.size.height - 120.0) / 2, 120.0, 120.0), [UIImage imageNamed:@"002.jpg"]);
-    InsertLabel(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), CGRectGetHeightAutoSize(30.0)), NSTextAlignmentCenter, @"番薯大佬", [UIFont systemFontOfSize:15.0], UIColor.blackColor, NO);
+    CGFloat size = CGRectGetWidthAutoSize(120.0);
+    UIView *currentView = InsertImageView(headerView, CGRectMake((headerView.frame.size.width - size) / 2, (headerView.frame.size.height - size) / 2, size, size), [UIImage imageNamed:@"002.jpg"]);
+    NSString *text = [NSString stringWithFormat:@"番薯大佬 sacle %@\nsize %@, layoutSize %@", NSStringFromCGPoint (UIAutoSize.layoutScale), NSStringFromCGSize(UIScreen.mainScreen.bounds.size), NSStringFromCGSize(UIAutoSize.layoutSize)];
+    InsertLabel(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), CGRectGetHeightAutoSize(40.0)), NSTextAlignmentCenter, text, [UIFont systemFontOfSize:15.0], UIColor.blackColor, YES);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

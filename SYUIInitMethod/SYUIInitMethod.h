@@ -10,8 +10,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-//#import "SYAutoSizeCGRect.h"
-
 /// 自适应大小类型（宽高，或宽）
 typedef NS_ENUM(NSInteger, UIAutoSizelabelType) {
     /// 自适应宽

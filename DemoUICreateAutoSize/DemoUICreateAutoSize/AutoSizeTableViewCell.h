@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SYAutoSizeCGRect.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define heightAutoSizeTableViewCell CGRectGetHeightAutoSize(100.0)
+#define heightAutoSizeTableViewCell CGRectGetHeightAutoSize(30)
 
 @interface AutoSizeTableViewCell : UITableViewCell
 

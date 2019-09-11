@@ -11,6 +11,15 @@
 #define screenWidth  ([[UIScreen mainScreen] bounds].size.width)
 #define screenHeight ([[UIScreen mainScreen] bounds].size.height)
 
+static NSString *const kScaleX = @"scaleX";
+static NSString *const kScaleY = @"scaleY";
+
+@interface SYUIInitMethod ()
+
+@property (nonatomic, strong) NSDictionary *scaleDict;
+
+@end
+
 @implementation SYUIInitMethod
 
 + (instancetype)shareUIInit
@@ -21,6 +30,15 @@
         instance = [[self alloc] init];
     });
     return instance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
 }
 
 - (CGSize)layoutSize
@@ -61,17 +79,28 @@
     CGPoint point = CGPointMake(self.layoutScaleX, self.layoutScaleY);
     return point;
 }
-// 计算改缓存
+
 - (CGFloat)layoutScaleX
 {
-    CGFloat scale = (self.layoutSize.width == screenWidth ? 1.0 : screenWidth / self.layoutSize.width);
+    NSNumber *number = self.scaleDict[kScaleX];
+    CGFloat scale = number.doubleValue;;
     return scale;
 }
 
 - (CGFloat)layoutScaleY
 {
-    CGFloat scale = (self.layoutSize.height == screenHeight ? 1.0 : screenHeight / self.layoutSize.height);
+    NSNumber *number = self.scaleDict[kScaleY];
+    CGFloat scale = number.doubleValue;
     return scale;
+}
+
+// 
+- (NSDictionary *)scaleDict
+{
+    if (_scaleDict == nil) {
+        _scaleDict = @{kScaleX:@((self.layoutSize.width == screenWidth ? 1.0 : screenWidth / self.layoutSize.width)), kScaleY:@((self.layoutSize.height == screenHeight ? 1.0 : screenHeight / self.layoutSize.height))};
+    }
+    return _scaleDict;
 }
 
 /****************************************************************/
@@ -130,6 +159,7 @@ void ViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat
 
 #pragma mark - UILabel
 
+static CGFloat sizeSpace = 10.0;
 UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize, BOOL shadow, UIColor *shadowColor, CGSize shadowOffset)
 {
     UILabel *label = [[UILabel alloc] initWithFrame:rect];
@@ -152,7 +182,7 @@ UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment a
         CGSize size = CGSizeMake(rect.size.width, MAXFLOAT);
         CGSize labelsize = [text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:textFont} context:nil].size;
         
-        label.frame = CGRectMake(rect.origin.x, rect.origin.y, labelsize.width, labelsize.height);
+        label.frame = CGRectMake(rect.origin.x, rect.origin.y, labelsize.width + sizeSpace, labelsize.height + sizeSpace);
     }
     
     if (shadow) {
@@ -170,7 +200,6 @@ UILabel *InsertLabel(UIView *superView, CGRect rect, NSTextAlignment align, NSSt
     return InsertLabelWithShadow(superView, rect, align, text, textFont, textColor, resize, NO, nil, CGSizeMake(0.0, 0.0));
 }
 
-static CGFloat sizeSpace = 10.0;
 void LabelReloadSize(UILabel *label, UIAutoSizelabelType autoType)
 {
     if (label && [label isKindOfClass:[UILabel class]]) {
