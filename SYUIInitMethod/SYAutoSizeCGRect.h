@@ -213,26 +213,26 @@
 ////////////////////////////////////////////////////////////////////////////////////
 
 CG_INLINE CGFloat
-CGRectGetMinXAutoSize(CGRect rect) {
-    CGFloat value = rect.origin.x * UIAutoSizeScaleX;
+CGRectGetMinXAutoSize(CGFloat x) {
+    CGFloat value = x * UIAutoSizeScaleX;
     return value;
 }
 
 CG_INLINE CGFloat
-CGRectGetMinYAutoSize(CGRect rect) {
-    CGFloat value = rect.origin.y * UIAutoSizeScaleY;
+CGRectGetMinYAutoSize(CGFloat y) {
+    CGFloat value = y * UIAutoSizeScaleY;
     return value;
 }
 
 CG_INLINE CGFloat
-CGRectGetWidthAutoSize(CGRect rect) {
-    CGFloat value = rect.size.width * UIAutoSizeScaleX;
+CGRectGetWidthAutoSize(CGFloat width) {
+    CGFloat value = width * UIAutoSizeScaleX;
     return value;
 }
 
 CG_INLINE CGFloat
-CGRectGetHeightAutoSize(CGRect rect) {
-    CGFloat value = rect.size.height * UIAutoSizeScaleY;
+CGRectGetHeightAutoSize(CGFloat height) {
+    CGFloat value = height * UIAutoSizeScaleY;
     return value;
 }
 
@@ -259,18 +259,6 @@ CGRectMakeAutoSize(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
     value.origin.y = y * UIAutoSizeScaleY;
     value.size.width = width * UIAutoSizeScaleX;
     value.size.height = height * UIAutoSizeScaleY;
-    return value;
-}
-
-CG_INLINE CGFloat
-CGRectGetHeightAutoSize(CGFloat height) {
-    CGFloat value = height * UIAutoSizeScaleY;
-    return value;
-}
-
-CG_INLINE CGFloat
-CGRectGetWidthAutoSize(CGFloat width) {
-    CGFloat value = width * UIAutoSizeScaleX;
     return value;
 }
 

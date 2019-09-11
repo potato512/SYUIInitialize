@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define heightAutoSizeTableViewCell 100.0
+#define heightAutoSizeTableViewCell CGRectGetHeightAutoSize(100.0)
 
 @interface AutoSizeTableViewCell : UITableViewCell
 

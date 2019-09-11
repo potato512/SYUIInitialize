@@ -10,43 +10,46 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "SYAutoSizeCGRect.h"
+//#import "SYAutoSizeCGRect.h"
 
 /// 自适应大小类型（宽高，或宽）
-typedef NS_ENUM(NSInteger, SYAutoSizelabelType) {
+typedef NS_ENUM(NSInteger, UIAutoSizelabelType) {
     /// 自适应宽
-    SYAutoSizelabelHorizontal,
+    UIAutoSizelabelHorizontal,
     
     /// 自适应宽高
-    SYAutoSizelabelAll
+    UIAutoSizelabelAll
 };
 
 /// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax（默认iPhone6）
-typedef NS_ENUM(NSInteger, SYAutoLayoutType) {
+typedef NS_ENUM(NSInteger, UIAutoLayoutType) {
     /// 适配机型标准 iPhone6/7/8 [750 * 1334]（默认iPhone6）
-    SYAutoLayoutTypeiPhone6,
+    UIAutoLayoutTypeiPhone6,
     /// 适配机型标准 iPhone4/4S [640 * 960]
-    SYAutoLayoutTypeiPhone4,
+    UIAutoLayoutTypeiPhone4,
     /// 适配机型标准 iPhone5/5S/5C/SE [640 * 1136]
-    SYAutoLayoutTypeiPhone5,
+    UIAutoLayoutTypeiPhone5,
     /// 适配机型标准 iPhone6P/7P/8P [1242 * 2208]
-    SYAutoLayoutTypeiPhone6P,
+    UIAutoLayoutTypeiPhone6P,
     /// 适配机型标准 iPhoneX/Xs [1125 * 2436]
-    SYAutoLayoutTypeiPhoneX,
+    UIAutoLayoutTypeiPhoneX,
     /// 适配机型标准 iPhoneXR [828 * 1792]
-    SYAutoLayoutTypeiPhoneXR,
+    UIAutoLayoutTypeiPhoneXR,
     /// 适配机型标准 iPhoneXsMax [1242 * 2688]
-    SYAutoLayoutTypeiPhoneXsMax
+    UIAutoLayoutTypeiPhoneXsMax
 };
 
 /// 弹窗视图控制器回调
 typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFields);
 
+///
+#define UIAutoSize (SYUIInitMethod.shareUIInit)
+
 @interface SYUIInitMethod : NSObject
 
 + (instancetype)shareUIInit;
 /// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax（默认iPhone6）
-@property (nonatomic, assign) SYAutoLayoutType layoutType;
+@property (nonatomic, assign) UIAutoLayoutType layoutType;
 /// 适配机型大小
 @property (nonatomic, assign, readonly) CGSize layoutSize;
 /// 适配机型比例X轴
@@ -79,7 +82,7 @@ UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment a
 
 UILabel *InsertLabel(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize);
 
-void LabelReloadSize(UILabel *label, SYAutoSizelabelType autoType);
+void LabelReloadSize(UILabel *label, UIAutoSizelabelType autoType);
 
 #pragma mark - UIImageView
 

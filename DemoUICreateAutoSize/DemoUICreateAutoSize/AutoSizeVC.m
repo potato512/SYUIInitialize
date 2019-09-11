@@ -40,10 +40,10 @@
 {
     UITableView *tableView = InsertTableView(self.view, self.view.bounds, self, self, UITableViewStylePlain, UITableViewCellSeparatorStyleNone);
     //
-    UIView *headerView = InsertView(nil, CGRectMake(0.0, 0.0, tableView.frame.size.width, 240.0), [UIColor.blackColor colorWithAlphaComponent:0.3], 0.0, nil, 0.0);
+    UIView *headerView = InsertView(nil, CGRectMake(0.0, 0.0, tableView.frame.size.width, CGRectGetHeightAutoSize(240.0)), [UIColor.blackColor colorWithAlphaComponent:0.3], 0.0, nil, 0.0);
     tableView.tableHeaderView = headerView;
     UIView *currentView = InsertImageView(headerView, CGRectMake((headerView.frame.size.width - 120.0) / 2, (headerView.frame.size.height - 120.0) / 2, 120.0, 120.0), [UIImage imageNamed:@"002.jpg"]);
-    InsertLabel(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), 30.0), NSTextAlignmentCenter, @"番薯大佬", [UIFont systemFontOfSize:15.0], UIColor.blackColor, NO);
+    InsertLabel(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), CGRectGetHeightAutoSize(30.0)), NSTextAlignmentCenter, @"番薯大佬", [UIFont systemFontOfSize:15.0], UIColor.blackColor, NO);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -54,7 +54,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return heightAutoSizeTableViewCell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -26,19 +26,19 @@
 - (CGSize)layoutSize
 {
     CGSize size = CGSizeMake(375, 667);
-    if (self.layoutType == SYAutoLayoutTypeiPhone4) {
+    if (self.layoutType == UIAutoLayoutTypeiPhone4) {
         size = CGSizeMake(320, 480);
-    } else if (self.layoutType == SYAutoLayoutTypeiPhone5) {
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone5) {
         size = CGSizeMake(320, 568);
-    } else if (self.layoutType == SYAutoLayoutTypeiPhone6) {
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6) {
         size = CGSizeMake(375, 667);
-    } else if (self.layoutType == SYAutoLayoutTypeiPhone6P) {
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6P) {
         size = CGSizeMake(414, 736);
-    } else if (self.layoutType == SYAutoLayoutTypeiPhoneX) {
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneX) {
         size = CGSizeMake(375, 812);
-    } else if (self.layoutType == SYAutoLayoutTypeiPhoneXR) {
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXR) {
         size = CGSizeMake(414, 896);
-    } else if (self.layoutType == SYAutoLayoutTypeiPhoneXsMax) {
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXsMax) {
         size = CGSizeMake(414, 896);
     }
     return size;
@@ -61,7 +61,7 @@
     CGPoint point = CGPointMake(self.layoutScaleX, self.layoutScaleY);
     return point;
 }
-
+// 计算改缓存
 - (CGFloat)layoutScaleX
 {
     CGFloat scale = (self.layoutSize.width == screenWidth ? 1.0 : screenWidth / self.layoutSize.width);
@@ -170,7 +170,8 @@ UILabel *InsertLabel(UIView *superView, CGRect rect, NSTextAlignment align, NSSt
     return InsertLabelWithShadow(superView, rect, align, text, textFont, textColor, resize, NO, nil, CGSizeMake(0.0, 0.0));
 }
 
-void LabelReloadSize(UILabel *label, SYAutoSizelabelType autoType)
+static CGFloat sizeSpace = 10.0;
+void LabelReloadSize(UILabel *label, UIAutoSizelabelType autoType)
 {
     if (label && [label isKindOfClass:[UILabel class]]) {
         [label setNumberOfLines:0];
@@ -179,10 +180,10 @@ void LabelReloadSize(UILabel *label, SYAutoSizelabelType autoType)
         CGSize size = CGSizeMake(label.frame.size.width, MAXFLOAT);
         CGSize labelsize = [label.text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:label.font} context:nil].size;
         
-        if (SYAutoSizelabelHorizontal == autoType) {
-            label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, labelsize.width, label.frame.size.height);
-        } else if (SYAutoSizelabelAll == autoType) {
-            label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, labelsize.width, labelsize.height);
+        if (UIAutoSizelabelHorizontal == autoType) {
+            label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, labelsize.width + sizeSpace, label.frame.size.height);
+        } else if (UIAutoSizelabelAll == autoType) {
+            label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, labelsize.width + sizeSpace, labelsize.height + sizeSpace);
         }
     }
 }
