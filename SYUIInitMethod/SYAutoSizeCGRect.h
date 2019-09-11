@@ -37,6 +37,11 @@
 #define UIAutoSizeScaleX (SYUIInitMethod.shareUIInit.layoutScaleX)
 #define UIAutoSizeScaleY (SYUIInitMethod.shareUIInit.layoutScaleY)
 
+#define UIFontAutoSize(size) [UIFont systemFontOfSize:(size * UIAutoSizeScaleX)]
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 

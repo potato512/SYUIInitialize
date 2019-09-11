@@ -46,7 +46,7 @@
     CGFloat size = CGRectGetWidthAutoSize(120.0);
     UIView *currentView = InsertImageView(headerView, CGRectMake((headerView.frame.size.width - size) / 2, (headerView.frame.size.height - size) / 2, size, size), [UIImage imageNamed:@"002.jpg"]);
     NSString *text = [NSString stringWithFormat:@"番薯大佬 sacle %@\nsize %@, layoutSize %@", NSStringFromCGPoint (UIAutoSize.layoutScale), NSStringFromCGSize(UIScreen.mainScreen.bounds.size), NSStringFromCGSize(UIAutoSize.layoutSize)];
-    InsertLabel(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), CGRectGetHeightAutoSize(40.0)), NSTextAlignmentCenter, text, [UIFont systemFontOfSize:15.0], UIColor.blackColor, YES);
+    InsertLabel(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), CGRectGetHeightAutoSize(40.0)), NSTextAlignmentCenter, text, UIFontAutoSize(15), UIColor.blackColor, YES);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -65,6 +65,7 @@
     AutoSizeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AutoSizeTableViewCell"];
     if (cell == nil) {
         cell = [[AutoSizeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AutoSizeTableViewCell"];
+        cell.textLabel.font = UIFontAutoSize(13);
     }
     cell.textLabel.text = [NSString stringWithFormat:@"row = %ld", indexPath.row];
     return cell;
