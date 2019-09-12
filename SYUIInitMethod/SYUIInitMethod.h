@@ -46,8 +46,12 @@ typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFi
 @interface SYUIInitMethod : NSObject
 
 + (instancetype)shareUIInit;
-/// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax（默认iPhone6）
+
+/// 是否自适配（默认YES，在- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {} 初始化设置）
+@property (nonatomic, assign) BOOL isAuto;
+/// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax（默认iPhone6，在- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {} 初始化设置）
 @property (nonatomic, assign) UIAutoLayoutType layoutType;
+
 /// 适配机型大小
 @property (nonatomic, assign, readonly) CGSize layoutSize;
 /// 适配机型比例X轴

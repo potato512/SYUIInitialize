@@ -38,6 +38,8 @@
 #define UIAutoSizeScaleY (SYUIInitMethod.shareUIInit.layoutScaleY)
 
 #define UIFontAutoSize(size) [UIFont systemFontOfSize:(size * UIAutoSizeScaleX)]
+#define UIFontBoldAutoSize(size) [UIFont boldSystemFontOfSize:(size * UIAutoSizeScaleX)]
+#define UIFontNameAutoSize(name, size) [UIFont fontWithName:name size:(size * UIAutoSizeScaleX)]
 
 ////////////////////////////////////////////////////////////////////////////////////
 

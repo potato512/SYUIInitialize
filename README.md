@@ -10,8 +10,9 @@ UI控件初始化方法集成封装类
 ## 使用方法
 ~~~ javascript
 // 1 导入头文件 
-#import "SYUIInitMethod.h"
+#import "SYAutoSizeCGRect.h"
 ~~~ 
+
 ~~~ javascript
 // 初始化使用UI控件 
 // 创建view
@@ -35,15 +36,28 @@ InsertAlertController(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信�
 });
 ~~~ 
 
+~~~ javascript
+// 适配初始化
+UIAutoSize.isAuto = NO; // 不进行自适配
+
+UIAutoSize.layoutType = UIAutoLayoutTypeiPhone5; // 适配机型标准iPhon5/6/7
+~~~
+
 ## 注意事项：
-SYUIInitMethod类是MRC内存管理模式，如果项目是ARC内存管理模式，记得设置支持ARC模式。
-![支持ARC](./DemoUICreate/supportARC.png)
+SYUIInitMethod类是ARC内存管理模式。
 
 ## 效果图
 ![效果图](./DemoUICreate/UIImage.gif)
 
 # 修复完善
-* 20190925
+* 20190912
+  * 版本号：1.2.5
+  * 优化
+    * 新增适配
+      * 初始化设置：是否适配`isAuto`、适配机型标准`layoutType`
+      * 适配属性：比例`layoutScale`
+
+* 20180925
   * 版本号：1.2.4
   * 优化 UIAlertController
   

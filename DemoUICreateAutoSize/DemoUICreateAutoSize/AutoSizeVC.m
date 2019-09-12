@@ -51,8 +51,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.array.count;
-    return 100;
+    return self.array.count;
+    
+//    return 100;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,19 +63,43 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    AutoSizeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AutoSizeTableViewCell"];
+//    if (cell == nil) {
+//        cell = [[AutoSizeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AutoSizeTableViewCell"];
+//        cell.textLabel.font = UIFontAutoSize(13);
+//    }
+//    cell.textLabel.text = [NSString stringWithFormat:@"row = %ld", indexPath.row];
+//    return cell;
+    
     AutoSizeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AutoSizeTableViewCell"];
     if (cell == nil) {
         cell = [[AutoSizeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AutoSizeTableViewCell"];
-        cell.textLabel.font = UIFontAutoSize(13);
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"row = %ld", indexPath.row];
+    MessageModel *model = self.array[indexPath.row];
+    cell.icomImageView.image = [UIImage imageNamed:model.imageName];
+    cell.titleLabel.text = model.title;
+    cell.contentLabel.text = model.detail;
+    cell.timeLabel.text = model.time;
+    
     return cell;
 }
 
 - (NSArray *)array
 {
     if (_array == nil) {
-        _array = @[@"",@"",@"",@"",@""];
+        NSArray *times = @[@"2019-09-11", @"2019-08-13", @"2019-08-31", @"2019-09-09", @"2019-09-03"];
+        NSArray *details = @[@"注册-验证-激活-添加车辆", @"反馈信息：问题描述、操作流程、期望结果、问题截图", @"UI：登录业务车型放大、空调关闭预约Icon放在右下角", @"云服务已成功激活，感谢您的使用！"];
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        for (int i = 0; i < 20; i++) {
+            MessageModel *model = [[MessageModel alloc] init];
+            model.imageName = @"002.jpg";
+            model.title = [NSString stringWithFormat:@"标题：每 %@ 个", @(i)];
+            model.detail = details[arc4random() % details.count];
+            model.time = times[arc4random() % times.count];
+            
+            [temp addObject:model];
+        }
+        _array = [NSArray arrayWithArray:temp];
     }
     return _array;
 }

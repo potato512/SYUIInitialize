@@ -42,6 +42,11 @@
     InsertTextField(view, self, CGRectMake(10.0, 90.0, 120.0, 30.0), @"input your name", [UIFont systemFontOfSize:13.0], NSTextAlignmentLeft, UIControlContentVerticalAlignmentCenter, 1.0, [UIColor purpleColor], nil, 3.0, NO, UIKeyboardTypeDefault, UIReturnKeyDone);
     InsertSearchBar(view, CGRectMake(140.0, 90.0, 120.0, 30.0), self, @"search", UISearchBarStyleDefault, [UIColor redColor], [UIColor brownColor], nil);
     InsertSegment(view, @[@"red", @"green", @"brown", @"blue", @"black", @"white"], CGRectMake(10.0, 130.0, 300.0, 40.0), self, @selector(segmentClick:));
+    UILabel *label1 = InsertLabel(view, CGRectMake(10, 180, view.frame.size.width - 20, 30), NSTextAlignmentLeft, @"自定义标签自适应宽高", [UIFont systemFontOfSize:13.0], UIColor.blackColor, YES);
+    label1.backgroundColor = UIColor.orangeColor;
+    UILabel *label2 = InsertLabel(view, CGRectMake(10, 220, view.frame.size.width - 20, 30), NSTextAlignmentLeft, @"自定义标签宽度", [UIFont systemFontOfSize:13.0], UIColor.blackColor, NO);
+    LabelReloadSize(label2, UIAutoSizelabelHorizontal);
+    label2.backgroundColor = UIColor.yellowColor;
 }
 
 - (void)loadView

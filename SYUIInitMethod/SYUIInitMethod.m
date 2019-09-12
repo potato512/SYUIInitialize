@@ -36,7 +36,7 @@ static NSString *const kScaleY = @"scaleY";
 {
     self = [super init];
     if (self) {
-        
+        self.isAuto = YES;
     }
     return self;
 }
@@ -98,7 +98,10 @@ static NSString *const kScaleY = @"scaleY";
 - (NSDictionary *)scaleDict
 {
     if (_scaleDict == nil) {
-        _scaleDict = @{kScaleX:@((self.layoutSize.width == screenWidth ? 1.0 : screenWidth / self.layoutSize.width)), kScaleY:@((self.layoutSize.height == screenHeight ? 1.0 : screenHeight / self.layoutSize.height))};
+        _scaleDict = @{kScaleX:@(1.0), kScaleY:@(1.0)};
+        if (self.isAuto) {
+            _scaleDict = @{kScaleX:@((self.layoutSize.width == screenWidth ? 1.0 : screenWidth / self.layoutSize.width)), kScaleY:@((self.layoutSize.height == screenHeight ? 1.0 : screenHeight / self.layoutSize.height))};
+        }
     }
     return _scaleDict;
 }

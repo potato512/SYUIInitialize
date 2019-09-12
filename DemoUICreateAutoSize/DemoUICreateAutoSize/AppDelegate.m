@@ -21,8 +21,8 @@
     // Override point for customization after application launch.
     
     //
-//    UIAutoSize.layoutType = UIAutoLayoutTypeiPhone5;
-//    NSLog(@"size %@, layoutSize %@", NSStringFromCGSize(UIScreen.mainScreen.bounds.size), NSStringFromCGSize(UIAutoSize.layoutSize));
+    UIAutoSize.isAuto = NO;
+    NSLog(@"size %@, layoutSize %@", NSStringFromCGSize(UIScreen.mainScreen.bounds.size), NSStringFromCGSize(UIAutoSize.layoutSize));
     
     //
     ViewController *rootVC = [[ViewController alloc] init];

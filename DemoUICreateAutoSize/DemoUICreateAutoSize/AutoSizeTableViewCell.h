@@ -11,11 +11,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define heightAutoSizeTableViewCell CGRectGetHeightAutoSize(30)
+#define heightAutoSizeTableViewCell CGRectGetHeightAutoSize(60)
+
+@interface MessageModel : NSObject
+
+@property (nonatomic, strong) NSString *imageName;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *detail;
+@property (nonatomic, strong) NSString *time;
+
+@end
 
 @interface AutoSizeTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *icomImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
