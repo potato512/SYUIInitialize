@@ -10,7 +10,7 @@ UI控件初始化方法集成封装类
 ## 使用方法
 ~~~ javascript
 // 1 导入头文件 
-#import "SYAutoSizeCGRect.h"
+#import "SYUIInitMethod.h"
 ~~~ 
 
 ~~~ javascript
@@ -88,4 +88,3 @@ SYUIInitMethod类是ARC内存管理模式。
   * SYUIInitMethod方法完善按钮实例化方法
   * UIButton添加高亮图标属性
   * UIBarButtonItem添加高亮图标属性
-
