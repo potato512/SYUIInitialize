@@ -71,6 +71,12 @@ CGRectGetHeightAutoSize(CGFloat height) {
     return value;
 }
 
+CG_INLINE CGFloat
+CGFloatAutoSize(CGFloat size) {
+    CGFloat value = size * UIAutoSizeScaleX;
+    return value;
+}
+
 CG_INLINE CGPoint
 CGPointMakeAutoSize(CGFloat x, CGFloat y) {
     CGPoint value;
@@ -164,17 +170,17 @@ CGRectGetHeightBottomSafeArea(CGFloat height, BOOL hideTabBar) {
 CG_INLINE CGRect
 CGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hideNav, BOOL hideTabBar, BOOL isTop) {
     CGRect rect;
-    rect.origin.x = x;
-    rect.origin.y = y;
-    rect.size.width = width;
+    rect.origin.x = x * UIAutoSizeScaleX;
+    rect.origin.y = y * UIAutoSizeScaleY;
+    rect.size.width = width * UIAutoSizeScaleX;
     rect.size.height = height;
     if (isTop) {
         // 顶端时
-        rect.size.height = (hideNav ? (kHeightStatusSafeArea + height) : height);
+        rect.size.height = (hideNav ? (kHeightStatusSafeArea + height * UIAutoSizeScaleY) : height * UIAutoSizeScaleY);
     } else {
         // 底部时
         rect.origin.y = (hideTabBar ? (y - kHeightBottomSafeArea) : y);
-        rect.size.height = (hideTabBar ? (kHeightBottomSafeArea + height) : height);
+        rect.size.height = (hideTabBar ? (kHeightBottomSafeArea + height * UIAutoSizeScaleY) : height * UIAutoSizeScaleY);
     }
     return rect;
 }

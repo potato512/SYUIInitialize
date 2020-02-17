@@ -50,6 +50,12 @@ SYUIInitMethod类是ARC内存管理模式。
 ![效果图](./DemoUICreate/UIImage.gif)
 
 # 修复完善
+* 20200217
+  * 版本号：1.2.6
+  * 优化
+    * 新增CGFloatAutoSize(size)方法
+    * 修改刘海机型适配方法CGRectMakeSafeArea
+
 * 20190912
   * 版本号：1.2.5
   * 优化
