@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, UIAutoLayoutType) {
 };
 
 /// 弹窗视图控制器回调
-typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFields);
+typedef void (^AlertControllerClick)(NSString *buttonTitle, NSArray *textFields);
 
 ///
 #define UIAutoSize (SYUIInitMethod.shareUIInit)
@@ -118,7 +118,7 @@ UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetSty
 
 #pragma mark - UIAlertController
 
-UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSArray *titlesAction, AlertControllerClick buttonClick);
+UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSString *cancelTitle, NSArray *buttonTitles, AlertControllerClick buttonClick);
 
 #pragma mark - UIScrollView
 

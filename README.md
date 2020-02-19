@@ -53,7 +53,7 @@ SYUIInitMethod类是ARC内存管理模式。
 * 20200219 
   * 版本号：1.2.7--未提交
   * 优化
-    * 
+    * InsertAlertController方法优化
 
 * 20200217
   * 版本号：1.2.6

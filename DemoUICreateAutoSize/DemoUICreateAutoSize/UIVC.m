@@ -62,13 +62,13 @@
 {
     button.selected = !button.selected;
     
-    InsertAlertController(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信息与编辑", @[@"大兄弟在哪里", @"小老弟在哪里"], @[@"大兄弟", @"小老弟", @"确定", @"取消"], ^(int index, NSString *title, NSArray *textFields) {
+    InsertAlertController(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信息与编辑", @[@"大兄弟在哪里", @"小老弟在哪里"], @"取消", @[@"大兄弟", @"小老弟", @"确定"], ^(NSString *buttonTitle, NSArray *textFields) {
         if (textFields.count > 0) {
             for (UITextField *textfield in textFields) {
-                NSLog(@"index = %@, title = %@, text = %@", @(index), title, textfield.text);
+                NSLog(@"title = %@, text = %@", buttonTitle, textfield.text);
             }
         } else {
-            NSLog(@"index = %@, title = %@", @(index), title);
+            NSLog(@"title = %@", buttonTitle);
         }
     });
 }
@@ -162,43 +162,29 @@
     }
     else if (2 == indexPath.row)
     {
-        InsertAlertController(self, UIAlertControllerStyleAlert, @"温馨提示", @"alertController view视图", nil, @[@"取消", @"知道了", @"你惨了", @"你赢了"], ^(int index, NSString *title, NSArray *textFields) {
-            if ([title isEqualToString:@"取消"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
-            }
-            else if ([title isEqualToString:@"知道了"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
-            }
-            else if ([title isEqualToString:@"你惨了"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
-            }
-            else if ([title isEqualToString:@"你赢了"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
+        InsertAlertController(self, UIAlertControllerStyleAlert, @"温馨提示", @"alertController view视图", nil, @"取消", @[@"知道了", @"你惨了", @"你赢了"], ^(NSString *buttonTitle, NSArray *textFields) {
+            if ([buttonTitle isEqualToString:@"取消"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
+            } else if ([buttonTitle isEqualToString:@"知道了"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
+            } else if ([buttonTitle isEqualToString:@"你惨了"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
+            } else if ([buttonTitle isEqualToString:@"你赢了"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
             }
         });
     }
     else if (3 == indexPath.row)
     {
-        InsertAlertController(self, UIAlertControllerStyleActionSheet, @"温馨提示", @"alertController sheet视图", nil, @[@"取消", @"知道了", @"你惨了", @"你赢了"], ^(int index, NSString *title, NSArray *textFields) {
-            if ([title isEqualToString:@"取消"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
-            }
-            else if ([title isEqualToString:@"知道了"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
-            }
-            else if ([title isEqualToString:@"你惨了"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
-            }
-            else if ([title isEqualToString:@"你赢了"])
-            {
-                NSLog(@"你点击了第 %@ 个按钮，标题是 %@", @(index), title);
+        InsertAlertController(self, UIAlertControllerStyleActionSheet, @"温馨提示", @"alertController sheet视图", nil, @"取消", @[@"知道了", @"你惨了", @"你赢了"], ^(NSString *buttonTitle, NSArray *textFields) {
+            if ([buttonTitle isEqualToString:@"取消"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
+            } else if ([buttonTitle isEqualToString:@"知道了"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
+            } else if ([buttonTitle isEqualToString:@"你惨了"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
+            } else if ([buttonTitle isEqualToString:@"你赢了"]) {
+                NSLog(@"你点击了 标题是 %@", buttonTitle);
             }
         });
     }

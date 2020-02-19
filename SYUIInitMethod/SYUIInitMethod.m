@@ -396,7 +396,7 @@ UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetSty
 
 #pragma mark - UIAlertController
 
-UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSArray *titlesAction, AlertControllerClick buttonClick)
+UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSString *cancelTitle, NSArray *buttonTitles, AlertControllerClick buttonClick)
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:type];
     
@@ -434,17 +434,25 @@ UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type,
         }];
     }];
     //
-    [titlesAction enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if (cancelTitle && [cancelTitle isKindOfClass:NSString.class] && cancelTitle.length > 0) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            if (buttonClick) {
+                buttonClick(cancelTitle, alertController.textFields);
+            }
+        }];
+        [alertController addAction:action];
+    }
+    //
+    [buttonTitles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *title = obj;
         UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (buttonClick) {
-                int index = (int)idx;
-                buttonClick(index, title, alertController.textFields);
+                buttonClick(title, alertController.textFields);
             }
         }];
         [alertController addAction:action];
     }];
-    
+    //
     if (target && [target isKindOfClass:[UIViewController class]]) {
         [target presentViewController:alertController animated:YES completion:nil];
     }
