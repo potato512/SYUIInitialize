@@ -262,7 +262,7 @@ void TimerKill(NSTimer *timer);
  使用方法
  
  1 导入头文件
- #import "UIInitMethod.h"
+ #import "SYAutoSizeCGRect.h"
  
  2 初始化使用UI控件
  // 创建view
