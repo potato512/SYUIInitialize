@@ -42,6 +42,8 @@
 #define SYUIFontAutoSize(size) [UIFont systemFontOfSize:(size * SYUIAutoSizeScaleX)]
 #define SYUIFontBoldAutoSize(size) [UIFont boldSystemFontOfSize:(size * SYUIAutoSizeScaleX)]
 #define SYUIFontNameAutoSize(name, size) [UIFont fontWithName:name size:(size * SYUIAutoSizeScaleX)]
+//
+#define SYAutoSize(size) (size * SYUIAutoSizeScaleX)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
