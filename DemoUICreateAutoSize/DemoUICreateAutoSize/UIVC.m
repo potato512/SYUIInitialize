@@ -21,31 +21,31 @@
     
     self.navigationItem.title = @"视图";
     
-    self.navigationItem.rightBarButtonItem = InsertBarButtonItemWithButton(CGRectMake(0.0, 0.0, 60.0, 44.0), 0, @"edit", @"done", [UIFont systemFontOfSize:15.0], [UIColor blackColor], [UIColor redColor], [UIColor orangeColor], UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, self, @selector(buttonClick:));
+    self.navigationItem.rightBarButtonItem = UIBarButtonItemInitializeWithButton(CGRectMake(0.0, 0.0, 60.0, 44.0), 0, @"edit", @"done", [UIFont systemFontOfSize:15.0], [UIColor blackColor], [UIColor redColor], [UIColor orangeColor], UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, self, @selector(buttonClick:));
     
     // 创建view
-    UIView *view = InsertView(nil, CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), 250.0), [UIColor greenColor], 5.0, [UIColor orangeColor], 5.0);
+    UIView *view = UIViewInitialize(nil, CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), 250.0), [UIColor greenColor], 5.0, [UIColor orangeColor], 5.0);
     
     // 创建tableview
-    UITableView *tableview = InsertTableView(self.view, self.view.bounds, self, self, UITableViewStylePlain, UITableViewCellSeparatorStyleSingleLine);
+    UITableView *tableview = UITableViewInitialize(self.view, self.view.bounds, self, self, UITableViewStylePlain, UITableViewCellSeparatorStyleSingleLine);
     tableview.tableHeaderView = view;
     
     
-    InsertProgressView(view, CGRectMake(100.0, 10.0, 100.0, 5.0), UIProgressViewStyleDefault, 0.5, [UIColor yellowColor], [UIColor redColor]);
-    UILabel *label = InsertLabel(view, CGRectMake(10.0, 20.0, (self.view.bounds.size.width - 10.0 * 2), 20.0), NSTextAlignmentLeft, @"使用自定义方法创建label", [UIFont systemFontOfSize:10.0], [UIColor blackColor], NO);
+    UIProgressViewInitialize(view, CGRectMake(100.0, 10.0, 100.0, 5.0), UIProgressViewStyleDefault, 0.5, [UIColor yellowColor], [UIColor redColor]);
+    UILabel *label = UILabelInitialize(view, CGRectMake(10.0, 20.0, (self.view.bounds.size.width - 10.0 * 2), 20.0), NSTextAlignmentLeft, @"使用自定义方法创建label", [UIFont systemFontOfSize:10.0], [UIColor blackColor], NO);
     label.backgroundColor = [UIColor orangeColor];
-    UIActivityIndicatorView *activityView = InsertActivityIndicatorView(view, CGRectMake(10.0, 50.0, 20.0, 20.0), [UIColor whiteColor], [UIColor brownColor], UIActivityIndicatorViewStyleGray);
+    UIActivityIndicatorView *activityView = UIActivityIndicatorViewInitialize(view, CGRectMake(10.0, 50.0, 20.0, 20.0), [UIColor whiteColor], [UIColor brownColor], UIActivityIndicatorViewStyleGray);
     [activityView startAnimating];
-    InsertPageControl(view, CGRectMake(40.0, 50.0, 60.0, 10.0), 5, 2, [UIColor blackColor], [UIColor redColor]);
-    InsertSlider(view, CGRectMake(110.0, 50.0, 100.0, 30.0), nil, nil);
-    InsertSwitch(view, CGRectMake(220.0, 50.0, 60.0, 30.0), nil, nil);
-    InsertTextField(view, self, CGRectMake(10.0, 90.0, 120.0, 30.0), @"input your name", [UIFont systemFontOfSize:13.0], NSTextAlignmentLeft, UIControlContentVerticalAlignmentCenter, 1.0, [UIColor purpleColor], nil, 3.0, NO, UIKeyboardTypeDefault, UIReturnKeyDone);
-    InsertSearchBar(view, CGRectMake(140.0, 90.0, 120.0, 30.0), self, @"search", UISearchBarStyleDefault, [UIColor redColor], [UIColor brownColor], nil);
-    InsertSegment(view, @[@"red", @"green", @"brown", @"blue", @"black", @"white"], CGRectMake(10.0, 130.0, 300.0, 40.0), self, @selector(segmentClick:));
-    UILabel *label1 = InsertLabel(view, CGRectMake(10, 180, view.frame.size.width - 20, 30), NSTextAlignmentLeft, @"自定义标签自适应宽高", [UIFont systemFontOfSize:13.0], UIColor.blackColor, YES);
+    UIPageControlInitialize(view, CGRectMake(40.0, 50.0, 60.0, 10.0), 5, 2, [UIColor blackColor], [UIColor redColor]);
+    UISliderInitialize(view, CGRectMake(110.0, 50.0, 100.0, 30.0), nil, nil);
+    UISwitchInitialize(view, CGRectMake(220.0, 50.0, 60.0, 30.0), nil, nil);
+    UITextFieldInitialize(view, self, CGRectMake(10.0, 90.0, 120.0, 30.0), @"input your name", [UIFont systemFontOfSize:13.0], NSTextAlignmentLeft, UIControlContentVerticalAlignmentCenter, 1.0, [UIColor purpleColor], nil, 3.0, NO, UIKeyboardTypeDefault, UIReturnKeyDone);
+    UISearchBarInitialize(view, CGRectMake(140.0, 90.0, 120.0, 30.0), self, @"search", UISearchBarStyleDefault, [UIColor redColor], [UIColor brownColor], nil);
+    UISegmentedControlInitialize(view, @[@"red", @"green", @"brown", @"blue", @"black", @"white"], CGRectMake(10.0, 130.0, 300.0, 40.0), self, @selector(segmentClick:));
+    UILabel *label1 = UILabelInitialize(view, CGRectMake(10, 180, view.frame.size.width - 20, 30), NSTextAlignmentLeft, @"自定义标签自适应宽高", [UIFont systemFontOfSize:13.0], UIColor.blackColor, YES);
     label1.backgroundColor = UIColor.orangeColor;
-    UILabel *label2 = InsertLabel(view, CGRectMake(10, 220, view.frame.size.width - 20, 30), NSTextAlignmentLeft, @"自定义标签宽度", [UIFont systemFontOfSize:13.0], UIColor.blackColor, NO);
-    LabelReloadSize(label2, UIAutoSizelabelHorizontal);
+    UILabel *label2 = UILabelInitialize(view, CGRectMake(10, 220, view.frame.size.width - 20, 30), NSTextAlignmentLeft, @"自定义标签宽度", [UIFont systemFontOfSize:13.0], UIColor.blackColor, NO);
+    UILabelReloadSize(label2, UIAutoSizelabelHorizontal);
     label2.backgroundColor = UIColor.yellowColor;
 }
 
@@ -62,13 +62,13 @@
 {
     button.selected = !button.selected;
     
-    InsertAlertController(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信息与编辑", @[@"大兄弟在哪里", @"小老弟在哪里"], @"取消", @[@"大兄弟", @"小老弟", @"确定"], ^(NSString *buttonTitle, NSArray *textFields) {
+    UIAlertControllerInitialize(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信息与编辑", @[@"大兄弟在哪里", @"小老弟在哪里"], @[@"取消", @"大兄弟", @"小老弟", @"确定"], ^(int index, NSString *title, NSArray *textFields) {
         if (textFields.count > 0) {
             for (UITextField *textfield in textFields) {
-                NSLog(@"title = %@, text = %@", buttonTitle, textfield.text);
+                NSLog(@"title = %@, text = %@", title, textfield.text);
             }
         } else {
-            NSLog(@"title = %@", buttonTitle);
+            NSLog(@"title = %@", title);
         }
     });
 }
@@ -154,37 +154,37 @@
     
     if (0 == indexPath.row)
     {
-        InsertAlert(UIAlertViewStyleDefault, @"温馨提示", @"你点击了", 0, nil, @"取消", @"确认");
+        UIAlertControllerInitialize(self, UIAlertControllerStyleAlert, @"温馨提示", @"你点击了", nil, @[@"取消", @"确认"], NULL);
     }
     else if (1 == indexPath.row)
     {
-        InsertActionSheetWithMoreButton(self.view, nil, UIActionSheetStyleDefault, @"提示", @"cancel", @"警告", @"001", @"002");
+        UIAlertControllerInitialize(self, UIAlertControllerStyleActionSheet, @"提示", nil, nil, @[@"提示", @"cancel", @"警告", @"001", @"002"], NULL);
     }
     else if (2 == indexPath.row)
     {
-        InsertAlertController(self, UIAlertControllerStyleAlert, @"温馨提示", @"alertController view视图", nil, @"取消", @[@"知道了", @"你惨了", @"你赢了"], ^(NSString *buttonTitle, NSArray *textFields) {
-            if ([buttonTitle isEqualToString:@"取消"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
-            } else if ([buttonTitle isEqualToString:@"知道了"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
-            } else if ([buttonTitle isEqualToString:@"你惨了"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
-            } else if ([buttonTitle isEqualToString:@"你赢了"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
+        UIAlertControllerInitialize(self, UIAlertControllerStyleAlert, @"温馨提示", @"alertController view视图", nil, @[@"取消", @"知道了", @"你惨了", @"你赢了"], ^(int index, NSString *title, NSArray *textFields) {
+            if ([title isEqualToString:@"取消"]) {
+                NSLog(@"你点击了 标题是 %@", title);
+            } else if ([title isEqualToString:@"知道了"]) {
+                NSLog(@"你点击了 标题是 %@", title);
+            } else if ([title isEqualToString:@"你惨了"]) {
+                NSLog(@"你点击了 标题是 %@", title);
+            } else if ([title isEqualToString:@"你赢了"]) {
+                NSLog(@"你点击了 标题是 %@", title);
             }
         });
     }
     else if (3 == indexPath.row)
     {
-        InsertAlertController(self, UIAlertControllerStyleActionSheet, @"温馨提示", @"alertController sheet视图", nil, @"取消", @[@"知道了", @"你惨了", @"你赢了"], ^(NSString *buttonTitle, NSArray *textFields) {
-            if ([buttonTitle isEqualToString:@"取消"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
-            } else if ([buttonTitle isEqualToString:@"知道了"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
-            } else if ([buttonTitle isEqualToString:@"你惨了"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
-            } else if ([buttonTitle isEqualToString:@"你赢了"]) {
-                NSLog(@"你点击了 标题是 %@", buttonTitle);
+        UIAlertControllerInitialize(self, UIAlertControllerStyleActionSheet, @"温馨提示", @"alertController sheet视图", nil, @[@"取消", @"知道了", @"你惨了", @"你赢了"], ^(int index, NSString *title, NSArray *textFields) {
+            if ([title isEqualToString:@"取消"]) {
+                NSLog(@"你点击了 标题是 %@", title);
+            } else if ([title isEqualToString:@"知道了"]) {
+                NSLog(@"你点击了 标题是 %@", title);
+            } else if ([title isEqualToString:@"你惨了"]) {
+                NSLog(@"你点击了 标题是 %@", title);
+            } else if ([title isEqualToString:@"你赢了"]) {
+                NSLog(@"你点击了 标题是 %@", title);
             }
         });
     }

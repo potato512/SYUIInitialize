@@ -14,17 +14,33 @@
 static NSString *const kScaleX = @"scaleX";
 static NSString *const kScaleY = @"scaleY";
 
-@interface SYUIInitMethod ()
+
+/****************************************************************/
+
+@implementation SYUIAutoSizeModel
+
++ (instancetype)autoSizeModelWith:(NSString *)name size:(CGSize)size inch:(CGFloat)inch
+{
+    SYUIAutoSizeModel *model = [[SYUIAutoSizeModel alloc] init];
+    model.typeName = name;
+    model.typeSize = size;
+    model.typeInch = inch;
+    return model;
+}
+
+@end
+
+@interface SYUIAutoSize ()
 
 @property (nonatomic, strong) NSDictionary *scaleDict;
 
 @end
 
-@implementation SYUIInitMethod
+@implementation SYUIAutoSize
 
-+ (instancetype)shareUIInit
++ (instancetype)share
 {
-    static SYUIInitMethod *instance;
+    static SYUIAutoSize *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] init];
@@ -37,29 +53,86 @@ static NSString *const kScaleY = @"scaleY";
     self = [super init];
     if (self) {
         self.isAuto = YES;
+        // 默认iPhone6
+        SYUIAutoSizeModel *model = [SYUIAutoSizeModel autoSizeModelWith:@"iPhone 6" size:CGSizeMake(375, 667) inch:4.7];
+        self.defaultLayout = model;
     }
     return self;
 }
 
+- (NSString *)layoutName
+{
+    if (self.defaultLayout) {
+        return self.defaultLayout.typeName;
+    }
+    //
+    NSString *result = @"iPhone 6";
+    if (self.layoutType == UIAutoLayoutTypeiPhone4) {
+        result = @"iPhone 4";
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone5) {
+        result = @"iPhone 5";
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6) {
+        result = @"iPhone 6";
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6P) {
+        result = @"iPhone 6Plus";
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneX) {
+        result = @"iPhone X";
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXR) {
+        result = @"iPhone XR";
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXsMax) {
+        result = @"iPhone Xs Max";
+    }
+    return result;
+}
+
+- (CGFloat)layoutInch
+{
+    if (self.defaultLayout) {
+        return self.defaultLayout.typeInch;
+    }
+    //
+    CGFloat result = 4.7;
+    if (self.layoutType == UIAutoLayoutTypeiPhone4) {
+        result = 3.5;
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone5) {
+        result = 4.0;
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6) {
+        result = 4.7;
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6P) {
+        result = 5.5;
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneX) {
+        result = 5.8;
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXR) {
+        result = 6.1;
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXsMax) {
+        result = 6.5;
+    }
+    return result;
+}
+
 - (CGSize)layoutSize
 {
-    CGSize size = CGSizeMake(375, 667);
-    if (self.layoutType == UIAutoLayoutTypeiPhone4) {
-        size = CGSizeMake(320, 480);
-    } else if (self.layoutType == UIAutoLayoutTypeiPhone5) {
-        size = CGSizeMake(320, 568);
-    } else if (self.layoutType == UIAutoLayoutTypeiPhone6) {
-        size = CGSizeMake(375, 667);
-    } else if (self.layoutType == UIAutoLayoutTypeiPhone6P) {
-        size = CGSizeMake(414, 736);
-    } else if (self.layoutType == UIAutoLayoutTypeiPhoneX) {
-        size = CGSizeMake(375, 812);
-    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXR) {
-        size = CGSizeMake(414, 896);
-    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXsMax) {
-        size = CGSizeMake(414, 896);
+    if (self.defaultLayout) {
+        return self.defaultLayout.typeSize;
     }
-    return size;
+    //
+    CGSize result = CGSizeMake(375, 667);
+    if (self.layoutType == UIAutoLayoutTypeiPhone4) {
+        result = CGSizeMake(320, 480);
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone5) {
+        result = CGSizeMake(320, 568);
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6) {
+        result = CGSizeMake(375, 667);
+    } else if (self.layoutType == UIAutoLayoutTypeiPhone6P) {
+        result = CGSizeMake(414, 736);
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneX) {
+        result = CGSizeMake(375, 812);
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXR) {
+        result = CGSizeMake(414, 896);
+    } else if (self.layoutType == UIAutoLayoutTypeiPhoneXsMax) {
+        result = CGSizeMake(414, 896);
+    }
+    return result;
 }
 
 - (CGFloat)layoutWidth
@@ -94,7 +167,7 @@ static NSString *const kScaleY = @"scaleY";
     return scale;
 }
 
-// 
+//
 - (NSDictionary *)scaleDict
 {
     if (_scaleDict == nil) {
@@ -106,11 +179,15 @@ static NSString *const kScaleY = @"scaleY";
     return _scaleDict;
 }
 
+@end
+
 /****************************************************************/
+
+@implementation SYUIInitMethod
 
 #pragma mark - UIView
 
-UIView *InsertView(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderwidth, UIColor *bordercolor, CGFloat corRadius)
+UIView *UIViewInitialize(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderwidth, UIColor *bordercolor, CGFloat corRadius)
 {
     UIView *view = [[UIView alloc] initWithFrame:rect];
     view.backgroundColor = bgroundColor;
@@ -133,18 +210,18 @@ UIView *InsertView(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloa
     return view;
 }
 
-UIView *InsertViewWithBorder(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderWidth, UIColor *borderColor)
+UIView *UIViewInitializeWithBorder(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat borderWidth, UIColor *borderColor)
 {
-    return InsertView(superview, rect, bgroundColor, borderWidth, borderColor, 0.0);
+    return UIViewInitialize(superview, rect, bgroundColor, borderWidth, borderColor, 0.0);
 }
 
-UIView *InsertViewWithCorRadius(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat corRadius)
+UIView *UIViewInitializeWithCorRadius(UIView *superview, CGRect rect, UIColor *bgroundColor, CGFloat corRadius)
 {
-    return InsertView(superview, rect, bgroundColor, 0.0, nil, corRadius);
+    return UIViewInitialize(superview, rect, bgroundColor, 0.0, nil, corRadius);
 }
 
 // 设置view的边框属性
-void ViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat borderwidth)
+void UIViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat borderwidth)
 {
     if (view && [view isKindOfClass:[UIView class]]) {
         if (radius > 0.0) {
@@ -163,7 +240,7 @@ void ViewReloadLayer(UIView *view, CGFloat radius, UIColor *bordercolor, CGFloat
 #pragma mark - UILabel
 
 static CGFloat sizeSpace = 10.0;
-UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize, BOOL shadow, UIColor *shadowColor, CGSize shadowOffset)
+UILabel *UILabelInitializeWithShadow(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize, BOOL shadow, UIColor *shadowColor, CGSize shadowOffset)
 {
     UILabel *label = [[UILabel alloc] initWithFrame:rect];
     label.backgroundColor = [UIColor clearColor];
@@ -198,12 +275,12 @@ UILabel *InsertLabelWithShadow(UIView *superView, CGRect rect, NSTextAlignment a
     return label;
 }
 
-UILabel *InsertLabel(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize)
+UILabel *UILabelInitialize(UIView *superView, CGRect rect, NSTextAlignment align, NSString *text, UIFont *textFont, UIColor *textColor, BOOL resize)
 {
-    return InsertLabelWithShadow(superView, rect, align, text, textFont, textColor, resize, NO, nil, CGSizeMake(0.0, 0.0));
+    return UILabelInitializeWithShadow(superView, rect, align, text, textFont, textColor, resize, NO, nil, CGSizeMake(0.0, 0.0));
 }
 
-void LabelReloadSize(UILabel *label, UIAutoSizelabelType autoType)
+void UILabelReloadSize(UILabel *label, UIAutoSizelabelType autoType)
 {
     if (label && [label isKindOfClass:[UILabel class]]) {
         [label setNumberOfLines:0];
@@ -222,7 +299,7 @@ void LabelReloadSize(UILabel *label, UIAutoSizelabelType autoType)
 
 #pragma mark - UIImageView
 
-UIImageView *InsertImageView(UIView *superview, CGRect rect, UIImage *image)
+UIImageView *UIImageViewInitialize(UIView *superview, CGRect rect, UIImage *image)
 {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
     imageView.backgroundColor = [UIColor clearColor];
@@ -242,7 +319,7 @@ UIImageView *InsertImageView(UIView *superview, CGRect rect, UIImage *image)
 
 #pragma mark - UIProgressView
 
-UIProgressView *InsertProgressView(UIView *superview, CGRect rect, UIProgressViewStyle style, CGFloat progressValue, UIColor *progressColor, UIColor *trackColor)
+UIProgressView *UIProgressViewInitialize(UIView *superview, CGRect rect, UIProgressViewStyle style, CGFloat progressValue, UIColor *progressColor, UIColor *trackColor)
 {
     UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:rect];
     
@@ -267,7 +344,7 @@ UIProgressView *InsertProgressView(UIView *superview, CGRect rect, UIProgressVie
 
 #pragma mark - UIActivityIndicatorView
 
-UIActivityIndicatorView *InsertActivityIndicatorView(UIView *superview, CGRect rect, UIColor *bgroundColor, UIColor *styleColor, UIActivityIndicatorViewStyle style)
+UIActivityIndicatorView *UIActivityIndicatorViewInitialize(UIView *superview, CGRect rect, UIColor *bgroundColor, UIColor *styleColor, UIActivityIndicatorViewStyle style)
 {
     UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithFrame:rect];
     
@@ -292,7 +369,7 @@ UIActivityIndicatorView *InsertActivityIndicatorView(UIView *superview, CGRect r
 
 #pragma mark - UIPageControl
 
-UIPageControl *InsertPageControl(UIView *superview, CGRect rect, NSInteger pageCounts, NSInteger currentPage, UIColor *pageColor, UIColor *currentPageColor)
+UIPageControl *UIPageControlInitialize(UIView *superview, CGRect rect, NSInteger pageCounts, NSInteger currentPage, UIColor *pageColor, UIColor *currentPageColor)
 {
     UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:rect];
     pageControl.backgroundColor = [UIColor clearColor];
@@ -315,88 +392,9 @@ UIPageControl *InsertPageControl(UIView *superview, CGRect rect, NSInteger pageC
     return pageControl;
 }
 
-#pragma mark - UIAlertView
-
-UIAlertView *InsertAlert(UIAlertViewStyle style, NSString *title, NSString *message, NSInteger tag, id delegate, NSString *cancel, NSString *ok)
-{
-    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:title message:message delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil];
-    alertview.alertViewStyle = style;
-    alertview.tag = tag;
-    [alertview show];
-    
-    return alertview;
-}
-
-UIAlertView *InsertAlertWithActivityIndicatior(NSString *message, NSInteger tag, id delegate, NSString *cancel)
-{
-    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:message message:nil delegate:delegate cancelButtonTitle:cancel otherButtonTitles:nil];
-    alertview.tag = tag;
-    [alertview show];
-    
-    // Adjust the indicator so it is up a few pixels from the bottom of the alert
-    int x = alertview.bounds.size.width / 2;
-    int y = alertview.bounds.size.height - 50.0;
-    if (x == 0 || y == -50) {
-        return nil;
-    }
-    
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.center = CGPointMake(x, y);
-    [indicator startAnimating];
-    
-    [alertview addSubview:indicator];
-    
-    return alertview;
-}
-
-UIAlertView *InsertAlertWithTextField(NSString *title, NSString *cancel, NSString *ok, NSString *set, NSInteger tag, id delegate, SEL selector)
-{
-    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:title message:@"\r\r" delegate:delegate cancelButtonTitle:cancel otherButtonTitles:ok, nil];
-    alertview.tag = tag;
-    [alertview show];
-    
-    int x = alertview.bounds.size.width;
-    int y = alertview.bounds.size.height;
-    if (x == 0 || y == 0) {
-        alertview = nil;
-        return nil;
-    }
-    
-    UITextField *myTextField = [[UITextField alloc] initWithFrame:CGRectMake(x * 0.04, y - 110, x * 0.91, 25)];
-    myTextField.text = set;
-    [myTextField addTarget:delegate action:selector forControlEvents:UIControlEventEditingDidEndOnExit];
-    //[alert setTransform:myTransform];
-    myTextField.tag = 100;
-    [myTextField setBackgroundColor:[UIColor whiteColor]];
-    
-    [alertview addSubview:myTextField];
-    
-    return alertview;
-}
-
-#pragma mark - UIActionSheet
-
-UIActionSheet *InsertActionSheetWithMoreButton(UIView *showView, id delegate, UIActionSheetStyle style, NSString *title, NSString *canael, NSString *destructive, NSString *titleFirst, NSString *titleSecond)
-{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:delegate cancelButtonTitle:canael destructiveButtonTitle:destructive otherButtonTitles: titleFirst, titleSecond, nil];
-    
-    if (showView && [showView isKindOfClass:[UIView class]]) {
-        [actionSheet showInView:showView];
-    }
-    
-    actionSheet.actionSheetStyle = style;
-    
-    return actionSheet;
-}
-
-UIActionSheet *InsertActionSheet(UIView *showView, id delegate, UIActionSheetStyle style, NSString *title, NSString *canael, NSString *destructive)
-{
-    return InsertActionSheetWithMoreButton(showView, delegate, style, title, canael, destructive, nil, nil);
-}
-
 #pragma mark - UIAlertController
 
-UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSString *cancelTitle, NSArray *buttonTitles, AlertControllerClick buttonClick)
+UIAlertController *UIAlertControllerInitialize(id target, UIAlertControllerStyle type, NSString *title, NSString *message, NSArray *textfiledsAction, NSArray *titlesAction, AlertControllerClick buttonClick)
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:type];
     
@@ -434,25 +432,17 @@ UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type,
         }];
     }];
     //
-    if (cancelTitle && [cancelTitle isKindOfClass:NSString.class] && cancelTitle.length > 0) {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            if (buttonClick) {
-                buttonClick(cancelTitle, alertController.textFields);
-            }
-        }];
-        [alertController addAction:action];
-    }
-    //
-    [buttonTitles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [titlesAction enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *title = obj;
         UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if (buttonClick) {
-                buttonClick(title, alertController.textFields);
+                int index = (int)idx;
+                buttonClick(index, title, alertController.textFields);
             }
         }];
         [alertController addAction:action];
     }];
-    //
+    
     if (target && [target isKindOfClass:[UIViewController class]]) {
         [target presentViewController:alertController animated:YES completion:nil];
     }
@@ -462,7 +452,7 @@ UIAlertController *InsertAlertController(id target, UIAlertControllerStyle type,
 
 #pragma mark - UIScrollView
 
-UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag, id<UIScrollViewDelegate> delegate)
+UIScrollView *UIScrollViewInitialize(UIView *superView, CGRect rect, int tag, id<UIScrollViewDelegate> delegate)
 {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:rect];
     scrollView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -479,56 +469,9 @@ UIScrollView *InsertScrollView(UIView *superView, CGRect rect, int tag, id<UIScr
     return scrollView;
 }
 
-#pragma mark - UIWebView
-
-UIWebView *InsertWebView(UIView *superView, CGRect rect, id<UIWebViewDelegate>delegate, int tag, NSString *url)
-{
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:rect];
-    webView.tag = tag;
-    [webView setOpaque:NO];
-    webView.backgroundColor = [UIColor clearColor];
-    webView.scalesPageToFit = NO;
-    webView.scrollView.scrollEnabled = NO;
-    
-    if (delegate) {
-        webView.delegate = delegate;
-    }
-    if (superView && [superView respondsToSelector:@selector(addSubview:)]) {
-        [superView addSubview:webView];
-    }
-    
-    WebViewRequest(webView, url);
-    
-    return webView;
-}
-
-void WebViewRequest(UIWebView *web, NSString *strURL)
-{
-    WebViewRequestWithCookie(web, strURL, nil);
-}
-
-void WebViewRequestWithCookie(UIWebView *web, NSString *strURL, NSString *cookies)
-{
-    if (web == nil) {
-        return;
-    }
-    
-    if (strURL == nil || strURL.length <= 0 || !([strURL hasPrefix:@"https://"] || [strURL hasPrefix:@"http://"])) {
-        return;
-    }
-    
-    NSURL *url = [NSURL URLWithString:strURL];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    if (cookies && cookies.length > 0) {
-        [request addValue:cookies forHTTPHeaderField:@"Cookie"];
-    }
-    
-    [web loadRequest:request];
-}
-
 #pragma mark - UITableView
 
-UITableView *InsertTableView(UIView *superView, CGRect rect, id<UITableViewDataSource> dataSoure, id<UITableViewDelegate> delegate, UITableViewStyle style, UITableViewCellSeparatorStyle cellStyle)
+UITableView *UITableViewInitialize(UIView *superView, CGRect rect, id<UITableViewDataSource> dataSoure, id<UITableViewDelegate> delegate, UITableViewStyle style, UITableViewCellSeparatorStyle cellStyle)
 {
     UITableView *tableView = [[UITableView alloc] initWithFrame:rect style:style];
     tableView.backgroundColor = [UIColor clearColor];
@@ -554,7 +497,7 @@ UITableView *InsertTableView(UIView *superView, CGRect rect, id<UITableViewDataS
 
 #pragma mark - UICollectionView
 
-UICollectionView *InsertCollectionView(UICollectionViewScrollDirection direction, UIView *superView, CGRect rect, id<UICollectionViewDelegate>delegate, id<UICollectionViewDataSource>dataSource, Class cellClass, Class headerViewClass, Class footerViewClass)
+UICollectionView *UICollectionViewInitialize(UICollectionViewScrollDirection direction, UIView *superView, CGRect rect, id<UICollectionViewDelegate>delegate, id<UICollectionViewDataSource>dataSource, Class cellClass, Class headerViewClass, Class footerViewClass)
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:direction];
@@ -591,7 +534,7 @@ UICollectionView *InsertCollectionView(UICollectionViewScrollDirection direction
 
 #pragma mark - UITextField
 
-UITextField *InsertTextField(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, float borderwidth, UIColor *bordercolor, UIColor *textFieldColor, float cornerRadius, BOOL isSecureText, UIKeyboardType keyboardType, UIReturnKeyType returnkeyType)
+UITextField *UITextFieldInitialize(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, float borderwidth, UIColor *bordercolor, UIColor *textFieldColor, float cornerRadius, BOOL isSecureText, UIKeyboardType keyboardType, UIReturnKeyType returnkeyType)
 {
     UITextField *textField = [[UITextField alloc] initWithFrame:rect];
     textField.backgroundColor = [UIColor clearColor];
@@ -630,19 +573,19 @@ UITextField *InsertTextField(UIView *superview, id delegate, CGRect rect, NSStri
     return textField;
 }
 
-UITextField *InsertTextFieldWithTextColor(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, UIColor *textFieldColor)
+UITextField *UITextFieldInitializeWithTextColor(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, UIColor *textFieldColor)
 {
-    return InsertTextField(superview, delegate, rect, placeholder, font, textAlignment, contentVerticalAlignment, 0.0, nil, textFieldColor, 0.0, NO, UIKeyboardTypeDefault, UIReturnKeyDefault);
+    return UITextFieldInitialize(superview, delegate, rect, placeholder, font, textAlignment, contentVerticalAlignment, 0.0, nil, textFieldColor, 0.0, NO, UIKeyboardTypeDefault, UIReturnKeyDefault);
 }
 
-UITextField *InsertTextFieldWithBorderAndCorRadius(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, float borderWidth, UIColor *borderColor, UIColor *textFieldColor, float cornerRadius)
+UITextField *UITextFieldInitializeWithBorderAndCorRadius(UIView *superview, id delegate, CGRect rect, NSString *placeholder, UIFont *font, NSTextAlignment textAlignment, UIControlContentVerticalAlignment contentVerticalAlignment, float borderWidth, UIColor *borderColor, UIColor *textFieldColor, float cornerRadius)
 {
-    return InsertTextField(superview, delegate, rect, placeholder, font, textAlignment, contentVerticalAlignment, borderWidth, borderColor, textFieldColor, cornerRadius, NO, UIKeyboardTypeDefault, UIReturnKeyDefault);
+    return UITextFieldInitialize(superview, delegate, rect, placeholder, font, textAlignment, contentVerticalAlignment, borderWidth, borderColor, textFieldColor, cornerRadius, NO, UIKeyboardTypeDefault, UIReturnKeyDefault);
 }
 
 #pragma mark - UITextView
 
-UITextView *InsertTextView(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, float borderWidth, UIColor *borderColor, UIColor *textColor, float cornerRadius, UIKeyboardType keyboardType, UIReturnKeyType returnkeyType)
+UITextView *UITextViewInitialize(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, float borderWidth, UIColor *borderColor, UIColor *textColor, float cornerRadius, UIKeyboardType keyboardType, UIReturnKeyType returnkeyType)
 {
     UITextView *textView = [[UITextView alloc] initWithFrame:rect];
     textView.backgroundColor = [UIColor clearColor];
@@ -680,20 +623,20 @@ UITextView *InsertTextView(UIView *superview, id delegate, CGRect rect, UIFont *
     return textView;
 }
 
-UITextView *InsertTextViewWithTextColor(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, UIColor *textColor)
+UITextView *UITextViewInitializeWithTextColor(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, UIColor *textColor)
 {
-    return InsertTextView(superview, delegate, rect, font, textAlignment, 0.0, nil, textColor, 0.0, UIKeyboardTypeDefault, UIReturnKeyDefault);
+    return UITextViewInitialize(superview, delegate, rect, font, textAlignment, 0.0, nil, textColor, 0.0, UIKeyboardTypeDefault, UIReturnKeyDefault);
 }
 
-UITextView *InsertTextViewWithBorderAndCorRadius(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, float borderWidth, UIColor *borderColor, UIColor *textColor, float cornerRadius)
+UITextView *UITextViewInitializeWithBorderAndCorRadius(UIView *superview, id delegate, CGRect rect, UIFont *font, NSTextAlignment textAlignment, float borderWidth, UIColor *borderColor, UIColor *textColor, float cornerRadius)
 {
-    return InsertTextView(superview, delegate, rect, font, textAlignment, borderWidth, borderColor, textColor, cornerRadius, UIKeyboardTypeDefault, UIReturnKeyDefault);
+    return UITextViewInitialize(superview, delegate, rect, font, textAlignment, borderWidth, borderColor, textColor, cornerRadius, UIKeyboardTypeDefault, UIReturnKeyDefault);
 }
 
 #pragma mark - UISearchBar
 
 // 搜索视图
-UISearchBar *InsertSearchBar(UIView *superview, CGRect rect, id delegate, NSString *placeholder, UISearchBarStyle style, UIColor *tintColor, UIColor *barColor, UIImage *bgroundImage)
+UISearchBar *UISearchBarInitialize(UIView *superview, CGRect rect, id delegate, NSString *placeholder, UISearchBarStyle style, UIColor *tintColor, UIColor *barColor, UIImage *bgroundImage)
 {
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:rect];
     
@@ -725,25 +668,19 @@ UISearchBar *InsertSearchBar(UIView *superview, CGRect rect, id delegate, NSStri
 
 #pragma mark - UIDatePicker
 
-UIDatePicker *InsertDatePicker(UIView *view, NSInteger tag, id delegate, UIInterfaceOrientation orientation)
+UIDatePicker *UIDatePickerInitialize(UIView *superview, NSInteger tag)
 {
-    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                              delegate:delegate
-                                                     cancelButtonTitle:nil
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil];
-    actionsheet.tag = tag;
-    [actionsheet showInView:view];
-    
-    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:actionsheet.bounds];
-    [actionsheet addSubview:datePicker];
-    
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:superview.bounds];
+    datePicker.tag = tag;
+    if (superview && [superview respondsToSelector:@selector(addSubview:)]) {
+        [superview addSubview:datePicker];
+    }
     return datePicker;
 }
 
 #pragma mark - UIPickerView
 
-UIPickerView *InsertPickerView(UIView *superview, CGRect rect)
+UIPickerView *UIPickerViewInitialize(UIView *superview, CGRect rect)
 {
     UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:rect];
     pickerView.showsSelectionIndicator = YES;
@@ -757,7 +694,7 @@ UIPickerView *InsertPickerView(UIView *superview, CGRect rect)
 
 #pragma mark - UIBarButtonItem
 
-UIBarButtonItem *InsetBarButtonItemWithTitle(NSString *title, int tag, UIBarButtonItemStyle style, id target, SEL action)
+UIBarButtonItem *UIBarButtonItemInitializeWithTitle(NSString *title, int tag, UIBarButtonItemStyle style, id target, SEL action)
 {
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:title style:style target:target action:action];
     buttonItem.tag = tag;
@@ -765,7 +702,7 @@ UIBarButtonItem *InsetBarButtonItemWithTitle(NSString *title, int tag, UIBarButt
     return buttonItem;
 }
 
-UIBarButtonItem *InsetBarButtonItemWithImage(UIImage *image, int tag, UIBarButtonItemStyle style, id target, SEL action)
+UIBarButtonItem *UIBarButtonItemInitializeWithImage(UIImage *image, int tag, UIBarButtonItemStyle style, id target, SEL action)
 {
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:image style:style target:target action:action];
     buttonItem.tag = tag;
@@ -773,9 +710,9 @@ UIBarButtonItem *InsetBarButtonItemWithImage(UIImage *image, int tag, UIBarButto
     return buttonItem;
 }
 
-UIBarButtonItem *InsertBarButtonItemWithButton(CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIFont *titleFont, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
+UIBarButtonItem *UIBarButtonItemInitializeWithButton(CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIFont *titleFont, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    UIButton *button = InsertButton(nil, rect, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, titleEdge, imageNormal, imageHighlight, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+    UIButton *button = UIButtonInitialize(nil, rect, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, titleEdge, imageNormal, imageHighlight, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
     
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     
@@ -784,7 +721,7 @@ UIBarButtonItem *InsertBarButtonItemWithButton(CGRect rect, int tag, NSString *t
 
 #pragma mark - UIbutton
 
-UIButton *InsertButton(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
+UIButton *UIButtonInitialize(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, UIEdgeInsets titleEdge, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
     UIButton *button = [[UIButton alloc] init];
     button.backgroundColor = [UIColor clearColor];
@@ -844,40 +781,40 @@ UIButton *InsertButton(UIView *superView, CGRect rect, int tag, NSString *titleN
     return button;
 }
 
-UIButton *InsertButtonWithTitle(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, id target, SEL action)
+UIButton *UIButtonInitializeWithTitle(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIColor *titleColorNormal, UIColor *titleColorHighlight, UIColor *titleColorSelected, UIFont *titleFont, id target, SEL action)
 {
-    return InsertButton(superView, rect, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
+    return UIButtonInitialize(superView, rect, tag, titleNormal, titleSelected, titleColorNormal, titleColorHighlight, titleColorSelected, titleFont, UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
 }
 
-UIButton *InsertButtonWithTitleAndImage(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, id target, SEL action)
+UIButton *UIButtonInitializeWithTitleAndImage(UIView *superView, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, id target, SEL action)
 {
-    return InsertButton(superView, rect, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, UIEdgeInsetsZero, imageNormal, imageHighlight, imageSelected, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
+    return UIButtonInitialize(superView, rect, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, UIEdgeInsetsZero, imageNormal, imageHighlight, imageSelected, UIEdgeInsetsZero, nil, nil, nil, NO, target, action);
 }
 
-UIButton *InsertButtonWithTitleAndBgroundImage(UIView *superview, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
+UIButton *UIButtonInitializeWithTitleAndBgroundImage(UIView *superview, CGRect rect, int tag, NSString *titleNormal, NSString *titleSelected, UIEdgeInsets titleEdge, UIFont *font, UIColor *colorNormal, UIColor *colorHighlight, UIColor *colorSelected, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    return InsertButton(superview, rect, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, titleEdge, nil, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+    return UIButtonInitialize(superview, rect, tag, titleNormal, titleSelected, colorNormal, colorHighlight, colorSelected, font, titleEdge, nil, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
 }
 
-UIButton *InsertButtonWithImageAndBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
+UIButton *UIButtonInitializeWithImageAndBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, UIEdgeInsets imageEdge, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    return InsertButton(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, imageNormal, imageHighlight, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+    return UIButtonInitialize(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, imageNormal, imageHighlight, imageSelected, imageEdge, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
 }
 
-UIButton *InsertButtonWithBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
+UIButton *UIButtonInitializeWithBgroundImage(UIView *superview, CGRect rect, int tag, UIImage *bgImageNormal, UIImage *bgImageHighlight, UIImage *bgImageSelected, BOOL selected, id target, SEL action)
 {
-    return InsertButton(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
+    return UIButtonInitialize(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, nil, nil, nil, UIEdgeInsetsZero, bgImageNormal, bgImageHighlight, bgImageSelected, selected, target, action);
 }
 
-UIButton *InsertButtonWithImage(UIView *superview, CGRect rect, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, BOOL selected, int tag, id target, SEL action)
+UIButton *UIButtonInitializeWithImage(UIView *superview, CGRect rect, UIImage *imageNormal, UIImage *imageHighlight, UIImage *imageSelected, BOOL selected, int tag, id target, SEL action)
 {
-    return InsertButton(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, imageNormal, imageHighlight, imageSelected, UIEdgeInsetsZero, nil, nil, nil, selected, target, action);
+    return UIButtonInitialize(superview, rect, tag, nil, nil, nil, nil, nil, nil, UIEdgeInsetsZero, imageNormal, imageHighlight, imageSelected, UIEdgeInsetsZero, nil, nil, nil, selected, target, action);
 }
 
 #pragma mark - UISwitch
 
 /// 创建UISwitch
-UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
+UISwitch *UISwitchInitialize(UIView *superview, CGRect rect, id target, SEL action)
 {
     UISwitch *switchView = [[UISwitch alloc] initWithFrame:rect];
     [switchView addTarget:target action:action forControlEvents:UIControlEventValueChanged];
@@ -892,25 +829,25 @@ UISwitch *InsertSwitch(UIView *superview, CGRect rect, id target, SEL action)
 #pragma mark - UISlider
 
 /// 创建UISlider
-UISlider *InsertSlider(UIView *superview, CGRect rect, id target, SEL action)
+UISlider *UISliderInitialize(UIView *superview, CGRect rect, id target, SEL action)
 {
-    return InsertSliderWithValue(superview, rect, target, action, 0.0, 0.0);
+    return UISliderInitializeWithValue(superview, rect, target, action, 0.0, 0.0);
 }
 
 /// 创建UISlider（自定义最大最小值）
-UISlider *InsertSliderWithValue(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue)
+UISlider *UISliderInitializeWithValue(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue)
 {
-    return InsertSliderWithValueAndColor(superview, rect, target, action, minVlaue, maxValue, nil, nil, nil);
+    return UISliderInitializeWithValueAndColor(superview, rect, target, action, minVlaue, maxValue, nil, nil, nil);
 }
 
 /// 创建UISlider（自定义最大最小值，及颜色显示）
-UISlider *InsertSliderWithValueAndColor(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor)
+UISlider *UISliderInitializeWithValueAndColor(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor)
 {
-    return InsertSliderWithValueAndColorAndImage(superview, rect, target, action, minVlaue, maxValue, minColor, maxColor, thumbTintColor, nil, nil);
+    return UISliderInitializeWithValueAndColorAndImage(superview, rect, target, action, minVlaue, maxValue, minColor, maxColor, thumbTintColor, nil, nil);
 }
 
 /// 创建UISlider（自定义最大最小值，及颜色，图标显示）
-UISlider *InsertSliderWithValueAndColorAndImage(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor, UIImage *minImage, UIImage *maxImage)
+UISlider *UISliderInitializeWithValueAndColorAndImage(UIView *superview, CGRect rect, id target, SEL action, CGFloat minVlaue, CGFloat maxValue, UIColor *minColor, UIColor *maxColor, UIColor *thumbTintColor, UIImage *minImage, UIImage *maxImage)
 {
     UISlider *sliderView = [[UISlider alloc] initWithFrame:rect];
     
@@ -955,19 +892,19 @@ UISlider *InsertSliderWithValueAndColorAndImage(UIView *superview, CGRect rect, 
 #pragma mark - UISegmentedControl
 
 /// 创建UISegmentedControl
-UISegmentedControl *InsertSegment(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action)
+UISegmentedControl *UISegmentedControlInitialize(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action)
 {
-    return InsertSegmentWithColor(superview, titleArray, rect, target, action, nil);
+    return UISegmentedControlInitializeWithColor(superview, titleArray, rect, target, action, nil);
 }
 
 /// 创建UISegmentedControl（设置颜色）
-UISegmentedControl *InsertSegmentWithColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, UIColor *tintColor)
+UISegmentedControl *UISegmentedControlInitializeWithColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, UIColor *tintColor)
 {
-    return InsertSegmentWithSelectedIndexAndColor(superview, titleArray, rect, target, action, 0, tintColor);
+    return UISegmentedControlInitializeWithSelectedIndexAndColor(superview, titleArray, rect, target, action, 0, tintColor);
 }
 
 /// 创建UISegmentedControl（设置颜色及被始化被选择索引）
-UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, NSInteger selectedIndex, UIColor *tintColor)
+UISegmentedControl *UISegmentedControlInitializeWithSelectedIndexAndColor(UIView *superview, NSArray *titleArray, CGRect rect, id target, SEL action, NSInteger selectedIndex, UIColor *tintColor)
 {
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:titleArray];
     
@@ -995,7 +932,7 @@ UISegmentedControl *InsertSegmentWithSelectedIndexAndColor(UIView *superview, NS
 #pragma mark - UIImagePickerController
 
 /// 图片视图控制器
-UIImagePickerController *InsertImagePicker(UIImagePickerControllerSourceType style, id delegate, UIImage *navImage)
+UIImagePickerController *UIImagePickerControllerInitialize(UIImagePickerControllerSourceType style, id delegate, UIImage *navImage)
 {
     UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
     imagePickController.sourceType = style;
@@ -1059,7 +996,7 @@ void RemoveAllSublayers(UIView *view, Class class)
 #pragma mark - 设置时间定时器
 
 /// 初始化定时器
-NSTimer *InsetTimer(NSTimeInterval time, id userInfo, BOOL isRepeat, id target, SEL action)
+NSTimer *TimerInitialize(NSTimeInterval time, id userInfo, BOOL isRepeat, id target, SEL action)
 {
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:time target:target selector:action userInfo:userInfo repeats:isRepeat];
     // 设置定时器自已的 runloop 模式，避免受其他 runloop 事件影响

@@ -24,7 +24,6 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = @"自适应";
-    
     [self setUI];
 }
 
@@ -39,14 +38,14 @@
 
 - (void)setUI
 {
-    UITableView *tableView = InsertTableView(self.view, self.view.bounds, self, self, UITableViewStylePlain, UITableViewCellSeparatorStyleNone);
+    UITableView *tableView = UITableViewInitialize(self.view, self.view.bounds, self, self, UITableViewStylePlain, UITableViewCellSeparatorStyleNone);
     //
-    UIView *headerView = InsertView(nil, CGRectMake(0.0, 0.0, tableView.frame.size.width, CGRectGetHeightAutoSize(240.0)), [UIColor.blackColor colorWithAlphaComponent:0.3], 0.0, nil, 0.0);
+    UIView *headerView = UIViewInitialize(nil, CGRectMake(0.0, 0.0, tableView.frame.size.width, CGRectGetHeightAutoSize(240.0)), [UIColor.blackColor colorWithAlphaComponent:0.3], 0.0, nil, 0.0);
     tableView.tableHeaderView = headerView;
     CGFloat size = CGRectGetWidthAutoSize(120.0);
-    UIView *currentView = InsertImageView(headerView, CGRectMake((headerView.frame.size.width - size) / 2, (headerView.frame.size.height - size) / 2, size, size), [UIImage imageNamed:@"002.jpg"]);
+    UIView *currentView = UIImageViewInitialize(headerView, CGRectMake((headerView.frame.size.width - size) / 2, (headerView.frame.size.height - size) / 2, size, size), [UIImage imageNamed:@"002.jpg"]);
     NSString *text = [NSString stringWithFormat:@"番薯大佬 sacle %@\nsize %@, layoutSize %@", NSStringFromCGPoint (UIAutoSize.layoutScale), NSStringFromCGSize(UIScreen.mainScreen.bounds.size), NSStringFromCGSize(UIAutoSize.layoutSize)];
-    InsertLabel(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), CGRectGetHeightAutoSize(40.0)), NSTextAlignmentCenter, text, UIFontAutoSize(15), UIColor.blackColor, YES);
+    UILabelInitialize(headerView, CGRectMake(10.0, (currentView.frame.origin.y + currentView.frame.size.height + 10.0), (headerView.frame.size.width - 20.0), CGRectGetHeightAutoSize(40.0)), NSTextAlignmentCenter, text, SYUIFontAutoSize(15), UIColor.blackColor, YES);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
