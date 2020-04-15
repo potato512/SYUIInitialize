@@ -8,8 +8,10 @@
 
 #import "SYUIInitMethod.h"
 
-#define screenWidth  ([[UIScreen mainScreen] bounds].size.width)
-#define screenHeight ([[UIScreen mainScreen] bounds].size.height)
+#pragma mark - UI适配
+
+#define kScreenWidth  ([[UIScreen mainScreen] bounds].size.width)
+#define kScreenHeight ([[UIScreen mainScreen] bounds].size.height)
 
 static NSString *const kScaleX = @"scaleX";
 static NSString *const kScaleY = @"scaleY";
@@ -173,7 +175,7 @@ static NSString *const kScaleY = @"scaleY";
     if (_scaleDict == nil) {
         _scaleDict = @{kScaleX:@(1.0), kScaleY:@(1.0)};
         if (self.isAuto) {
-            _scaleDict = @{kScaleX:@((self.layoutSize.width == screenWidth ? 1.0 : screenWidth / self.layoutSize.width)), kScaleY:@((self.layoutSize.height == screenHeight ? 1.0 : screenHeight / self.layoutSize.height))};
+            _scaleDict = @{kScaleX:@((self.layoutSize.width == kScreenWidth ? 1.0 : kScreenWidth / self.layoutSize.width)), kScaleY:@((self.layoutSize.height == kScreenHeight ? 1.0 : kScreenHeight / self.layoutSize.height))};
         }
     }
     return _scaleDict;
@@ -182,6 +184,8 @@ static NSString *const kScaleY = @"scaleY";
 @end
 
 /****************************************************************/
+
+#pragma mark - UI实例化
 
 @implementation SYUIInitMethod
 

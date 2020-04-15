@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, UIAutoSizelabelType) {
     UIAutoSizelabelAll
 };
 
+#pragma mark - UI适配
+
 /// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax/11/11Pro/11ProMax（默认iPhone6）
 typedef NS_ENUM(NSInteger, UIAutoLayoutType) {
     /// 适配机型标准 4.7 iPhone6/6s/7/8 [750 * 1334]（默认iPhone6）
@@ -97,6 +99,8 @@ typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFi
 @end
 
 /****************************************************************/
+
+#pragma mark - UI实例化
 
 @interface SYUIInitMethod : NSObject
 

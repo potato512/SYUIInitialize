@@ -43,7 +43,9 @@
 #define SYUIFontBoldAutoSize(size) [UIFont boldSystemFontOfSize:(size * SYUIAutoSizeScaleX)]
 #define SYUIFontNameAutoSize(name, size) [UIFont fontWithName:name size:(size * SYUIAutoSizeScaleX)]
 //
-#define SYAutoSize(size) (size * SYUIAutoSizeScaleX)
+#define kAutoSize(size) (size * SYUIAutoSizeScaleX)
+#define kFontAutoSize(size) SYUIFontAutoSize(size)
+#define kFontBoldAutoSize(size) SYUIFontBoldAutoSize(size)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -105,40 +107,6 @@ CGRectMakeAutoSize(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
     value.size.width = width * SYUIAutoSizeScaleX;
     value.size.height = height * SYUIAutoSizeScaleY;
     return value;
-}
-
-/// 统一按照一个UI标准适配
-CG_INLINE CGRect
-CGRectMakeNew1(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
-
-    // 适配原则:宽、高均按照宽度比缩放
-    CGRect rect;
-    rect.origin.x = x * SYUIAutoSizeScaleX;
-    rect.size.width = width * SYUIAutoSizeScaleX;
-    rect.size.height = height * SYUIAutoSizeScaleX;
-    rect.origin.y = y * SYUIAutoSizeScaleY + (SYUIAutoSizeScaleY - SYUIAutoSizeScaleX) * height * 0.5;
-    return rect;
-}
-
-/// frame1:在5s/6/6p UI标准上的frame  frame2:在iPhoneX及以上设备UI标准上的frame
-CG_INLINE CGRect
-CGRectMakeNew2(CGRect frame1,CGRect frame2)
-{
-    CGFloat ScreenWidth = UIScreen.mainScreen.bounds.size.width;
-    CGFloat ScreenHeight = UIScreen.mainScreen.bounds.size.height;
-
-    if (ScreenHeight/ScreenWidth >2.0)  // iPhoneX, iPhoneXS, iPhoneXR, iPhoneXS Mas 11~
-    {
-        return CGRectMakeNew1(frame2.origin.x, frame2.origin.y, frame2.size.width, frame2.size.height);
-
-    }else if (ScreenHeight/ScreenWidth >1.5)  // 5s/6/6p上的frame
-    {
-        return CGRectMakeNew1(frame1.origin.x, frame1.origin.y, frame1.size.width, frame1.size.height);
-        
-    }else if (ScreenHeight/ScreenWidth <1)  // 横屏
-    {
-    }
-    return CGRectZero;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
