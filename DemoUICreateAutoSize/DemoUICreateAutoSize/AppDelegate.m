@@ -21,7 +21,22 @@
     // Override point for customization after application launch.
     
     //
-    UIAutoSize.isAuto = NO;
+    SYUIAutoSizeModel *model = [SYUIAutoSizeModel new];
+    model.typeName = @"iPhoneXsMax";
+    model.typeSize = CGSizeMake(414,896);
+    model.typeInch = 6.5;
+    UIAutoSize.defaultLayout = model;
+    //
+//    SYUIAutoSizeModel *model = [SYUIAutoSizeModel new];
+//    model.typeName = @"iPhone5";
+//    model.typeSize = CGSizeMake(320,568);
+//    model.typeInch = 4.0;
+//    UIAutoSize.defaultLayout = model;
+    //
+    UIAutoSize.layoutType = UIAutoLayoutTypeiPhone4;
+//    UIAutoSize.layoutType = UIAutoLayoutTypeiPhoneXR;
+    //
+    UIAutoSize.isAuto = YES;
     NSLog(@"size %@, layoutSize %@", NSStringFromCGSize(UIScreen.mainScreen.bounds.size), NSStringFromCGSize(UIAutoSize.layoutSize));
     
     //
