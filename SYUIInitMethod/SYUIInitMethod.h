@@ -75,7 +75,7 @@ typedef void (^AlertControllerClick)(int index, NSString *title, NSArray *textFi
 /// 是否自适配（默认YES，在- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {} 初始化设置）
 @property (nonatomic, assign) BOOL isAuto;
 /// 适配机型标准 iPhone4/5/6/6p/X/XR/XsMax/11/11Pro/11ProMax（默认iPhone6，在- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {} 初始化设置）
-@property (nonatomic, assign) UIAutoLayoutType layoutType NS_DEPRECATED_IOS(2_0,7_0,"Use defaultLayout instead") __TVOS_PROHIBITED;
+@property (nonatomic, assign) UIAutoLayoutType layoutType __attribute__((deprecated("Use defaultLayout instead.")));
 /// 适配机型标准（默认iPhone6，4.7，[375 * 667]）
 @property (nonatomic, strong) SYUIAutoSizeModel *defaultLayout;
 

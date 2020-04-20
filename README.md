@@ -10,37 +10,57 @@ UI控件初始化方法集成封装类
 ## 使用方法
 ~~~ javascript
 // 1 导入头文件 
-#import "SYUIInitMethod.h"
+#import "SYAutoSizeCGRect.h"
+~~~ 
+
+初始化使用UI控件 
+~~~ javascript
+// 创建view
+UIView *view = UIViewInitialize(nil, CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), 250.0), [UIColor greenColor], 5.0, [UIColor orangeColor], 5.0);
 ~~~ 
 
 ~~~ javascript
-// 初始化使用UI控件 
-// 创建view
-UIView *view = InsertView(nil, CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), 250.0), [UIColor greenColor], 5.0, [UIColor orangeColor], 5.0);
-
 // 创建tableview
-UITableView *tableview = InsertTableView(self.view, self.view.bounds, self, self, UITableViewStylePlain, UITableViewCellSeparatorStyleSingleLine);
+UITableView *tableview = UITableViewInitialize(self.view, self.view.bounds, self, self, UITableViewStylePlain, UITableViewCellSeparatorStyleSingleLine);
+~~~ 
 
+~~~ javascript
 // 创建label
-InsertLabel(view, CGRectMake(10.0, 20.0, (self.view.bounds.size.width - 10.0 * 2), 20.0), NSTextAlignmentLeft, @"使用自定义方法创建label", [UIFont systemFontOfSize:10.0], [UIColor blackColor], NO);
+UILabelInitialize(view, CGRectMake(10.0, 20.0, (self.view.bounds.size.width - 10.0 * 2), 20.0), NSTextAlignmentLeft, @"使用自定义方法创建label", [UIFont systemFontOfSize:10.0], [UIColor blackColor], NO);
+~~~ 
 
+~~~ javascript
 // 创建AlertController
-InsertAlertController(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信息与编辑", @[@"大兄弟在哪里", @"小老弟在哪里"], @[@"大兄弟", @"小老弟", @"确定", @"取消"], ^(int index, NSString *title, NSArray *textFields) {
-        if (textFields.count > 0) {
-            for (UITextField *textfield in textFields) {
-                NSLog(@"index = %@, title = %@, text = %@", @(index), title, textfield.text);
-            }
-        } else {
-            NSLog(@"index = %@, title = %@", @(index), title);
+UIAlertControllerInitialize(self, UIAlertControllerStyleAlert, @"弹窗", @"提示信息与编辑", @[@"大兄弟在哪里", @"小老弟在哪里"], @[@"取消", @"大兄弟", @"小老弟", @"确定"], ^(int index, NSString *title, NSArray *textFields) {
+    if (textFields.count > 0) {
+        for (UITextField *textfield in textFields) {
+            NSLog(@"title = %@, text = %@", title, textfield.text);
         }
+    } else {
+        NSLog(@"title = %@", title);
+    }
 });
 ~~~ 
 
+适配初始化
 ~~~ javascript
-// 适配初始化
-UIAutoSize.isAuto = NO; // 不进行自适配
+// 是否进行自适配，否NO，自适配YES
+UIAutoSize.isAuto = NO; 
+~~~ 
 
-UIAutoSize.layoutType = UIAutoLayoutTypeiPhone5; // 适配机型标准iPhon5/6/7
+~~~ javascript
+// 适配机型标准iPhon5/6/7 --- 该方法已弃用，但仍可用
+UIAutoSize.layoutType = UIAutoLayoutTypeiPhone5; 
+~~~ 
+
+~~~ javascript
+// 机型版本适配的新方法
+SYUIAutoSizeModel *model = [SYUIAutoSizeModel new];
+model.typeName = @"iPhoneXsMax";
+model.typeSize = CGSizeMake(414,896);
+model.typeInch = 6.5;
+
+UIAutoSize.defaultLayout = model;
 ~~~
 
 ## 注意事项：
@@ -50,6 +70,11 @@ SYUIInitMethod类是ARC内存管理模式。
 ![效果图](./DemoUICreate/UIImage.gif)
 
 # 修复完善
+* 20200420
+  * 版本号：1.2.9
+  * 修改
+    * 提示和文档等修改
+
 * 20200415
   * 版本号：1.2.8
   * 优化

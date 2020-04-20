@@ -11,7 +11,7 @@
 
 #import "SYUIInitMethod.h"
 
-////////////////////////////////////////////////////////////////////////////////////
+/****************************************************************/
 
 /*
  各版本尺寸
@@ -47,11 +47,7 @@
 #define kFontAutoSize(size) SYUIFontAutoSize(size)
 #define kFontBoldAutoSize(size) SYUIFontBoldAutoSize(size)
 
-////////////////////////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////////////////////
+/****************************************************************/
 
 CG_INLINE CGFloat
 CGRectGetMinXAutoSize(CGFloat x) {
@@ -109,7 +105,7 @@ CGRectMakeAutoSize(CGFloat x, CGFloat y, CGFloat width, CGFloat height) {
     return value;
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+/****************************************************************/
 
 // iPhoneX, iPhoneXS, iPhoneXR, iPhoneXS Mas
 #define kScreenHeightSafeArea [UIScreen mainScreen].bounds.size.height
@@ -171,7 +167,7 @@ CGRectMakeSafeArea(CGFloat x, CGFloat y, CGFloat width, CGFloat height, BOOL hid
     return rect;
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+/****************************************************************/
 
 
 #endif
